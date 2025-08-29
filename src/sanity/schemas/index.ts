@@ -1,4 +1,3 @@
-// sanity/schemas/index.ts
 import heroSection            from './objects/heroSection'
 import quoteSection           from './objects/quoteSection'
 import socialFeedSection      from './objects/socialFeedSection'
@@ -14,6 +13,7 @@ import facilitiesSection      from './objects/facilitiesSection'
 import extracurricularSection from './objects/extracurricularSection'
 import methodologySection     from './objects/methodologySection'
 import ctaButton              from './objects/ctaButton'
+import footerLink from "./objects/footerLink"
 
 import page        from './documents/page'
 import teamMember  from './documents/teamMember'
@@ -21,6 +21,7 @@ import quickUpdate from './documents/quickUpdate'
 import download    from './documents/download'
 import siteSettings from './documents/siteSettings'
 import navigation from "./documents/navigation"
+import footer from "./documents/footer"
 
 export const schemaTypes = [
     /* documents */
@@ -30,6 +31,7 @@ export const schemaTypes = [
     download,
     siteSettings,
     navigation,
+    footer,
 
     /* objects */
     heroSection,
@@ -46,5 +48,6 @@ export const schemaTypes = [
     facilitiesSection,
     extracurricularSection,
     methodologySection,
-    ctaButton
+    ctaButton,
+    footerLink
 ]

@@ -39,5 +39,13 @@ export default defineType({
                 preview:{select:{title:'label'}}
             }]
         })
-    ]
+    ],
+    preview: {
+        prepare() {
+            return {
+                title: 'Main Navigation',
+                media: undefined
+            }
+        }
+    }
 })
