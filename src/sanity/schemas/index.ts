@@ -14,6 +14,7 @@ import extracurricularSection from './objects/extracurricularSection'
 import methodologySection     from './objects/methodologySection'
 import ctaButton              from './objects/ctaButton'
 import footerLink from "./objects/footerLink"
+import contactFormField from "./objects/contactFormField"
 
 import page        from './documents/page'
 import teamMember  from './documents/teamMember'
@@ -49,5 +50,6 @@ export const schemaTypes = [
     extracurricularSection,
     methodologySection,
     ctaButton,
-    footerLink
+    footerLink,
+    contactFormField
 ]
