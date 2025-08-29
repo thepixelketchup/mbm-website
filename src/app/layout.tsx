@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
 import { DM_Serif_Text, Urbanist } from "next/font/google";
 import "./globals.css";
-<<<<<<< HEAD
-import Navbar from "@/components/navigation/Navbar";
-import { getNavigation } from "@/lib/navigation/getNavigation";
-=======
 import Navbar from "@/components/navigation/Navbar"
 import {getNavigation} from "@/lib/navigation/navbar/getNavigation";
 import {getFooter} from "@/lib/navigation/footer/getFooter";
 import Footer from "@/components/navigation/Footer";
->>>>>>> e1ee3a9351e34ba394e5e9c0bdd2e0dba5427f19
 
 // Define font variables
 const headings = DM_Serif_Text({
@@ -33,13 +28,8 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const nav = await getNavigation();
-
-<<<<<<< HEAD
-  console.log("Nav data: ", nav);
-=======
-    const nav = await getNavigation();
     const footer = await getFooter()
->>>>>>> e1ee3a9351e34ba394e5e9c0bdd2e0dba5427f19
+
 
   return (
     <html
