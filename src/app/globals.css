@@ -9,9 +9,10 @@
   --color-background: #ffffff;
   --color-foreground: #0f172a;
 
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-serif: 'Merriweather', serif;
-  --font-mono: 'Fira Code', monospace;
+  /* ✅ Link Tailwind font tokens to Next.js font vars */
+  --font-sans: var(--font-content), system-ui, sans-serif;
+  --font-serif: var(--font-headings), serif;
+  --font-mono: "Fira Code", monospace;
 }
 
 /* Base styles for HTML tags */
@@ -21,23 +22,23 @@
   }
 
   h1 {
-    @apply text-5xl font-bold font-sans text-primary;
+    @apply text-5xl font-bold font-serif text-primary;
   }
 
   h2 {
-    @apply text-4xl font-semibold font-sans text-primary;
+    @apply text-4xl font-semibold font-serif text-primary;
   }
 
   h3 {
-    @apply text-3xl font-semibold font-sans text-primary;
+    @apply text-3xl font-semibold font-serif text-primary;
   }
 
-  h4{
-    @apply text-2xl font-semibold font-sans text-primary;
+  h4 {
+    @apply text-2xl font-semibold font-serif text-primary;
   }
 
   p {
-    @apply text-base font-serif text-muted leading-relaxed;
+    @apply text-base font-sans text-muted leading-relaxed;
   }
 
   a {
