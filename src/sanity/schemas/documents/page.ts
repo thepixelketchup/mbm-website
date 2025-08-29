@@ -41,7 +41,9 @@ export default defineType({
                 { type: 'curriculumSection' },
                 { type: 'facilitiesSection' },
                 { type: 'extracurricularSection' },
-                { type: 'methodologySection' }
+                { type: 'methodologySection' },
+                { type: 'achievementsSection' },
+                { type: 'infoCardsSection' },
             ]
         }),
         defineField({

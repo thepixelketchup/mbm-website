@@ -15,6 +15,10 @@ import methodologySection     from './objects/methodologySection'
 import ctaButton              from './objects/ctaButton'
 import footerLink from "./objects/footerLink"
 import contactFormField from "./objects/contactFormField"
+import achievement from "./objects/achievement"
+import achievementSection from "./objects/achievementSection"
+import infoCard from "./objects/infoCard";
+import infoCardSection from "./objects/infoCardSection"
 
 import page        from './documents/page'
 import teamMember  from './documents/teamMember'
@@ -51,5 +55,9 @@ export const schemaTypes = [
     methodologySection,
     ctaButton,
     footerLink,
-    contactFormField
+    contactFormField,
+    achievement,
+    achievementSection,
+    infoCard,
+    infoCardSection,
 ]

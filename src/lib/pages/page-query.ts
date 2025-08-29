@@ -9,6 +9,37 @@ export const pageBySlugQuery = groq`
     sections[]{
       _type,
       _key,
+      
+      // Info Cards section fields
+      _type == "infoCardsSection" => {
+        sectionTitle,
+        cards[]{
+          _key,
+          label,
+          link,
+          icon{
+            asset->{
+              url
+            }
+          }
+        }
+      },
+      
+      // Achievements section fields
+      _type == "achievementsSection" => {
+        title,
+        subtitle,
+        viewAllLink,
+        achievements[]{
+          _key,
+          description,
+          image{
+            asset->{
+              url
+            }
+          }
+        }
+      },
 
       // Contact section fields
       _type == "contactSection" => {
