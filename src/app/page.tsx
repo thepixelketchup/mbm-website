@@ -2,6 +2,7 @@ import HeroSection from '@/components/sections/HeroSection'
 import {getPageBySlug} from "@/lib/pages/page-query";
 import AchievementsSection from "@/components/sections/AchievementsSection";
 import InfoCardsSection from "@/components/sections/InfoCardsSection";
+import EducationNetworkSection from "@/components/sections/EducationNetworkSection";
 
 export default async function HomePage() {
     const page = await getPageBySlug('home')
@@ -16,6 +17,8 @@ export default async function HomePage() {
                         return <AchievementsSection key={section._key} section={section} />
                     case 'infoCardsSection':
                         return <InfoCardsSection key={section._key} section={section} />
+                    case 'educationNetworkSection':
+                        return <EducationNetworkSection key={section._key} section={section} />
                     default:
                         return null
                 }

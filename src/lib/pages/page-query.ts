@@ -10,6 +10,19 @@ export const pageBySlugQuery = groq`
       _type,
       _key,
       
+      // Education Network section fields
+      _type == "educationNetworkSection" => {
+        sectionTitle,
+        sectionSubtitle,
+        description,
+        readMoreUrl,
+        image{
+          asset->{
+            url
+          }
+        }
+      },
+      
       // Info Cards section fields
       _type == "infoCardsSection" => {
         sectionTitle,
