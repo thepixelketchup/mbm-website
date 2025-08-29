@@ -14,7 +14,6 @@ export default async function ContactPage() {
 
     return (
         <main>
-            <h1 className="text-4xl font-bold text-center py-8">{page.title}</h1>
             {contactSection && <ContactSection section={contactSection} />}
         </main>
     )

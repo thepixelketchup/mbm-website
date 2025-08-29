@@ -6,7 +6,6 @@ import {getNavigation} from "@/lib/navigation/navbar/getNavigation";
 import {getFooter} from "@/lib/navigation/footer/getFooter";
 import Footer from "@/components/navigation/Footer";
 
-// Define font variables
 const headings = DM_Serif_Text({
   variable: "--font-headings",
   weight: ["400"],
@@ -27,14 +26,14 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const nav = await getNavigation();
-    const footer = await getFooter()
 
+    const nav = await getNavigation();
+    const footer = await getFooter()
 
   return (
     <html
       lang="en"
-      className={`${headings.variable} ${content.variable}`} // ✅ apply fonts
+      className={`${headings.variable} ${content.variable}`}
     >
       <body className="antialiased">
         <Navbar logo={nav.logoUrl} items={nav.items} />

@@ -22,7 +22,6 @@ export default defineType({
             options: { source: 'title', maxLength: 96 },
             validation: R => R.required()
         }),
-        /* flexible page builder */
         defineField({
             name: 'sections',
             title:'Sections',
@@ -45,7 +44,6 @@ export default defineType({
                 { type: 'methodologySection' }
             ]
         }),
-        /* basic SEO */
         defineField({
             name: 'seoTitle',
             title:'SEO Title',

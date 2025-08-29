@@ -1,14 +1,15 @@
 import { groq } from 'next-sanity'
-import {client} from "@/lib/sanity.client";
+import { client } from '@/lib/sanity.client'
 
 export const pageBySlugQuery = groq`
   *[_type == "page" && slug.current == $slug][0]{
-    title, 
-    seoTitle, 
-    seoDescription, 
+    title,
+    seoTitle,
+    seoDescription,
     sections[]{
       _type,
       _key,
+
       // Contact section fields
       _type == "contactSection" => {
         sectionTitle,
@@ -26,7 +27,24 @@ export const pageBySlugQuery = groq`
           platform, url
         }
       },
-      // Add other section types as needed...
+
+      // Hero section fields
+      _type == "heroSection" => {
+        title,
+        subtitle,
+        backgroundImage{
+          asset->{
+            url
+          }
+        },
+        ctaButton{
+          text,
+          link
+        },
+        textPosition
+      },
+
+      // Add other section types here as needed...
     }
   }
 `
