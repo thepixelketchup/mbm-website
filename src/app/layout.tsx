@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navigation/Navbar"
-import {getNavigation} from "@/lib/navigation/getNavigation";
+import {getNavigation} from "@/lib/navigation/navbar/getNavigation";
+import {getFooter} from "@/lib/navigation/footer/getFooter";
+import Footer from "@/components/navigation/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,8 +28,7 @@ export default async function RootLayout({
 }>) {
 
     const nav = await getNavigation();
-
-    console.log("Nav data: ",nav);
+    const footer = await getFooter()
 
   return (
     <html lang="en">
@@ -36,6 +37,7 @@ export default async function RootLayout({
       >
       <Navbar logo={nav.logoUrl} items={nav.items} />
         {children}
+      <Footer data={footer} />
       </body>
     </html>
   );

@@ -2,7 +2,7 @@
 import {useState} from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import {NavItem} from "@/lib/navigation/nav-types";
+import {NavItem} from "@/lib/navigation/navbar/nav-types";
 
 interface Props { logo?: string; items: NavItem[] }
 
