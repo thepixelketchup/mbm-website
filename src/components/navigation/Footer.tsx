@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { PortableText } from '@portabletext/react'
 import {FooterData} from "@/lib/navigation/footer/getFooter";
+import PortableTextComponent from "@/components/PortableTextComponent";
 
 export default function Footer({ data }: { data: FooterData }) {
     return (
@@ -52,12 +53,12 @@ export default function Footer({ data }: { data: FooterData }) {
                     <div className="grid gap-y-8 gap-x-12 text-xs sm:grid-cols-3">
                         <div>
                             <h4 className="text-xl font-normal mb-2 text-foreground">Head Office</h4>
-                            <PortableText value={data.headOffice} />
+                            <PortableTextComponent value={data.headOffice} />
                         </div>
 
                         <div>
                             <h4 className="mb-2 text-xl font-normal text-foreground">Branches</h4>
-                            <PortableText value={data.branches} />
+                            <PortableTextComponent value={data.branches} />
                         </div>
 
                         <div>

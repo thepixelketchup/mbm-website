@@ -30,6 +30,7 @@ import foundingStorySection from "./objects/foundingStorySection"
 import milestonesSection from "./objects/milestonesSection"
 import admissionsSection from "./objects/admissionsSection"
 import downloadsSection from "./objects/downloadsSection"
+import photoVideoGallery from "./objects/photoVideoGallery";
 
 import page        from './documents/page'
 import teamMember  from './documents/teamMember'
@@ -81,5 +82,6 @@ export const schemaTypes = [
     milestonesSection,
     foundingStorySection,
     admissionsSection,
-    downloadsSection
+    downloadsSection,
+    photoVideoGallery
 ]
