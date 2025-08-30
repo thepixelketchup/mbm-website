@@ -17,12 +17,12 @@ export default function GallerySection({ section }: GallerySectionProps) {
     if (!section?.images?.length) return null
 
     return (
-        <section className="py-16 bg-gradient-to-br from-pink-50 via-purple-50 to-orange-50">
+        <section className="py-16 bg-gradient-to-br bg-white from-primary/10 to-secondary/10">
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* Section Title */}
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl lg:text-4xl font-bold text-purple-600 mb-4">
+                    <h2 className="text-lg lg:text-2xl font-normal text-primary mb-4">
                         {section.sectionTitle}
                     </h2>
                 </div>
@@ -52,7 +52,7 @@ export default function GallerySection({ section }: GallerySectionProps) {
                     <div className="text-center">
                         <Link
                             href={section.ctaUrl}
-                            className="inline-block bg-gradient-to-r from-pink-400 via-purple-500 to-orange-400 text-white font-bold py-4 px-12 rounded-full text-lg tracking-wide hover:from-pink-500 hover:via-purple-600 hover:to-orange-500 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                            className="inline-block bg-gradient-to-r from-primary via-accent to-secondary text-white font-bold py-4 px-12 rounded-full text-lg tracking-wide transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
                         >
                             {section.ctaText}
                         </Link>
