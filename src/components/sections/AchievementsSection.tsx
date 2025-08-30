@@ -38,14 +38,14 @@ export default function AchievementsSection({ section }: AchievementsSectionProp
     const visibleAchievements = achievements.slice(currentIndex, currentIndex + cardsPerView)
 
     return (
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-muted">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center mb-12">
-                    <h2 className="text-4xl font-bold text-purple-600 mb-4">
+                    <h2 className="text-3xl font-normal text-primary mb-4">
                         {section.title}
                     </h2>
                     {section.subtitle && (
-                        <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+                        <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                             {section.subtitle}
                         </p>
                     )}
@@ -56,18 +56,18 @@ export default function AchievementsSection({ section }: AchievementsSectionProp
                         <>
                             <button
                                 onClick={prevSlide}
-                                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors"
+                                className="absolute  top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3"
                                 aria-label="Previous achievements"
                             >
-                                <CgChevronLeft className="w-6 h-6 text-gray-600" />
+                                <CgChevronLeft className="w-4 h-4 text-gray-600" />
                             </button>
 
                             <button
                                 onClick={nextSlide}
-                                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors"
+                                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50"
                                 aria-label="Next achievements"
                             >
-                                <CgChevronRight className="w-6 h-6 text-gray-600" />
+                                <CgChevronRight className="w-4 h-4 text-gray-600" />
                             </button>
                         </>
                     )}
@@ -76,9 +76,9 @@ export default function AchievementsSection({ section }: AchievementsSectionProp
                         {visibleAchievements.map((achievement) => (
                             <div
                                 key={achievement._key}
-                                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                                className="rounded-xl overflow-hidden duration-300"
                             >
-                                <div className="relative h-64 bg-gradient-to-br from-blue-50 to-purple-50 p-6 flex items-center justify-center">
+                                <div className="relative h-64 p-6 flex items-center justify-center">
                                     {achievement.image && (
                                         <Image
                                             src={urlFor(achievement.image).width(400).height(300).url()}
@@ -104,13 +104,13 @@ export default function AchievementsSection({ section }: AchievementsSectionProp
                     {section.viewAllLink ? (
                         <Link
                             href={section.viewAllLink}
-                            className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-800 transition-colors"
+                            className="inline-flex items-center gap-2 text-primary font-semibold text-xl"
                         >
                             View All
-                            <CgChevronRight className="w-4 h-4" />
+                            <CgChevronRight className="w-6 h-6" />
                         </Link>
                     ) : (
-                        <button className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-800 transition-colors">
+                        <button className="inline-flex items-center gap-2 text-primary font-semibold transition-colors">
                             View All
                             <CgChevronRight className="w-4 h-4" />
                         </button>
