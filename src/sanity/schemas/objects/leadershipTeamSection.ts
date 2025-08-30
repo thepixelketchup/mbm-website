@@ -1,20 +1,20 @@
 import { defineType, defineField } from 'sanity'
 
 export default defineType({
-    name: 'timelineSection',
-    title: 'Timeline Section',
+    name: 'leadershipTeamSection',
+    title: 'Leadership Team Section',
     type: 'object',
     fields: [
         defineField({
             name: 'title',
-            title: 'Timeline Title',
+            title: 'Section Title',
             type: 'string',
-            initialValue: 'Timeline of Key Events',
+            initialValue: 'Management Committee',
             validation: Rule => Rule.required()
         }),
         defineField({
             name: 'subtitle',
-            title: 'Timeline Subtitle',
+            title: 'Section Subtitle',
             type: 'string'
         }),
         defineField({
@@ -24,49 +24,44 @@ export default defineType({
             options: { hotspot: true }
         }),
         defineField({
-            name: 'events',
-            title: 'Timeline Events',
+            name: 'members',
+            title: 'Team Members',
             type: 'array',
             of: [{
                 type: 'object',
-                name: 'timelineEvent',
+                name: 'teamMember',
                 fields: [
                     defineField({
-                        name: 'year',
-                        title: 'Year',
+                        name: 'name',
+                        title: 'Full Name',
                         type: 'string',
                         validation: Rule => Rule.required()
                     }),
                     defineField({
-                        name: 'title',
-                        title: 'Event Title',
+                        name: 'role',
+                        title: 'Role/Position',
                         type: 'string',
                         validation: Rule => Rule.required()
                     }),
                     defineField({
                         name: 'description',
-                        title: 'Event Description',
-                        type: 'text',
-                        rows: 3,
+                        title: 'Description/Bio',
+                        type: 'array',
+                        of: [{ type: 'block' }],
                         validation: Rule => Rule.required()
                     }),
                     defineField({
                         name: 'image',
-                        title: 'Event Image (optional)',
+                        title: 'Photo',
                         type: 'image',
-                        options: { hotspot: true }
-                    }),
-                    defineField({
-                        name: 'isHighlight',
-                        title: 'Highlight Event',
-                        type: 'boolean',
-                        initialValue: false
+                        options: { hotspot: true },
+                        validation: Rule => Rule.required()
                     })
                 ],
                 preview: {
                     select: {
-                        title: 'title',
-                        subtitle: 'year',
+                        title: 'name',
+                        subtitle: 'role',
                         media: 'image'
                     }
                 }
@@ -77,13 +72,12 @@ export default defineType({
     preview: {
         select: {
             title: 'title',
-            events: 'events'
+            members: 'members'
         },
         prepare(selection) {
-            const { title, events } = selection
             return {
-                title: title,
-                subtitle: `${events?.length || 0} events`
+                title: selection.title,
+                subtitle: `${selection.members?.length || 0} members`
             }
         }
     }

@@ -48,6 +48,7 @@ export default defineType({
                 { type: 'statsSection' },
                 { type: 'aboutUsSection' },
                 { type: 'contentPageSection' },
+                { type: 'leadershipTeamSection' },
             ]
         }),
         defineField({

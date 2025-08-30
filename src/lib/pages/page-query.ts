@@ -145,6 +145,51 @@ export const pageBySlugQuery = groq`
         },
         content
       },
+      
+      // Timeline section fields
+      _type == "timelineSection" => {
+        title,
+        subtitle,
+        heroImage{
+          asset->{
+            url
+          }
+        },
+        events[]{
+          _key,
+          year,
+          title,
+          description,
+          isHighlight,
+          image{
+            asset->{
+              url
+            }
+          }
+        }
+      },
+      
+      // Leadership Team section fields
+      _type == "leadershipTeamSection" => {
+        title,
+        subtitle,
+        heroImage{
+          asset->{
+            url
+          }
+        },
+        members[]{
+          _key,
+          name,
+          role,
+          description,
+          image{
+            asset->{
+              url
+            }
+          }
+        }
+      },
     }
   }
 `

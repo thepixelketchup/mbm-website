@@ -14,8 +14,7 @@ export default defineType({
                     { title: 'Leadership Team', value: 'leadership' },
                     { title: 'Milestones & Achievements', value: 'milestones' },
                     { title: 'Founding Story', value: 'founding' },
-                    { title: 'Mission & Vision', value: 'mission' },
-                    { title: 'Timeline of Key Events', value: 'timeline' }
+                    { title: 'Mission & Vision', value: 'mission' }
                 ]
             },
             validation: Rule => Rule.required()
@@ -54,8 +53,14 @@ export default defineType({
     preview: {
         select: {
             title: 'title',
-            subtitle: 'pageType',
+            pageType: 'pageType',
             media: 'heroImage'
+        },
+        prepare(selection) {
+            return {
+                title: selection.title,
+                subtitle: selection.pageType
+            }
         }
     }
 })

@@ -24,12 +24,12 @@ import statItem from "./objects/statItem"
 import statsSection from "./objects/statsSection"
 import aboutUsSection from "./objects/aboutUsSection"
 import contentPageSection from "./objects/contentPageSection"
+import leadershipTeamSection from "./objects/leadershipTeamSection";
 
 import page        from './documents/page'
 import teamMember  from './documents/teamMember'
 import quickUpdate from './documents/quickUpdate'
 import download    from './documents/download'
-import siteSettings from './documents/siteSettings'
 import navigation from "./documents/navigation"
 import footer from "./documents/footer"
 
@@ -39,7 +39,6 @@ export const schemaTypes = [
     teamMember,
     quickUpdate,
     download,
-    siteSettings,
     navigation,
     footer,
 
@@ -70,4 +69,5 @@ export const schemaTypes = [
     statsSection,
     aboutUsSection,
     contentPageSection,
+    leadershipTeamSection
 ]
