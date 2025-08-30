@@ -190,6 +190,64 @@ export const pageBySlugQuery = groq`
           }
         }
       },
+      
+      // Mission & Vision section fields (text only)
+      _type == "missionVisionSection" => {
+        title,
+        subtitle,
+        introduction,
+        missionTitle,
+        missionContent,
+        visionTitle,
+        visionContent,
+        valuesTitle,
+        valuesContent
+      },
+      
+      // Founding Story section fields
+      _type == "foundingStorySection" => {
+        title,
+        subtitle,
+        heroImage{
+          asset->{
+            url
+          }
+        },
+        foundingYear,
+        founderName,
+        storyContent,
+        milestones[]{
+          _key,
+          year,
+          description
+        },
+        legacyContent
+      },
+
+      // Milestones & Achievements section fields
+      _type == "milestonesSection" => {
+        title,
+        subtitle,
+        heroImage{
+          asset->{
+            url
+          }
+        },
+        introduction,
+        achievements[]{
+          _key,
+          year,
+          title,
+          description,
+          category,
+          isHighlight
+        },
+        statistics[]{
+          _key,
+          number,
+          label
+        }
+      },
     }
   }
 `

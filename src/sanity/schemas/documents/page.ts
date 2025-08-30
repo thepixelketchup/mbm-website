@@ -49,6 +49,9 @@ export default defineType({
                 { type: 'aboutUsSection' },
                 { type: 'contentPageSection' },
                 { type: 'leadershipTeamSection' },
+                { type: 'missionVisionSection' },
+                { type: 'milestonesSection' },
+                { type: 'foundingStorySection' },
             ]
         }),
         defineField({
