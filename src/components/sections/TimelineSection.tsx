@@ -69,7 +69,7 @@ export default function TimelineSection({ section }: TimelineSectionProps) {
                     <nav className="flex items-center space-x-2 text-sm text-gray-600">
                         <a href="/" className="hover:text-purple-600">Home</a>
                         <span>/</span>
-                        <a href="/about-us" className="hover:text-purple-600">About Us</a>
+                        <a href="/about" className="hover:text-purple-600">About Us</a>
                         <span>/</span>
                         <span className="text-purple-600 font-medium">{section.title}</span>
                     </nav>
@@ -155,7 +155,7 @@ export default function TimelineSection({ section }: TimelineSectionProps) {
             <section className="py-8 bg-white">
                 <div className="max-w-6xl mx-auto px-6">
                     <a
-                        href="/about-us"
+                        href="/about"
                         className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-800 transition-colors group"
                     >
                         <FaArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
