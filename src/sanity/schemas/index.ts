@@ -22,6 +22,8 @@ import infoCardSection from "./objects/infoCardSection"
 import educationNetworkSection from "./objects/educationNetworkSection"
 import statItem from "./objects/statItem"
 import statsSection from "./objects/statsSection"
+import aboutUsSection from "./objects/aboutUsSection"
+import contentPageSection from "./objects/contentPageSection"
 
 import page        from './documents/page'
 import teamMember  from './documents/teamMember'
@@ -66,4 +68,6 @@ export const schemaTypes = [
     educationNetworkSection,
     statItem,
     statsSection,
+    aboutUsSection,
+    contentPageSection,
 ]
