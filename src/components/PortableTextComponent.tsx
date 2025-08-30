@@ -18,7 +18,7 @@ const components = {
             <h2 className="text-3xl font-semibold my-3">{children}</h2>
         ),
         normal: ({ children }: any) => (
-            <p className="text-base leading-relaxed text-gray-700 mb-4">
+            <p className="text-base leading-relaxed text-black mb-4">
                 {children}
             </p>
         ),

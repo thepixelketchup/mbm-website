@@ -10,6 +10,24 @@ export const pageBySlugQuery = groq`
       _type,
       _key,
       
+      // MAIN SECTIONS
+      
+      // Hero section fields
+      _type == "heroSection" => {
+        title,
+        subtitle,
+        backgroundImage{
+          asset->{
+            url
+          }
+        },
+        ctaButton{
+          text,
+          link
+        },
+        textPosition
+      },
+
       // Gallery section fields
       _type == "gallerySection" => {
         sectionTitle,
@@ -94,21 +112,7 @@ export const pageBySlugQuery = groq`
         }
       },
 
-      // Hero section fields
-      _type == "heroSection" => {
-        title,
-        subtitle,
-        backgroundImage{
-          asset->{
-            url
-          }
-        },
-        ctaButton{
-          text,
-          link
-        },
-        textPosition
-      },
+      // ABOUT US SECTIONS
 
       // About Us section fields
       _type == "aboutUsSection" => {
@@ -133,7 +137,7 @@ export const pageBySlugQuery = groq`
         visionContent
       },
 
-      // Content Page section fields
+      // Content Page section fields (for generic about pages)
       _type == "contentPageSection" => {
         pageType,
         title,
@@ -191,7 +195,7 @@ export const pageBySlugQuery = groq`
         }
       },
       
-      // Mission & Vision section fields (text only)
+      // Mission & Vision section fields
       _type == "missionVisionSection" => {
         title,
         subtitle,
@@ -248,9 +252,11 @@ export const pageBySlugQuery = groq`
           label
         }
       },
-      
-      // Admissions section fields
-      _type == "admissionsSection" => {
+
+      // ACADEMICS SECTIONS
+
+      // Curriculum section fields
+      _type == "curriculumSection" => {
         title,
         subtitle,
         heroImage{
@@ -259,13 +265,16 @@ export const pageBySlugQuery = groq`
           }
         },
         introContent,
-        documents[]{
-          _key,
+        autoSyncDocuments,
+        documentCategories,
+        selectedDocuments[]->{
+          _id,
           title,
           description,
           category,
           fileSize,
-          lastUpdated,
+          isActive,
+          displayOrder,
           file{
             asset->{
               url,
@@ -273,20 +282,104 @@ export const pageBySlugQuery = groq`
             }
           }
         },
-        admissionProcess[]{
+        gradeWiseCurriculum[]{
           _key,
-          stepNumber,
-          title,
-          description
-        },
-        contactInfo{
-          phone,
-          email,
-          office,
-          hours
+          grade,
+          description,
+          subjects,
+          syllabusDocument->{
+            _id,
+            title,
+            file{
+              asset->{
+                url,
+                originalFilename
+              }
+            }
+          }
         }
       },
+
+      // Facilities section fields
+      _type == "facilitiesSection" => {
+        title,
+        subtitle,
+        heroImage{
+          asset->{
+            url
+          }
+        },
+        introContent,
+        facilities[]{
+          _key,
+          name,
+          category,
+          description,
+          capacity,
+          features,
+          images[]{
+            asset->{
+              url
+            }
+          }
+        }
+      },
+
+      // Extracurricular section fields
+      _type == "extracurricularSection" => {
+        title,
+        subtitle,
+        heroImage{
+          asset->{
+            url
+          }
+        },
+        introContent,
+        activities[]{
+          _key,
+          title,
+          category,
+          description,
+          schedule,
+          coordinator,
+          achievements,
+          images[]{
+            asset->{
+              url
+            }
+          }
+        }
+      },
+
+      // Photo & Video Gallery section fields
+      _type == "photoVideoGallery" => {
+        title,
+        subtitle,
+        heroImage{
+          asset->{
+            url
+          }
+        },
+        introContent,
+        mediaItems[]{
+          _key,
+          type,
+          title,
+          caption,
+          category,
+          date,
+          videoUrl,
+          image{
+            asset->{
+              url
+            }
+          }
+        }
+      },
+
+      // ADMISSIONS & DOWNLOADS SECTIONS
       
+      // Admissions section fields (REMOVED DUPLICATE)
       _type == "admissionsSection" => {
         title,
         subtitle,
@@ -354,7 +447,7 @@ export const pageBySlugQuery = groq`
             }
           }
         }
-      },
+      }
     }
   }
 `
@@ -378,6 +471,32 @@ export const allAdmissionDocumentsQuery = groq`
         url,
         originalFilename
       }
+    }
+  }
+`
+
+export async function getAllAdmissionDocuments() {
+    return client.fetch(allAdmissionDocumentsQuery)
+}
+
+export const homePageQuery = groq`
+  *[_type == "page" && slug.current == "home"][0]{
+    title,
+    sections[_type in ["heroSection", "statsSection", "achievementsSection", "gallerySection"]]{
+      _type,
+      _key,
+      ...
+    }
+  }
+`
+
+export const aboutPageQuery = groq`
+  *[_type == "page" && slug.current == $slug][0]{
+    title,
+    sections[_type in ["aboutUsSection", "leadershipTeamSection", "missionVisionSection", "foundingStorySection", "milestonesSection", "timelineSection"]]{
+      _type,
+      _key,
+      ...
     }
   }
 `

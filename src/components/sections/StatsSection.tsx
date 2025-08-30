@@ -16,8 +16,8 @@ export default function StatsSection({ section }: StatsSectionProps) {
     if (!section?.stats?.length) return null
 
     return (
-        <section className="py-16 w-screen h-auto bg-white">
-            <div className="w-full mx-auto px-6 bg-gradient-to-r from-secondary/10 via-accent/20 to-background/10 h-screen flex items-center justify-center lg:px-40">
+        <section className="w-screen bg-white">
+            <div className="w-full mx-auto px-6 py-16 bg-gradient-to-r from-secondary/10 via-accent/20 to-background/10 flex items-center justify-center lg:px-40">
                 <div className="flex flex-wrap justify-center items-center gap-x-16 gap-y-12">
                     {section.stats.map((stat, index) => (
                         <div key={stat._key} className="flex items-center">

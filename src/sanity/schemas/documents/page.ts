@@ -54,6 +54,7 @@ export default defineType({
                 { type: 'foundingStorySection' },
                 { type: 'admissionsSection' },
                 { type: 'downloadsSection' },
+                { type: 'photoVideoGallery' },
             ]
         }),
         defineField({
