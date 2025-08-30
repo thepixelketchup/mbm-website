@@ -107,7 +107,7 @@ export default function ContactSection({ section }: ContactSectionProps) {
                     {/* Faculty Cards */}
                     {section.faculty && section.faculty.length > 0 && (
                         <div>
-                            <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-8 text-center">
+                            <h3 className="text-2xl lg:text-3xl font-normal text-foreground mb-8 text-center">
                                 Faculty Contacts
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-6">
@@ -122,7 +122,7 @@ export default function ContactSection({ section }: ContactSectionProps) {
                     <div className="max-w-2xl mx-auto">
                         <div className="bg-white rounded-xl lg:rounded-2xl shadow-xl overflow-hidden border border-gray-100">
                             <div className="bg-gradient-to-r from-primary via-accent/90 to-secondary/80 p-6 lg:p-8 text-white">
-                                <h3 className="text-xl lg:text-2xl font-bold mb-2">Get In Touch</h3>
+                                <h3 className="text-xl lg:text-2xl font-normal text-foreground mb-2">Get In Touch</h3>
                                 <p className="text-blue-100 text-sm lg:text-base">We'd love to hear from you</p>
                             </div>
                             <div className="p-6 lg:p-8">
@@ -172,9 +172,9 @@ function ContactCard({ icon, title, content }: { icon: React.ReactNode; title: s
                     <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-accent to-secondary rounded-lg lg:rounded-xl flex items-center justify-center text-white mr-3 lg:mr-4 flex-shrink-0">
                         <div className="text-lg lg:text-xl">{icon}</div>
                     </div>
-                    <h3 className="text-xl lg:text-2xl font-bold text-gray-900">{title}</h3>
+                    <h3 className="text-xl lg:text-2xl font-normal text-foreground">{title}</h3>
                 </div>
-                <div className="prose prose-sm lg:prose-base prose-gray text-gray-600 max-w-none">
+                <div className="prose prose-sm lg:prose-base prose-gray text-foreground/70 max-w-none">
                     {content}
                 </div>
             </div>
@@ -198,11 +198,11 @@ function FacultyCard({ member }: { member: any }) {
                     </div>
                 )}
                 <div className="flex-1 text-center sm:text-left">
-                    <h4 className="font-semibold text-base lg:text-lg text-gray-900 mb-1">
+                    <h4 className="font-normal text-base lg:text-lg text-foreground mb-1">
                         {member.name}
                     </h4>
                     {member.designation && (
-                        <p className="text-xs lg:text-sm text-primary font-medium mb-2 lg:mb-3">
+                        <p className="text-xs lg:text-sm text-foreground font-medium mb-2 lg:mb-3">
                             {member.designation}
                         </p>
                     )}
