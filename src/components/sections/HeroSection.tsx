@@ -21,29 +21,16 @@ export default function HeroSectionAdvanced({ section }: HeroSectionAdvancedProp
     if (!section) return null
 
     return (
-        <section className="relative w-full h-screen min-h-[700px] overflow-hidden">
+        <section className="relative w-screen h-screen min-h-[700px] overflow-hidden bg-white bg-gradient-to-b from-background/80 via-accent/80 to-secondary/80">
             {/* Background with Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400">
-                {section.backgroundImage && (
-                    <div className="absolute inset-0 opacity-80">
-                        <Image
-                            src={urlFor(section.backgroundImage).width(1920).height(1080).url()}
-                            alt={section.title}
-                            fill
-                            className="object-cover mix-blend-multiply"
-                            priority
-                            quality={90}
-                        />
-                    </div>
-                )}
-            </div>
+            
 
             {/* Content Grid */}
             <div className="relative z-10 h-full grid lg:grid-cols-2 items-center px-8 lg:px-16">
 
                 {/* Text Content */}
                 <div className="space-y-8 max-w-2xl">
-                    <h1 className="text-5xl lg:text-7xl font-bold text-white leading-[1.1] drop-shadow-2xl">
+                    <h1 className="font-bold text-white leading-[1.1] drop-shadow-2xl">
                         {section.title}
                     </h1>
 
@@ -57,7 +44,7 @@ export default function HeroSectionAdvanced({ section }: HeroSectionAdvancedProp
                         <div className="pt-6">
                             <Link
                                 href={section.ctaButton.link || '#'}
-                                className="inline-flex items-center px-10 py-5 bg-white/95 backdrop-blur-sm text-gray-900 font-bold text-lg rounded-full hover:bg-white hover:scale-105 transform transition-all duration-300 shadow-2xl hover:shadow-3xl border-2 border-white/20"
+                                className="px-5 py-5 border rounded-full  border-primary bg-white text-secondary text-xl hover:bg-gradient-to-r hover:from-primary/80 hover:via-accent/80 hover:to-secondary/80 hover:text-white"
                             >
                                 {section.ctaButton.text}
                             </Link>
