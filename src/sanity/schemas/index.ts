@@ -29,6 +29,7 @@ import missionVisionSection from "./objects/missionVisionSection"
 import foundingStorySection from "./objects/foundingStorySection"
 import milestonesSection from "./objects/milestonesSection"
 import admissionsSection from "./objects/admissionsSection"
+import downloadsSection from "./objects/downloadsSection"
 
 import page        from './documents/page'
 import teamMember  from './documents/teamMember'
@@ -36,6 +37,7 @@ import quickUpdate from './documents/quickUpdate'
 import download    from './documents/download'
 import navigation from "./documents/navigation"
 import footer from "./documents/footer"
+import admissionDocument from "./documents/admissionDocument"
 
 export const schemaTypes = [
     /* documents */
@@ -45,6 +47,7 @@ export const schemaTypes = [
     download,
     navigation,
     footer,
+    admissionDocument,
 
     /* objects */
     heroSection,
@@ -77,5 +80,6 @@ export const schemaTypes = [
     missionVisionSection,
     milestonesSection,
     foundingStorySection,
-    admissionsSection
+    admissionsSection,
+    downloadsSection
 ]

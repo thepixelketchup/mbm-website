@@ -286,6 +286,75 @@ export const pageBySlugQuery = groq`
           hours
         }
       },
+      
+      _type == "admissionsSection" => {
+        title,
+        subtitle,
+        heroImage{
+          asset->{
+            url
+          }
+        },
+        introContent,
+        documents[]->{
+          _id,
+          title,
+          description,
+          category,
+          fileSize,
+          lastUpdated,
+          isActive,
+          displayOrder,
+          file{
+            asset->{
+              url,
+              originalFilename
+            }
+          }
+        },
+        admissionProcess[]{
+          _key,
+          stepNumber,
+          title,
+          description
+        },
+        contactInfo{
+          phone,
+          email,
+          office,
+          hours
+        }
+      },
+
+      // Downloads section fields
+      _type == "downloadsSection" => {
+        title,
+        subtitle,
+        heroImage{
+          asset->{
+            url
+          }
+        },
+        introContent,
+        autoSync,
+        categoryFilter,
+        selectedDocuments[]->{
+          _id,
+          title,
+          description,
+          category,
+          fileSize,
+          lastUpdated,
+          isActive,
+          displayOrder,
+          file{
+            asset->{
+              url,
+              originalFilename
+            }
+          }
+        }
+      },
     }
   }
 `
@@ -293,3 +362,22 @@ export const pageBySlugQuery = groq`
 export async function getPageBySlug(slug: string) {
     return client.fetch(pageBySlugQuery, { slug })
 }
+
+export const allAdmissionDocumentsQuery = groq`
+  *[_type == "admissionDocument" && isActive == true] | order(displayOrder asc, category asc) {
+    _id,
+    title,
+    description,
+    category,
+    fileSize,
+    lastUpdated,
+    isActive,
+    displayOrder,
+    file{
+      asset->{
+        url,
+        originalFilename
+      }
+    }
+  }
+`
