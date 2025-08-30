@@ -248,6 +248,44 @@ export const pageBySlugQuery = groq`
           label
         }
       },
+      
+      // Admissions section fields
+      _type == "admissionsSection" => {
+        title,
+        subtitle,
+        heroImage{
+          asset->{
+            url
+          }
+        },
+        introContent,
+        documents[]{
+          _key,
+          title,
+          description,
+          category,
+          fileSize,
+          lastUpdated,
+          file{
+            asset->{
+              url,
+              originalFilename
+            }
+          }
+        },
+        admissionProcess[]{
+          _key,
+          stepNumber,
+          title,
+          description
+        },
+        contactInfo{
+          phone,
+          email,
+          office,
+          hours
+        }
+      },
     }
   }
 `

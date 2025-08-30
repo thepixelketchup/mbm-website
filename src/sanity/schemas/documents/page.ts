@@ -52,6 +52,7 @@ export default defineType({
                 { type: 'missionVisionSection' },
                 { type: 'milestonesSection' },
                 { type: 'foundingStorySection' },
+                { type: 'admissionsSection' },
             ]
         }),
         defineField({

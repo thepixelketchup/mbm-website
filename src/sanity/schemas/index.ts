@@ -28,6 +28,7 @@ import leadershipTeamSection from "./objects/leadershipTeamSection"
 import missionVisionSection from "./objects/missionVisionSection"
 import foundingStorySection from "./objects/foundingStorySection"
 import milestonesSection from "./objects/milestonesSection"
+import admissionsSection from "./objects/admissionsSection"
 
 import page        from './documents/page'
 import teamMember  from './documents/teamMember'
@@ -75,5 +76,6 @@ export const schemaTypes = [
     leadershipTeamSection,
     missionVisionSection,
     milestonesSection,
-    foundingStorySection
+    foundingStorySection,
+    admissionsSection
 ]
