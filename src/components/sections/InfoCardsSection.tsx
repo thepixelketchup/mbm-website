@@ -22,13 +22,13 @@ export default function InfoCardsSection({ section }: InfoCardsSectionProps) {
     if (!section?.cards?.length) return null
 
     return (
-        <section className="py-16 bg-gradient-to-br from-pink-100 via-purple-50 to-orange-50">
+        <section className="py-16 bg-white bg-gradient-to-br from-primary/10 via-accent/20 to-secondary/20">
             <div className="max-w-7xl mx-auto px-6">
                 {/* Section Title */}
                 <div className="text-center mb-12">
-                    <h2 className="text-2xl lg:text-3xl font-medium text-gray-800 mb-2">
+                    <p>
                         {section.sectionTitle}
-                    </h2>
+                    </p>
                 </div>
 
                 {/* Cards Grid */}
@@ -39,10 +39,10 @@ export default function InfoCardsSection({ section }: InfoCardsSectionProps) {
                             href={card.link}
                             className="group"
                         >
-                            <div className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-8 w-64 text-center group-hover:scale-105 border border-gray-100">
+                            <div className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-4 py-8 w-50 text-center group-hover:scale-105 border border-gray-100">
                                 {/* Icon */}
                                 <div className="flex justify-center mb-6">
-                                    <div className="relative w-16 h-16">
+                                    <div className="relative w-10 h-10">
                                         {card.icon && (
                                             <Image
                                                 src={urlFor(card.icon).width(64).height(64).url()}
@@ -55,9 +55,9 @@ export default function InfoCardsSection({ section }: InfoCardsSectionProps) {
                                 </div>
 
                                 {/* Label */}
-                                <h3 className="text-gray-700 font-medium text-lg">
+                                <p className="text-foreground/80 font-medium text-lg">
                                     {card.label}
-                                </h3>
+                                </p>
                             </div>
                         </Link>
                     ))}
