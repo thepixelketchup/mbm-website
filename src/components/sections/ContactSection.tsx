@@ -60,17 +60,17 @@ export default function ContactSection({ section }: ContactSectionProps) {
     <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {section.sectionTitle && (
             <div className="text-center mb-20">
-                <h2 className="text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-4">
+                <h2 className="text-5xl lg:text-6xl font-bold bg-gradient-to-r from-accent to-secondary bg-clip-text text-transparent mb-4">
                     {section.sectionTitle}
                 </h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full"></div>
+                <div className="w-24 h-1 bg-gradient-to-r from-accent to-secondary  mx-auto rounded-full"></div>
             </div>
         )}
 
         {section.mapEmbed && (
             <div className="mb-20">
                 <div className="relative overflow-hidden rounded-2xl shadow-2xl aspect-video group">
-                    <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-indigo-600/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-tr from-accent to-secondary z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div
                         className="w-full h-full scale-105 group-hover:scale-100 transition-transform duration-700"
                         dangerouslySetInnerHTML={{ __html: section.mapEmbed }}
@@ -87,7 +87,7 @@ export default function ContactSection({ section }: ContactSectionProps) {
                         <div className="group">
                             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-blue-200 group-hover:-translate-y-2">
                                 <div className="flex items-center mb-6">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center text-white mr-4">
+                                    <div className="w-12 h-12 bg-gradient-to-br from-accent to-secondary rounded-xl flex items-center justify-center text-white mr-4">
                                         <FaMapMarkerAlt className="text-xl" />
                                     </div>
                                     <h3 className="text-2xl font-bold text-gray-900">Head Office</h3>
@@ -103,7 +103,7 @@ export default function ContactSection({ section }: ContactSectionProps) {
                         <div className="group">
                             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-blue-200 group-hover:-translate-y-2">
                                 <div className="flex items-center mb-6">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center text-white mr-4">
+                                    <div className="w-12 h-12 bg-gradient-to-br from-accent to-secondary rounded-xl flex items-center justify-center text-white mr-4">
                                         <FaMapMarkerAlt className="text-xl" />
                                     </div>
                                     <h3 className="text-2xl font-bold text-gray-900">Branches</h3>
@@ -118,7 +118,7 @@ export default function ContactSection({ section }: ContactSectionProps) {
 
                 {section.faculty && section.faculty.length > 0 && (
                     <div>
-                        <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+                        <h3 className="text-3xl font-bold text-foreground mb-8 text-center">
                             Faculty Contacts
                         </h3>
                         <div className="grid md:grid-cols-2 gap-6">
@@ -139,11 +139,11 @@ export default function ContactSection({ section }: ContactSectionProps) {
                                             </div>
                                         )}
                                         <div className="flex-1">
-                                            <h4 className="font-semibold text-lg text-gray-900 mb-1">
+                                            <h4 className="font-semibold text-lg text-foreground mb-1">
                                                 {member.name}
                                             </h4>
                                             {member.designation && (
-                                                <p className="text-sm text-blue-600 font-medium mb-3">
+                                                <p className="text-sm text-primary font-medium mb-3">
                                                     {member.designation}
                                                 </p>
                                             )}
@@ -151,7 +151,7 @@ export default function ContactSection({ section }: ContactSectionProps) {
                                                 {member.email && (
                                                     <Link
                                                         href={`mailto:${member.email}`}
-                                                        className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors text-sm"
+                                                        className="flex items-center gap-2 text-foreground hover:text-primary transition-colors text-sm"
                                                     >
                                                         <FaEnvelope className="text-xs" />
                                                         {member.email}
@@ -160,7 +160,7 @@ export default function ContactSection({ section }: ContactSectionProps) {
                                                 {member.phone && (
                                                     <Link
                                                         href={`tel:${member.phone}`}
-                                                        className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors text-sm"
+                                                        className="flex items-center gap-2 text-foreground hover:text-primary transition-colors text-sm"
                                                     >
                                                         <FaPhone className="text-xs" />
                                                         {member.phone}
@@ -179,8 +179,8 @@ export default function ContactSection({ section }: ContactSectionProps) {
             <div className="lg:col-span-1">
                 <div className="sticky top-8">
                     <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
-                        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-white">
-                            <h3 className="text-2xl font-bold mb-2">Get In Touch</h3>
+                        <div className="bg-gradient-to-r from-primary via-accent/90 to-secondary/80 p-8 text-white">
+                            <h3 className="text-2xl font-bold mb-2 text-foreground">Get In Touch</h3>
                             <p className="text-blue-100">We'd love to hear from you</p>
                         </div>
                         <div className="p-8">
@@ -258,7 +258,7 @@ function ContactForm({ fields }: { fields: any[] }) {
 
             <button
                 type="submit"
-                className="group w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-500/50 transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 active:scale-95"
+                className="group w-full bg-gradient-to-r from-primary via-accent to-secondary text-white py-4 px-6 rounded-xl font-semibold focus:outline-none focus:ring-4 transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 active:scale-95"
             >
                 <span>Send Message</span>
                 <FaPaperPlane className="text-sm group-hover:translate-x-1 transition-transform" />
