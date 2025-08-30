@@ -110,7 +110,41 @@ export const pageBySlugQuery = groq`
         textPosition
       },
 
-      // Add other section types here as needed...
+      // About Us section fields
+      _type == "aboutUsSection" => {
+        title,
+        heroImage{
+          asset->{
+            url
+          }
+        },
+        description,
+        personName,
+        personRole,
+        personImage{
+          asset->{
+            url
+          }
+        },
+        personMessage,
+        missionTitle,
+        missionContent,
+        visionTitle,
+        visionContent
+      },
+
+      // Content Page section fields
+      _type == "contentPageSection" => {
+        pageType,
+        title,
+        subtitle,
+        heroImage{
+          asset->{
+            url
+          }
+        },
+        content
+      },
     }
   }
 `
