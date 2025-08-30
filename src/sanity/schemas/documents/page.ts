@@ -45,6 +45,7 @@ export default defineType({
                 { type: 'achievementsSection' },
                 { type: 'infoCardsSection' },
                 { type: 'educationNetworkSection' },
+                { type: 'statsSection' }
             ]
         }),
         defineField({

@@ -19,7 +19,9 @@ import achievement from "./objects/achievement"
 import achievementSection from "./objects/achievementSection"
 import infoCard from "./objects/infoCard";
 import infoCardSection from "./objects/infoCardSection"
-import educationNetworkSection from "./objects/educationNetworkSection";
+import educationNetworkSection from "./objects/educationNetworkSection"
+import statItem from "./objects/statItem"
+import statsSection from "./objects/statsSection"
 
 import page        from './documents/page'
 import teamMember  from './documents/teamMember'
@@ -61,5 +63,7 @@ export const schemaTypes = [
     achievementSection,
     infoCard,
     infoCardSection,
-    educationNetworkSection
+    educationNetworkSection,
+    statItem,
+    statsSection,
 ]
