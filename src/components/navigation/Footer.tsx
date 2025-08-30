@@ -6,9 +6,9 @@ import {FooterData} from "@/lib/navigation/footer/getFooter";
 
 export default function Footer({ data }: { data: FooterData }) {
     return (
-        <footer className="bg-zinc-900 text-zinc-200 font-sans">
+        <footer className="bg-muted text-zinc-200 font-sans">
             {data.quote && (
-                <div className="bg-gradient-to-r from-blue-900 to-indigo-700 py-6 text-center text-xl font-semibold tracking-wide text-white sm:text-2xl">
+                <div className="py-6 text-center text-xl font-semibold tracking-wide text-foreground sm:text-2xl">
                     “{data.quote}”
                 </div>
             )}
@@ -24,10 +24,10 @@ export default function Footer({ data }: { data: FooterData }) {
                             <li key={p.href}>
                                 <Link
                                     href={p.href}
-                                    className="flex items-center gap-2 hover:text-white"
+                                    className="flex items-center gap-2 text-foreground text-lg"
                                 >
                                     <svg
-                                        className="h-4 w-4 shrink-0 text-blue-400"
+                                        className="h-4 w-4 shrink-0 text-foreground"
                                         fill="currentColor"
                                         viewBox="0 0 20 20"
                                     >
@@ -51,23 +51,23 @@ export default function Footer({ data }: { data: FooterData }) {
 
                     <div className="grid gap-y-8 gap-x-12 text-xs sm:grid-cols-3">
                         <div>
-                            <h4 className="mb-2 font-semibold text-white">Head Office</h4>
+                            <h4 className="text-xl font-normal mb-2 text-foreground">Head Office</h4>
                             <PortableText value={data.headOffice} />
                         </div>
 
                         <div>
-                            <h4 className="mb-2 font-semibold text-white">Branches</h4>
+                            <h4 className="mb-2 text-xl font-normal text-foreground">Branches</h4>
                             <PortableText value={data.branches} />
                         </div>
 
                         <div>
-                            <h4 className="mb-2 font-semibold text-white">Mail ID</h4>
+                            <h4 className="mb-2 text-xl font-normal text-foreground">Mail ID</h4>
                             <ul className="space-y-2">
                                 {data.emails?.map((e: any) => (
                                     <li key={e.href}>
                                         <Link
                                             href={`mailto:${e.href}`}
-                                            className="hover:text-blue-400"
+                                            className="text-foreground text-lg"
                                         >
                                             {e.href}
                                         </Link>
