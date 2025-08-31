@@ -47,9 +47,7 @@ export default function AboutUsSection({ section }: AboutUsSectionProps) {
                         {/* Overlay with school branding */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                         <div className="absolute bottom-8 left-8">
-                            <h3 className="text-white text-3xl font-bold drop-shadow-lg">
-                                {section.title}
-                            </h3>
+                            
                         </div>
                     </div>
                 </div>
@@ -82,11 +80,11 @@ export default function AboutUsSection({ section }: AboutUsSectionProps) {
                 {/* Person Message Section */}
                 {section.personName && section.personMessage && (
                     <div className="mb-20">
-                        <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 lg:p-12 shadow-lg">
+                        <div className="bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl p-8 lg:p-12 shadow-lg">
                             <div className="grid lg:grid-cols-4 gap-8 items-center">
 
                                 {/* Person Image */}
-                                <div className="lg:col-span-1">
+                                <div className="lg:col-span-1 flex flex-col justify-start h-full">
                                     {section.personImage ? (
                                         <div className="relative">
                                             <div className="w-48 h-48 mx-auto relative rounded-full overflow-hidden shadow-2xl border-4 border-white">
