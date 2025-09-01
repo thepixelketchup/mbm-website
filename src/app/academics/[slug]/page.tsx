@@ -4,13 +4,14 @@ import ExtracurricularSection from '@/components/sections/ExtracurricularSection
 import PhotoVideoGallerySection from '@/components/sections/PhotoVideoGallerySection'
 import { getPageBySlug, getAllAdmissionDocuments } from "@/lib/pages/page-query"
 import { Metadata } from 'next'
+import Link from 'next/link'
 
-interface PageProps {
+interface AcademicsPageProps {
     params: { slug: string }
 }
 
 // Generate metadata for SEO
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: AcademicsPageProps): Promise<Metadata> {
     try {
         const data = await getPageBySlug(params.slug)
 
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 }
 
-export default async function AcademicsPage({ params }: PageProps) {
+export default async function AcademicsPage({ params }: AcademicsPageProps) {
     try {
         // Fetch page data and all admission documents in parallel for auto-sync
         const [data, allDocuments] = await Promise.all([
@@ -55,19 +56,19 @@ export default async function AcademicsPage({ params }: PageProps) {
                             The academic page "{params.slug}" could not be found.
                         </p>
                         <div className="space-y-4">
-                            <a
+                            <Link
                                 href="/academics"
                                 className="inline-block bg-gradient-to-r from-blue-600 to-indigo-500 text-white px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200"
                             >
                                 Go to Academics
-                            </a>
+                            </Link>
                             <br />
-                            <a
+                            <Link
                                 href="/"
                                 className="inline-block text-blue-600 hover:text-blue-800 font-medium"
                             >
                                 Return to Homepage
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </main>
@@ -171,12 +172,12 @@ export default async function AcademicsPage({ params }: PageProps) {
                             Try Again
                         </button>
                         <br />
-                        <a
+                        <Link
                             href="/academics"
                             className="inline-block text-red-600 hover:text-red-800 font-medium"
                         >
                             Go to Academics
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </main>

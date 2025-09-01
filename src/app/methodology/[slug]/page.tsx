@@ -23,23 +23,20 @@ export default async function MethodologyPage({ params }: MethodologyPageProps) 
                             </svg>
                         </div>
                         <h1 className="text-3xl font-bold text-gray-800 mb-4">Methodology Page Not Found</h1>
-                        <p className="text-xl text-gray-600 mb-8">
-                            The methodology page "{params.slug}" could not be found.
-                        </p>
                         <div className="space-y-4">
                             <Link
                                 href="/methodology"
                                 className="inline-block bg-gradient-to-r from-indigo-600 to-purple-500 text-white px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200"
                             >
                                 Go to Methodology
-                            </a>
+                            </Link>
                             <br />
-                            <a
+                            <Link
                                 href="/"
                                 className="inline-block text-indigo-600 hover:text-indigo-800 font-medium"
                             >
                                 Return to Homepage
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </main>
@@ -59,12 +56,12 @@ export default async function MethodologyPage({ params }: MethodologyPageProps) 
                         <p className="text-xl text-gray-600 mb-8">
                             This methodology page is being prepared. Please check back later.
                         </p>
-                        <a
+                        <Link
                             href="/methodology"
                             className="inline-block bg-gradient-to-r from-indigo-600 to-purple-500 text-white px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200"
                         >
                             Go to Methodology
-                        </a>
+                        </Link>
                     </div>
                 </main>
             )
@@ -133,12 +130,12 @@ export default async function MethodologyPage({ params }: MethodologyPageProps) 
                             Try Again
                         </button>
                         <br />
-                        <a
+                        <Link
                             href="/methodology"
                             className="inline-block text-red-600 hover:text-red-800 font-medium"
                         >
                             Go to Methodology
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </main>
