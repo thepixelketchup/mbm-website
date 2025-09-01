@@ -2,12 +2,13 @@ import MethodologyOverviewSection from '@/components/sections/MethodologyOvervie
 import MethodologyDetailSection from '@/components/sections/MethodologyDetailsSection'
 import { getPageBySlug } from "@/lib/pages/page-query"
 import { Metadata } from 'next'
+import Link from 'next/link'
 
-interface PageProps {
+interface MethodologyPageProps {
     params: { slug: string }
 }
 
-export default async function MethodologyPage({ params }: PageProps) {
+export default async function MethodologyPage({ params }: MethodologyPageProps) {
     try {
         const data = await getPageBySlug(params.slug)
 
@@ -26,7 +27,7 @@ export default async function MethodologyPage({ params }: PageProps) {
                             The methodology page "{params.slug}" could not be found.
                         </p>
                         <div className="space-y-4">
-                            <a
+                            <Link
                                 href="/methodology"
                                 className="inline-block bg-gradient-to-r from-indigo-600 to-purple-500 text-white px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200"
                             >

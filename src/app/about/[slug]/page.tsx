@@ -6,13 +6,13 @@ import MissionVisionSection from "@/components/sections/MissionVisionSection";
 import MilestonesSection from "@/components/sections/MilestonesSection";
 import FoundingStorySection from "@/components/sections/FoundingStorySection";
 
-interface PageProps {
+interface AboutPageProps {
   params: {
     slug: string;
   };
 }
 
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params }: AboutPageProps) {
   const data = await getPageBySlug(params.slug);
 
   return (
