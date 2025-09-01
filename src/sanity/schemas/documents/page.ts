@@ -41,7 +41,7 @@ export default defineType({
                 { type: 'curriculumSection' },
                 { type: 'facilitiesSection' },
                 { type: 'extracurricularSection' },
-                { type: 'methodologySection' },
+                // { type: 'methodologySection' },
                 { type: 'achievementsSection' },
                 { type: 'infoCardsSection' },
                 { type: 'educationNetworkSection' },
@@ -55,6 +55,9 @@ export default defineType({
                 { type: 'admissionsSection' },
                 { type: 'downloadsSection' },
                 { type: 'photoVideoGallery' },
+                { type: 'academicsOverviewSection' },
+                { type: 'methodologyOverviewSection' },
+                { type: 'methodologyDetailSection' }
             ]
         }),
         defineField({

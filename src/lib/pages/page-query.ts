@@ -253,6 +253,58 @@ export const pageBySlugQuery = groq`
         }
       },
 
+      // METHODOLOGY SECTIONS (NEWLY ADDED)
+
+      // Methodology Overview section fields
+      _type == "methodologyOverviewSection" => {
+        title,
+        subtitle,
+        heroImage{
+          asset->{
+            url
+          }
+        },
+        introContent,
+        methodologyCards[]{
+          _key,
+          title,
+          description,
+          iconName,
+          color,
+          link
+        }
+      },
+
+      // Methodology Detail section fields
+      _type == "methodologyDetailSection" => {
+        title,
+        subtitle,
+        heroImage{
+          asset->{
+            url
+          }
+        },
+        introContent,
+        keyPrinciples[]{
+          _key,
+          title,
+          description,
+          iconDescription
+        },
+        practicalApplications[]{
+          _key,
+          title,
+          description,
+          benefits,
+          image{
+            asset->{
+              url
+            }
+          }
+        },
+        outcomes
+      },
+
       // ACADEMICS SECTIONS
 
       // Curriculum section fields
@@ -379,7 +431,7 @@ export const pageBySlugQuery = groq`
 
       // ADMISSIONS & DOWNLOADS SECTIONS
       
-      // Admissions section fields (REMOVED DUPLICATE)
+      // Admissions section fields
       _type == "admissionsSection" => {
         title,
         subtitle,
@@ -446,6 +498,92 @@ export const pageBySlugQuery = groq`
               originalFilename
             }
           }
+        }
+      },
+      
+      // Academics Overview section fields
+      _type == "academicsOverviewSection" => {
+        title,
+        subtitle,
+        heroImage{
+          asset->{
+            url
+          }
+        },
+        introContent,
+        academicStats[]{
+          _key,
+          number,
+          label,
+          icon
+        },
+        curriculumHighlights{
+          title,
+          description,
+          viewAllLink,
+          featuredDocuments[]->{
+            _id,
+            title,
+            description,
+            category,
+            fileSize,
+            file{
+              asset->{
+                url,
+                originalFilename
+              }
+            }
+          }
+        },
+        facilitiesHighlights{
+          title,
+          description,
+          viewAllLink,
+          featuredFacilities[]{
+            _key,
+            name,
+            description,
+            icon,
+            image{
+              asset->{
+                url
+              }
+            }
+          }
+        },
+        activitiesHighlights{
+          title,
+          description,
+          viewAllLink,
+          featuredActivities[]{
+            _key,
+            name,
+            description,
+            category,
+            image{
+              asset->{
+                url
+              }
+            }
+          }
+        },
+        galleryHighlights{
+          title,
+          description,
+          viewAllLink,
+          featuredImages[]{
+            asset->{
+              url
+            }
+          }
+        },
+        quickLinks[]{
+          _key,
+          title,
+          description,
+          url,
+          icon,
+          color
         }
       }
     }

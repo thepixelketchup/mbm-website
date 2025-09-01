@@ -30,7 +30,9 @@ import foundingStorySection from "./objects/foundingStorySection"
 import milestonesSection from "./objects/milestonesSection"
 import admissionsSection from "./objects/admissionsSection"
 import downloadsSection from "./objects/downloadsSection"
-import photoVideoGallery from "./objects/photoVideoGallery";
+import photoVideoGallery from "./objects/photoVideoGallery"
+import academicOverviewSection from "./objects/academicOverviewSection"
+import methodologyDetailsSection from "./objects/methodologyDetailsSection"
 
 import page        from './documents/page'
 import teamMember  from './documents/teamMember'
@@ -83,5 +85,7 @@ export const schemaTypes = [
     foundingStorySection,
     admissionsSection,
     downloadsSection,
-    photoVideoGallery
+    photoVideoGallery,
+    academicOverviewSection,
+    methodologyDetailsSection,
 ]
