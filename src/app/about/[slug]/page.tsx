@@ -6,13 +6,7 @@ import MissionVisionSection from "@/components/sections/MissionVisionSection";
 import MilestonesSection from "@/components/sections/MilestonesSection";
 import FoundingStorySection from "@/components/sections/FoundingStorySection";
 
-interface AboutPageProps {
-  params: {
-    slug: string;
-  };
-}
-
-export default async function Page({ params }: AboutPageProps) {
+export default async function Page({ params }: { params: { slug: string } }) {
   const data = await getPageBySlug(params.slug);
 
   return (
@@ -21,26 +15,20 @@ export default async function Page({ params }: AboutPageProps) {
         switch (section._type) {
           case 'timelineSection':
             return <TimelineSection key={section._key} section={section} />
-
           case 'contentPageSection':
             return <ContentPageSection key={section._key} section={section} />
-
           case 'leadershipTeamSection':
             return <LeadershipTeamSection key={section._key} section={section} />
-
           case 'missionVisionSection':
             return <MissionVisionSection key={section._key} section={section} />
-
           case 'milestonesSection':
             return <MilestonesSection key={section._key} section={section} />
-
           case 'foundingStorySection':
             return <FoundingStorySection key={section._key} section={section} />
-
           default:
-            return null;
+            return null
         }
       })}
     </main>
-  );
+  )
 }
