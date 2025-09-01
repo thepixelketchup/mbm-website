@@ -1,63 +1,82 @@
 import { groq } from 'next-sanity'
 import { client } from '@/lib/sanity.client'
-
 export const pageBySlugQuery = groq`
-  *[_type == "page" && slug.current == $slug]{
+  *[_type == "page" && slug.current == $slug][0]{
     title,
     seoTitle,
     seoDescription,
     sections[]{
       _type,
       _key,
-
+      
       // MAIN SECTIONS
-
-      // Hero
+      
+      // Hero section fields
       _type == "heroSection" => {
         title,
         subtitle,
-        backgroundImage{ asset->{ url } },
-        ctaButton{ text, link },
+        backgroundImage{
+          asset->{
+            url
+          }
+        },
+        ctaButton{
+          text,
+          link
+        },
         textPosition
       },
-
-      // Gallery (home hero gallery format)
+      // Gallery section fields
       _type == "gallerySection" => {
         sectionTitle,
         ctaText,
         ctaUrl,
         images[]{
           _key,
-          asset->{ url }
+          asset->{
+            url
+          }
         }
       },
-
-      // Stats
+      
+      // Stats section fields
       _type == "statsSection" => {
-        stats[]{ _key, number, label }
+        stats[]{
+          _key,
+          number,
+          label
+        }
       },
-
-      // Education Network
+      
+      // Education Network section fields
       _type == "educationNetworkSection" => {
         sectionTitle,
         sectionSubtitle,
         description,
         readMoreUrl,
-        image{ asset->{ url } }
+        image{
+          asset->{
+            url
+          }
+        }
       },
-
-      // Info Cards
+      
+      // Info Cards section fields
       _type == "infoCardsSection" => {
         sectionTitle,
         cards[]{
           _key,
           label,
           link,
-          icon{ asset->{ url } }
+          icon{
+            asset->{
+              url
+            }
+          }
         }
       },
-
-      // Achievements (grid)
+      
+      // Achievements section fields
       _type == "achievementsSection" => {
         title,
         subtitle,
@@ -65,72 +84,112 @@ export const pageBySlugQuery = groq`
         achievements[]{
           _key,
           description,
-          image{ asset->{ url } }
+          image{
+            asset->{
+              url
+            }
+          }
         }
       },
-
-      // Contact
+      // Contact section fields
       _type == "contactSection" => {
         sectionTitle,
         mapEmbed,
-        formFields[]{ name, label, type, required, placeholder },
+        formFields[]{
+          name, label, type, required, placeholder
+        },
         headOffice,
         branches,
-        faculty[]{ name, designation, email, phone, "imageUrl": image.asset->url },
-        socialLinks[]{ platform, url }
+        faculty[]{
+          name, designation, email, phone,
+          "imageUrl": image.asset->url
+        },
+        socialLinks[]{
+          platform, url
+        }
       },
-
       // ABOUT US SECTIONS
-
+      // About Us section fields
       _type == "aboutUsSection" => {
         title,
-        heroImage{ asset->{ url } },
+        heroImage{
+          asset->{
+            url
+          }
+        },
         description,
         personName,
         personRole,
-        personImage{ asset->{ url } },
+        personImage{
+          asset->{
+            url
+          }
+        },
         personMessage,
         missionTitle,
         missionContent,
         visionTitle,
         visionContent
       },
-
+      // Content Page section fields (for generic about pages)
       _type == "contentPageSection" => {
         pageType,
         title,
         subtitle,
-        heroImage{ asset->{ url } },
+        heroImage{
+          asset->{
+            url
+          }
+        },
         content
       },
-
+      
+      // Timeline section fields
       _type == "timelineSection" => {
         title,
         subtitle,
-        heroImage{ asset->{ url } },
+        heroImage{
+          asset->{
+            url
+          }
+        },
         events[]{
           _key,
           year,
           title,
           description,
           isHighlight,
-          image{ asset->{ url } }
+          image{
+            asset->{
+              url
+            }
+          }
         }
       },
-
+      
+      // Leadership Team section fields
       _type == "leadershipTeamSection" => {
         title,
         subtitle,
-        heroImage{ asset->{ url } },
+        heroImage{
+          asset->{
+            url
+          }
+        },
         members[]{
           _key,
           name,
           role,
           description,
-          image{ asset->{ url } }
+          image{
+            asset->{
+              url
+            }
+          }
         }
       },
-
+      
+      // Mission & Vision section fields
       _type == "missionVisionSection" => {
         title,
         subtitle,
@@ -142,33 +201,60 @@ export const pageBySlugQuery = groq`
         valuesTitle,
         valuesContent
       },
-
+      
+      // Founding Story section fields
       _type == "foundingStorySection" => {
         title,
         subtitle,
-        heroImage{ asset->{ url } },
+        heroImage{
+          asset->{
+            url
+          }
+        },
         foundingYear,
         founderName,
         storyContent,
-        milestones[]{ _key, year, description },
+        milestones[]{
+          _key,
+          year,
+          description
+        },
         legacyContent
       },
-
+      // Milestones & Achievements section fields
       _type == "milestonesSection" => {
         title,
         subtitle,
-        heroImage{ asset->{ url } },
+        heroImage{
+          asset->{
+            url
+          }
+        },
         introduction,
-        achievements[]{ _key, year, title, description, category, isHighlight },
-        statistics[]{ _key, number, label }
+        achievements[]{
+          _key,
+          year,
+          title,
+          description,
+          category,
+          isHighlight
+        },
+        statistics[]{
+          _key,
+          number,
+          label
+        }
       },
-
-      // METHODOLOGY SECTIONS
-
+      // METHODOLOGY SECTIONS (NEWLY ADDED)
+      // Methodology Overview section fields
       _type == "methodologyOverviewSection" => {
         title,
         subtitle,
-        heroImage{ asset->{ url } },
+        heroImage{
+          asset->{
+            url
+          }
+        },
         introContent,
         methodologyCards[]{
           _key,
@@ -179,11 +265,15 @@ export const pageBySlugQuery = groq`
           link
         }
       },
-
+      // Methodology Detail section fields
       _type == "methodologyDetailSection" => {
         title,
         subtitle,
-        heroImage{ asset->{ url } },
+        heroImage{
+          asset->{
+            url
+          }
+        },
         introContent,
         keyPrinciples[]{
           _key,
@@ -196,17 +286,24 @@ export const pageBySlugQuery = groq`
           title,
           description,
           benefits,
-          image{ asset->{ url } }
+          image{
+            asset->{
+              url
+            }
+          }
         },
         outcomes
       },
-
       // ACADEMICS SECTIONS
-
+      // Curriculum section fields
       _type == "curriculumSection" => {
         title,
         subtitle,
-        heroImage{ asset->{ url } },
+        heroImage{
+          asset->{
+            url
+          }
+        },
         introContent,
         autoSyncDocuments,
         documentCategories,
@@ -218,7 +315,12 @@ export const pageBySlugQuery = groq`
           fileSize,
           isActive,
           displayOrder,
-          file{ asset->{ url, originalFilename } }
+          file{
+            asset->{
+              url,
+              originalFilename
+            }
+          }
         },
         gradeWiseCurriculum[]{
           _key,
@@ -228,15 +330,24 @@ export const pageBySlugQuery = groq`
           syllabusDocument->{
             _id,
             title,
-            file{ asset->{ url, originalFilename } }
+            file{
+              asset->{
+                url,
+                originalFilename
+              }
+            }
           }
         }
       },
-
+      // Facilities section fields
       _type == "facilitiesSection" => {
         title,
         subtitle,
-        heroImage{ asset->{ url } },
+        heroImage{
+          asset->{
+            url
+          }
+        },
         introContent,
         facilities[]{
           _key,
@@ -245,14 +356,22 @@ export const pageBySlugQuery = groq`
           description,
           capacity,
           features,
-          images[]{ asset->{ url } }
+          images[]{
+            asset->{
+              url
+            }
+          }
         }
       },
-
+      // Extracurricular section fields
       _type == "extracurricularSection" => {
         title,
         subtitle,
-        heroImage{ asset->{ url } },
+        heroImage{
+          asset->{
+            url
+          }
+        },
         introContent,
         activities[]{
           _key,
@@ -262,14 +381,22 @@ export const pageBySlugQuery = groq`
           schedule,
           coordinator,
           achievements,
-          images[]{ asset->{ url } }
+          images[]{
+            asset->{
+              url
+            }
+          }
         }
       },
-
+      // Photo & Video Gallery section fields
       _type == "photoVideoGallery" => {
         title,
         subtitle,
-        heroImage{ asset->{ url } },
+        heroImage{
+          asset->{
+            url
+          }
+        },
         introContent,
         mediaItems[]{
           _key,
@@ -279,16 +406,24 @@ export const pageBySlugQuery = groq`
           category,
           date,
           videoUrl,
-          image{ asset->{ url } }
+          image{
+            asset->{
+              url
+            }
+          }
         }
       },
-
-      // ADMISSIONS & DOWNLOADS
-
+      // ADMISSIONS & DOWNLOADS SECTIONS
+      
+      // Admissions section fields
       _type == "admissionsSection" => {
         title,
         subtitle,
-        heroImage{ asset->{ url } },
+        heroImage{
+          asset->{
+            url
+          }
+        },
         introContent,
         documents[]->{
           _id,
@@ -299,16 +434,35 @@ export const pageBySlugQuery = groq`
           lastUpdated,
           isActive,
           displayOrder,
-          file{ asset->{ url, originalFilename } }
+          file{
+            asset->{
+              url,
+              originalFilename
+            }
+          }
         },
-        admissionProcess[]{ _key, stepNumber, title, description },
-        contactInfo{ phone, email, office, hours }
+        admissionProcess[]{
+          _key,
+          stepNumber,
+          title,
+          description
+        },
+        contactInfo{
+          phone,
+          email,
+          office,
+          hours
+        }
       },
-
+      // Downloads section fields
       _type == "downloadsSection" => {
         title,
         subtitle,
-        heroImage{ asset->{ url } },
+        heroImage{
+          asset->{
+            url
+          }
+        },
         introContent,
         autoSync,
         categoryFilter,
@@ -321,17 +475,31 @@ export const pageBySlugQuery = groq`
           lastUpdated,
           isActive,
           displayOrder,
-          file{ asset->{ url, originalFilename } }
+          file{
+            asset->{
+              url,
+              originalFilename
+            }
+          }
         }
       },
-
-      // Academics Overview
+      
+      // Academics Overview section fields
       _type == "academicsOverviewSection" => {
         title,
         subtitle,
-        heroImage{ asset->{ url } },
+        heroImage{
+          asset->{
+            url
+          }
+        },
         introContent,
-        academicStats[]{ _key, number, label, icon },
+        academicStats[]{
+          _key,
+          number,
+          label,
+          icon
+        },
         curriculumHighlights{
           title,
           description,
@@ -342,7 +510,12 @@ export const pageBySlugQuery = groq`
             description,
             category,
             fileSize,
-            file{ asset->{ url, originalFilename } }
+            file{
+              asset->{
+                url,
+                originalFilename
+              }
+            }
           }
         },
         facilitiesHighlights{
@@ -354,7 +527,11 @@ export const pageBySlugQuery = groq`
             name,
             description,
             icon,
-            image{ asset->{ url } }
+            image{
+              asset->{
+                url
+              }
+            }
           }
         },
         activitiesHighlights{
@@ -366,28 +543,82 @@ export const pageBySlugQuery = groq`
             name,
             description,
             category,
-            image{ asset->{ url } }
+            image{
+              asset->{
+                url
+              }
+            }
           }
         },
         galleryHighlights{
           title,
           description,
           viewAllLink,
-          featuredImages[]{ asset->{ url } }
+          featuredImages[]{
+            asset->{
+              url
+            }
+          }
         },
-        quickLinks[]{ _key, title, description, url, icon, color }
-      }
+        quickLinks[]{
+          _key,
+          title,
+          description,
+          url,
+          icon,
+          color
+        }
+      },
+
+      // in your pageBySlugQuery
+// ...
+// Methodology Overview section
+_type == "methodologyOverviewSection" => {
+  title,
+  subtitle,
+  heroImage{asset->{url}},
+  introContent,
+  methodologyCards[]{
+    _key,
+    title,
+    description,
+    iconName,
+    color,
+    link
+  }
+},
+
+// Methodology Detail section
+_type == "methodologyDetailSection" => {
+  title,
+  subtitle,
+  heroImage{asset->{url}},
+  introContent,
+  keyPrinciples[]{
+    _key,
+    title,
+    description,
+    iconDescription
+  },
+  practicalApplications[]{
+    _key,
+    title,
+    description,
+    benefits,
+    image{asset->{url}}
+  },
+  outcomes
+},
+// ...
+
     }
   }
 `
-
 export async function getPageBySlug(slug: string) {
-  return client.fetch(pageBySlugQuery, { slug })
+    return client.fetch(pageBySlugQuery, { slug })
 }
-
 export const allAdmissionDocumentsQuery = groq`
-  *[_type == "admissionDocument" && isActive == true]
-  | order(displayOrder asc, category asc){
+  *[_type == "admissionDocument" && isActive == true] | order(displayOrder asc, category asc) {
     _id,
     title,
     description,
@@ -396,16 +627,19 @@ export const allAdmissionDocumentsQuery = groq`
     lastUpdated,
     isActive,
     displayOrder,
-    file{ asset->{ url, originalFilename } }
+    file{
+      asset->{
+        url,
+        originalFilename
+      }
+    }
   }
 `
-
 export async function getAllAdmissionDocuments() {
-  return client.fetch(allAdmissionDocumentsQuery)
+    return client.fetch(allAdmissionDocumentsQuery)
 }
-
 export const homePageQuery = groq`
-  *[_type == "page" && slug.current == "home"]{
+  *[_type == "page" && slug.current == "home"][0]{
     title,
     sections[_type in ["heroSection", "statsSection", "achievementsSection", "gallerySection"]]{
       _type,
@@ -414,9 +648,8 @@ export const homePageQuery = groq`
     }
   }
 `
-
 export const aboutPageQuery = groq`
-  *[_type == "page" && slug.current == $slug]{
+  *[_type == "page" && slug.current == $slug][0]{
     title,
     sections[_type in ["aboutUsSection", "leadershipTeamSection", "missionVisionSection", "foundingStorySection", "milestonesSection", "timelineSection"]]{
       _type,

@@ -7,29 +7,6 @@ interface PageProps {
     params: { slug: string }
 }
 
-// Generate metadata for SEO
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    try {
-        const data = await getPageBySlug(params.slug)
-
-        return {
-            title: data?.seoTitle || data?.title || 'Methodology - Podar Education Network',
-            description: data?.seoDescription || 'Discover our proven educational methodology that combines innovative teaching approaches, holistic learning philosophy, fair assessment practices, and deep-rooted Indian values.',
-            openGraph: {
-                title: data?.seoTitle || data?.title || 'Methodology - Podar Education Network',
-                description: data?.seoDescription || 'Discover our proven educational methodology that combines innovative teaching approaches, holistic learning philosophy, fair assessment practices, and deep-rooted Indian values.',
-                type: 'website',
-            }
-        }
-    } catch (error) {
-        console.error('Error generating metadata:', error)
-        return {
-            title: 'Methodology - Podar Education Network',
-            description: 'Discover our proven educational methodology that combines innovative teaching approaches, holistic learning philosophy, fair assessment practices, and deep-rooted Indian values.'
-        }
-    }
-}
-
 export default async function MethodologyPage({ params }: PageProps) {
     try {
         const data = await getPageBySlug(params.slug)
