@@ -11,7 +11,8 @@ export default defineConfig({
   dataset  : process.env.SANITY_STUDIO_DATASET!,
 
   plugins  : [
-    deskTool({ structure }),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    deskTool({ structure: structure as any }),
     visionTool({ defaultApiVersion: '2025-01-01' })
   ],
 
