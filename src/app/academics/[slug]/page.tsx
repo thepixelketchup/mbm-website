@@ -1,186 +1,199 @@
-import CurriculumSection from '@/components/sections/CurriculumSection'
-import FacilitiesSection from '@/components/sections/FacilitiesSection'
-import ExtracurricularSection from '@/components/sections/ExtracurricularSection'
-import PhotoVideoGallerySection from '@/components/sections/PhotoVideoGallerySection'
-import { getPageBySlug, getAllAdmissionDocuments } from "@/lib/pages/page-query"
-import { Metadata } from 'next'
-import Link from 'next/link'
-
-interface AcademicsPageProps {
+// src/app/academics/[slug]/page.tsx
+import CurriculumSection, {
+    CurriculumDocument,
+  } from '@/components/sections/CurriculumSection'
+  import FacilitiesSection from '@/components/sections/FacilitiesSection'
+  import ExtracurricularSection from '@/components/sections/ExtracurricularSection'
+  import PhotoVideoGallerySection from '@/components/sections/PhotoVideoGallerySection'
+  import { getPageBySlug, getAllAdmissionDocuments } from "@/lib/pages/page-query"
+  import { Metadata } from 'next'
+  import Link from 'next/link'
+  import React from 'react'
+  
+  interface AcademicsPageProps {
     params: { slug: string }
-}
-
-// Generate metadata for SEO
-export async function generateMetadata({ params }: AcademicsPageProps): Promise<Metadata> {
+  }
+  
+  // Generate metadata for SEO
+  export async function generateMetadata({ params }: AcademicsPageProps): Promise<Metadata> {
     try {
-        const data = await getPageBySlug(params.slug)
-
-        return {
-            title: data?.seoTitle || data?.title || 'Academics - Podar Education Network',
-            description: data?.seoDescription || 'Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at Podar Education Network.',
-            openGraph: {
-                title: data?.seoTitle || data?.title || 'Academics - Podar Education Network',
-                description: data?.seoDescription || 'Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at Podar Education Network.',
-                type: 'website',
-            }
+      const data = await getPageBySlug(params.slug)
+  
+      return {
+        title: data?.seoTitle || data?.title || 'Academics - Podar Education Network',
+        description: data?.seoDescription || 'Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at Podar Education Network.',
+        openGraph: {
+          title: data?.seoTitle || data?.title || 'Academics - Podar Education Network',
+          description: data?.seoDescription || 'Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at Podar Education Network.',
+          type: 'website',
         }
+      }
     } catch (error) {
-        console.error('Error generating metadata:', error)
-        return {
-            title: 'Academics - Podar Education Network',
-            description: 'Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at Podar Education Network.'
-        }
+      console.error('Error generating metadata:', error)
+      return {
+        title: 'Academics - Podar Education Network',
+        description: 'Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at Podar Education Network.'
+      }
     }
-}
-
-export default async function AcademicsPage({ params }: AcademicsPageProps) {
+  }
+  
+  export default async function AcademicsPage({ params }: AcademicsPageProps) {
     try {
-        // Fetch page data and all admission documents in parallel for auto-sync
-        const [data, allDocuments] = await Promise.all([
-            getPageBySlug(params.slug),
-            getAllAdmissionDocuments()
-        ])
-
-        // Handle page not found
-        if (!data) {
-            return (
-                <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-blue-50">
-                    <div className="text-center px-6">
-                        <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <svg className="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                            </svg>
-                        </div>
-                        <h1 className="text-3xl font-bold text-gray-800 mb-4">Academic Page Not Found</h1>
-                        <p className="text-xl text-gray-600 mb-8">
-                            The academic page "{params.slug}" could not be found.
-                        </p>
-                        <div className="space-y-4">
-                            <Link
-                                href="/academics"
-                                className="inline-block bg-gradient-to-r from-blue-600 to-indigo-500 text-white px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200"
-                            >
-                                Go to Academics
-                            </Link>
-                            <br />
-                            <Link
-                                href="/"
-                                className="inline-block text-blue-600 hover:text-blue-800 font-medium"
-                            >
-                                Return to Homepage
-                            </Link>
-                        </div>
-                    </div>
-                </main>
-            )
-        }
-
-        if (!data.sections || data.sections.length === 0) {
-            return (
-                <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-blue-50">
-                    <div className="text-center px-6">
-                        <div className="w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <svg className="w-12 h-12 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                            </svg>
-                        </div>
-                        <h1 className="text-3xl font-bold text-gray-800 mb-4">Academic Content Coming Soon</h1>
-                        <p className="text-xl text-gray-600 mb-8">
-                            This academic page is being prepared. Please check back later.
-                        </p>
-                        <a
-                            href="/academics"
-                            className="inline-block bg-gradient-to-r from-blue-600 to-indigo-500 text-white px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200"
-                        >
-                            Go to Academics
-                        </a>
-                    </div>
-                </main>
-            )
-        }
-
+      // Fetch page data and all admission documents in parallel
+      const [data, allDocumentsRaw] = await Promise.all([
+        getPageBySlug(params.slug),
+        getAllAdmissionDocuments()
+      ])
+  
+      // Normalize documents to typed array
+      const allDocuments: CurriculumDocument[] = Array.isArray(allDocumentsRaw) ? allDocumentsRaw : []
+  
+      // Handle page not found
+      if (!data) {
         return (
-            <main className="min-h-screen">
-                {data.sections.map((section: any) => {
-                    try {
-                        switch (section._type) {
-                            case 'curriculumSection':
-                                return <CurriculumSection
-                                    key={section._key}
-                                    section={section}
-                                    allDocuments={allDocuments}
-                                />
-
-                            case 'facilitiesSection':
-                                return <FacilitiesSection key={section._key} section={section} />
-
-                            case 'extracurricularSection':
-                                return <ExtracurricularSection key={section._key} section={section} />
-
-                            case 'photoVideoGallery':
-                                return <PhotoVideoGallerySection key={section._key} section={section} />
-
-                            default:
-                                console.warn(`Unknown academic section type: ${section._type}`)
-                                return null
-                        }
-                    } catch (sectionError) {
-                        console.error(`Error rendering section ${section._type}:`, sectionError)
-
-                        return (
-                            <section key={section._key} className="py-16 bg-red-50">
-                                <div className="max-w-4xl mx-auto px-6 text-center">
-                                    <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                        <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                    <h3 className="text-xl font-semibold text-red-800 mb-2">
-                                        Section Error
-                                    </h3>
-                                    <p className="text-red-600">
-                                        There was an error loading this academic section. Please try refreshing the page.
-                                    </p>
-                                </div>
-                            </section>
-                        )
-                    }
-                })}
-            </main>
+          <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-blue-50">
+            <div className="text-center px-6">
+              <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <h1 className="text-3xl font-bold text-gray-800 mb-4">Academic Page Not Found</h1>
+              <p className="text-xl text-gray-600 mb-8">
+                The academic page "{params.slug}" could not be found.
+              </p>
+              <div className="space-y-4">
+                <Link
+                  href="/academics"
+                  className="inline-block bg-gradient-to-r from-blue-600 to-indigo-500 text-white px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200"
+                >
+                  Go to Academics
+                </Link>
+                <br />
+                <Link
+                  href="/"
+                  className="inline-block text-blue-600 hover:text-blue-800 font-medium"
+                >
+                  Return to Homepage
+                </Link>
+              </div>
+            </div>
+          </main>
         )
-
-    } catch (error) {
-        console.error('Error loading academics page:', error)
-
+      }
+  
+      if (!data.sections || data.sections.length === 0) {
         return (
-            <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-pink-50">
-                <div className="text-center px-6">
-                    <div className="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg className="w-12 h-12 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+          <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-blue-50">
+            <div className="text-center px-6">
+              <div className="w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-12 h-12 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+              </div>
+              <h1 className="text-3xl font-bold text-gray-800 mb-4">Academic Content Coming Soon</h1>
+              <p className="text-xl text-gray-600 mb-8">
+                This academic page is being prepared. Please check back later.
+              </p>
+              <a
+                href="/academics"
+                className="inline-block bg-gradient-to-r from-blue-600 to-indigo-500 text-white px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200"
+              >
+                Go to Academics
+              </a>
+            </div>
+          </main>
+        )
+      }
+  
+      return (
+        <main className="min-h-screen">
+          {data.sections.map((section: any) => {
+            try {
+              switch (section._type) {
+                case 'curriculumSection':
+                  return (
+                    <CurriculumSection
+                      key={section._key}
+                      section={section}
+                      allDocuments={allDocuments}
+                    />
+                  )
+  
+                case 'facilitiesSection':
+                  return <FacilitiesSection key={section._key} section={section} />
+  
+                case 'extracurricularSection':
+                  return <ExtracurricularSection key={section._key} section={section} />
+  
+                case 'photoVideoGallery':
+                  return <PhotoVideoGallerySection key={section._key} section={section} />
+  
+                default:
+                  console.warn(`Unknown academic section type: ${section._type}`)
+                  return null
+              }
+            } catch (sectionError) {
+              console.error(`Error rendering section ${section._type}:`, sectionError)
+  
+              return (
+                <section key={section._key} className="py-16 bg-red-50">
+                  <div className="max-w-4xl mx-auto px-6 text-center">
+                    <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
                     </div>
-                    <h1 className="text-3xl font-bold text-red-800 mb-4">Something Went Wrong</h1>
-                    <p className="text-xl text-red-600 mb-8">
-                        We encountered an error while loading this academic page. Please try again later.
+                    <h3 className="text-xl font-semibold text-red-800 mb-2">
+                      Section Error
+                    </h3>
+                    <p className="text-red-600">
+                      There was an error loading this academic section. Please try refreshing the page.
                     </p>
-                    <div className="space-y-4">
-                        <button
-                            onClick={() => window.location.reload()}
-                            className="inline-block bg-gradient-to-r from-red-600 to-pink-500 text-white px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200"
-                        >
-                            Try Again
-                        </button>
-                        <br />
-                        <Link
-                            href="/academics"
-                            className="inline-block text-red-600 hover:text-red-800 font-medium"
-                        >
-                            Go to Academics
-                        </Link>
-                    </div>
-                </div>
-            </main>
-        )
+                  </div>
+                </section>
+              )
+            }
+          })}
+        </main>
+      )
+  
+    } catch (error) {
+      console.error('Error loading academics page:', error)
+  
+      // Use links rather than window.reload so this stays server-side safe
+      const retryHref = `/academics/${params.slug}`
+  
+      return (
+        <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-pink-50">
+          <div className="text-center px-6">
+            <div className="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg className="w-12 h-12 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h1 className="text-3xl font-bold text-red-800 mb-4">Something Went Wrong</h1>
+            <p className="text-xl text-red-600 mb-8">
+              We encountered an error while loading this academic page. Please try again later.
+            </p>
+            <div className="space-y-4">
+              <Link
+                href={retryHref}
+                className="inline-block bg-gradient-to-r from-red-600 to-pink-500 text-white px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200"
+              >
+                Try Again
+              </Link>
+              <br />
+              <Link
+                href="/academics"
+                className="inline-block text-red-600 hover:text-red-800 font-medium"
+              >
+                Go to Academics
+              </Link>
+            </div>
+          </div>
+        </main>
+      )
     }
-}
+  }
+  
