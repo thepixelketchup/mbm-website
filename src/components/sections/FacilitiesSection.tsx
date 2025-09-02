@@ -1,288 +1,266 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import { PortableText } from '@portabletext/react'
-import { urlFor } from '@/lib/sanity.client'
+import Image from "next/image";
+import { urlFor } from "@/lib/sanity.client";
 import {
-    FaBuilding,
-    FaArrowLeft,
-    FaFlask,
-    FaFutbol,
-    FaUtensils,
-    FaBookOpen,
-    FaShoppingCart,
-    FaCogs,
-    FaUsers,
-    FaChevronLeft,
-    FaChevronRight
-} from 'react-icons/fa'
-import { useState } from 'react'
+  FaBuilding,
+  FaArrowLeft,
+  FaFlask,
+  FaFutbol,
+  FaUtensils,
+  FaBookOpen,
+  FaShoppingCart,
+  FaCogs,
+  FaUsers,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
+import { useState } from "react";
+import SubsectionTemplate from "../subsection_template/subsection-template";
+import PortableTextComponent from "../PortableTextComponent";
 
 interface Facility {
-    _key: string
-    name: string
-    category: string
-    description: any[]
-    images: any[]
-    features?: string[]
-    capacity?: string
+  _key: string;
+  name: string;
+  category: string;
+  description: any[];
+  images: any[];
+  features?: string[];
+  capacity?: string;
 }
 
 interface FacilitiesSectionProps {
-    section: {
-        title: string
-        subtitle?: string
-        heroImage?: any
-        introContent?: any[]
-        facilities: Facility[]
-    }
+  section: {
+    title: string;
+    subtitle?: string;
+    heroImage?: any;
+    introContent?: any[];
+    facilities: Facility[];
+  };
 }
 
 export default function FacilitiesSection({ section }: FacilitiesSectionProps) {
-    const [currentImageIndex, setCurrentImageIndex] = useState<Record<string, number>>({})
+  const [currentImageIndex, setCurrentImageIndex] = useState<
+    Record<string, number>
+  >({});
 
-    if (!section) return null
+  if (!section) return null;
 
-    const getCategoryIcon = (category: string) => {
-        const icons = {
-            labs: <FaFlask className="w-8 h-8" />,
-            sports: <FaFutbol className="w-8 h-8" />,
-            dining: <FaUtensils className="w-8 h-8" />,
-            library: <FaBookOpen className="w-8 h-8" />,
-            shops: <FaShoppingCart className="w-8 h-8" />,
-            other: <FaCogs className="w-8 h-8" />
-        }
-        return icons[category as keyof typeof icons] || <FaBuilding className="w-8 h-8" />
-    }
-
-    const getCategoryColor = (category: string) => {
-        const colors = {
-            labs: 'from-green-500 to-emerald-600',
-            sports: 'from-orange-500 to-red-600',
-            dining: 'from-yellow-500 to-orange-600',
-            library: 'from-purple-500 to-indigo-600',
-            shops: 'from-pink-500 to-rose-600',
-            other: 'from-gray-500 to-slate-600'
-        }
-        return colors[category as keyof typeof colors] || 'from-blue-500 to-indigo-600'
-    }
-
-    const nextImage = (facilityKey: string, totalImages: number) => {
-        setCurrentImageIndex(prev => ({
-            ...prev,
-            [facilityKey]: ((prev[facilityKey] || 0) + 1) % totalImages
-        }))
-    }
-
-    const prevImage = (facilityKey: string, totalImages: number) => {
-        setCurrentImageIndex(prev => ({
-            ...prev,
-            [facilityKey]: ((prev[facilityKey] || 0) - 1 + totalImages) % totalImages
-        }))
-    }
-
-    // Group facilities by category
-    const groupedFacilities = section.facilities.reduce((acc, facility) => {
-        if (!acc[facility.category]) {
-            acc[facility.category] = []
-        }
-        acc[facility.category].push(facility)
-        return acc
-    }, {} as Record<string, Facility[]>)
-
+  const getCategoryIcon = (category: string) => {
+    const icons = {
+      labs: <FaFlask className="w-8 h-8" />,
+      sports: <FaFutbol className="w-8 h-8" />,
+      dining: <FaUtensils className="w-8 h-8" />,
+      library: <FaBookOpen className="w-8 h-8" />,
+      shops: <FaShoppingCart className="w-8 h-8" />,
+      other: <FaCogs className="w-8 h-8" />,
+    };
     return (
-        <>
-            {/* Hero Section */}
-            <section className="relative h-[60vh] flex items-center justify-center bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 overflow-hidden">
-                {section.heroImage && (
-                    <div className="absolute inset-0 z-0">
-                        <Image
-                            src={urlFor(section.heroImage).width(1920).height(1080).url()}
-                            alt={section.title}
-                            fill
-                            className="object-cover opacity-20"
-                        />
-                    </div>
-                )}
+      icons[category as keyof typeof icons] || (
+        <FaBuilding className="w-8 h-8" />
+      )
+    );
+  };
 
-                <div className="relative z-10 text-center text-white px-6 max-w-5xl">
-                    <div className="flex justify-center mb-8">
-                        <div className="w-24 h-24 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                            <FaBuilding className="w-12 h-12" />
-                        </div>
-                    </div>
+  const getCategoryColor = (category: string) => {
+    const colors = {
+      labs: "from-green-500 to-emerald-600",
+      sports: "from-orange-500 to-red-600",
+      dining: "from-yellow-500 to-orange-600",
+      library: "from-purple-500 to-indigo-600",
+      shops: "from-pink-500 to-rose-600",
+      other: "from-gray-500 to-slate-600",
+    };
+    return (
+      colors[category as keyof typeof colors] || "from-blue-500 to-indigo-600"
+    );
+  };
 
-                    <h1 className="text-4xl lg:text-6xl font-bold mb-4">
-                        {section.title}
-                    </h1>
-                    {section.subtitle && (
-                        <p className="text-xl lg:text-2xl font-light opacity-90">
-                            {section.subtitle}
-                        </p>
-                    )}
+  const nextImage = (facilityKey: string, totalImages: number) => {
+    setCurrentImageIndex((prev) => ({
+      ...prev,
+      [facilityKey]: ((prev[facilityKey] || 0) + 1) % totalImages,
+    }));
+  };
+
+  const prevImage = (facilityKey: string, totalImages: number) => {
+    setCurrentImageIndex((prev) => ({
+      ...prev,
+      [facilityKey]: ((prev[facilityKey] || 0) - 1 + totalImages) % totalImages,
+    }));
+  };
+
+  // Group facilities by category
+  const groupedFacilities = section.facilities.reduce(
+    (acc, facility) => {
+      if (!acc[facility.category]) {
+        acc[facility.category] = [];
+      }
+      acc[facility.category].push(facility);
+      return acc;
+    },
+    {} as Record<string, Facility[]>,
+  );
+
+  return (
+    <SubsectionTemplate
+      title={section.title}
+      subtitle={section.subtitle}
+      heroImage={section.heroImage}
+      introContent={section.introContent}
+      backTo={{
+        text: "Academics",
+        url: "/academics",
+      }}
+    >
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-teal-50">
+        <div className="max-w-7xl mx-auto px-6">
+          {Object.entries(groupedFacilities).map(([category, facilities]) => (
+            <div key={category} className="mb-16">
+              <div
+                className={`bg-gradient-to-r ${getCategoryColor(category)} rounded-2xl p-6 mb-8`}
+              >
+                <div className="flex items-center text-white">
+                  <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mr-6">
+                    {getCategoryIcon(category)}
+                  </div>
+                  <div>
+                    <h2 className="text-3xl font-bold capitalize">
+                      {category.replace("_", " ")}
+                    </h2>
+                    <p className="text-white/90">
+                      {facilities.length} facility
+                      {facilities.length > 1 ? "ies" : "y"} available
+                    </p>
+                  </div>
                 </div>
-            </section>
+              </div>
 
-            {/* Breadcrumb */}
-            <section className="bg-white py-4 border-b">
-                <div className="max-w-6xl mx-auto px-6">
-                    <nav className="flex items-center space-x-2 text-sm text-gray-600">
-                        <a href="/" className="hover:text-purple-600">Home</a>
-                        <span>/</span>
-                        <a href="/academics" className="hover:text-purple-600">Academics</a>
-                        <span>/</span>
-                        <span className="text-purple-600 font-medium">{section.title}</span>
-                    </nav>
-                </div>
-            </section>
-
-            {/* Introduction */}
-            {section.introContent && section.introContent.length > 0 && (
-                <section className="py-16 bg-white">
-                    <div className="max-w-4xl mx-auto px-6">
-                        <div className="prose prose-xl prose-teal max-w-none text-center">
-                            <PortableText value={section.introContent} />
-                        </div>
-                    </div>
-                </section>
-            )}
-
-            {/* Facilities by Category */}
-            <section className="py-20 bg-gradient-to-br from-gray-50 to-teal-50">
-                <div className="max-w-7xl mx-auto px-6">
-
-                    {Object.entries(groupedFacilities).map(([category, facilities]) => (
-                        <div key={category} className="mb-16">
-
-                            {/* Category Header */}
-                            <div className={`bg-gradient-to-r ${getCategoryColor(category)} rounded-2xl p-6 mb-8`}>
-                                <div className="flex items-center text-white">
-                                    <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mr-6">
-                                        {getCategoryIcon(category)}
-                                    </div>
-                                    <div>
-                                        <h2 className="text-3xl font-bold capitalize">
-                                            {category.replace('_', ' ')}
-                                        </h2>
-                                        <p className="text-white/90">
-                                            {facilities.length} facility{facilities.length > 1 ? 'ies' : 'y'} available
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Facilities Grid */}
-                            <div className="space-y-8">
-                                {facilities.map((facility) => {
-                                    const currentIndex = currentImageIndex[facility._key] || 0
-                                    return (
-                                        <div key={facility._key} className="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
-
-                                            <div className="grid lg:grid-cols-2 gap-8">
-
-                                                {/* Images Section */}
-                                                <div className="relative">
-                                                    {facility.images && facility.images.length > 0 && (
-                                                        <div className="relative h-80 lg:h-full">
-                                                            <Image
-                                                                src={urlFor(facility.images[currentIndex]).width(600).height(400).url()}
-                                                                alt={facility.name}
-                                                                fill
-                                                                className="object-cover"
-                                                            />
-
-                                                            {/* Image Navigation */}
-                                                            {facility.images.length > 1 && (
-                                                                <>
-                                                                    <button
-                                                                        onClick={() => prevImage(facility._key, facility.images.length)}
-                                                                        className="absolute left-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center hover:bg-white transition-colors"
-                                                                    >
-                                                                        <FaChevronLeft className="w-5 h-5 text-gray-700" />
-                                                                    </button>
-                                                                    <button
-                                                                        onClick={() => nextImage(facility._key, facility.images.length)}
-                                                                        className="absolute right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center hover:bg-white transition-colors"
-                                                                    >
-                                                                        <FaChevronRight className="w-5 h-5 text-gray-700" />
-                                                                    </button>
-
-                                                                    {/* Image Indicators */}
-                                                                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-                                                                        {facility.images.map((_, index) => (
-                                                                            <button
-                                                                                key={index}
-                                                                                onClick={() => setCurrentImageIndex(prev => ({ ...prev, [facility._key]: index }))}
-                                                                                className={`w-2 h-2 rounded-full transition-colors ${
-                                                                                    index === currentIndex ? 'bg-white' : 'bg-white/50'
-                                                                                }`}
-                                                                            />
-                                                                        ))}
-                                                                    </div>
-                                                                </>
-                                                            )}
-                                                        </div>
-                                                    )}
-                                                </div>
-
-                                                {/* Content Section */}
-                                                <div className="p-8">
-                                                    <div className="flex items-center mb-6">
-                                                        <div className={`w-12 h-12 bg-gradient-to-r ${getCategoryColor(category)} rounded-lg flex items-center justify-center mr-4`}>
-                                                            {getCategoryIcon(category)}
-                                                        </div>
-                                                        <div>
-                                                            <h3 className="text-2xl font-bold text-gray-800">
-                                                                {facility.name}
-                                                            </h3>
-                                                            {facility.capacity && (
-                                                                <p className="text-gray-600 flex items-center">
-                                                                    <FaUsers className="w-4 h-4 mr-2" />
-                                                                    {facility.capacity}
-                                                                </p>
-                                                            )}
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="prose prose-teal max-w-none mb-6">
-                                                        <PortableText value={facility.description} />
-                                                    </div>
-
-                                                    {facility.features && facility.features.length > 0 && (
-                                                        <div>
-                                                            <h4 className="font-semibold text-gray-800 mb-3">Key Features:</h4>
-                                                            <div className="flex flex-wrap gap-2">
-                                                                {facility.features.map((feature, index) => (
-                                                                    <span key={index} className="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm font-medium">
-                                    {feature}
-                                  </span>
-                                                                ))}
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* Back Navigation */}
-            <section className="py-8 bg-white">
-                <div className="max-w-6xl mx-auto px-6">
-                    <a
-                        href="/academics"
-                        className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-800 transition-colors group"
+              <div className="space-y-8">
+                {facilities.map((facility) => {
+                  const currentIndex = currentImageIndex[facility._key] || 0;
+                  return (
+                    <div
+                      key={facility._key}
+                      className="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden"
                     >
-                        <FaArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                        Back to Academics
-                    </a>
-                </div>
-            </section>
-        </>
-    )
+                      <div className="grid lg:grid-cols-2 gap-8">
+                        <div className="relative">
+                          {facility.images && facility.images.length > 0 && (
+                            <div className="relative h-80 lg:h-full">
+                              <Image
+                                src={urlFor(facility.images[currentIndex])
+                                  .width(600)
+                                  .height(400)
+                                  .url()}
+                                alt={facility.name}
+                                fill
+                                className="object-cover"
+                              />
+
+                              {facility.images.length > 1 && (
+                                <>
+                                  <button
+                                    onClick={() =>
+                                      prevImage(
+                                        facility._key,
+                                        facility.images.length,
+                                      )
+                                    }
+                                    className="absolute left-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center hover:bg-white transition-colors"
+                                  >
+                                    <FaChevronLeft className="w-5 h-5 text-gray-700" />
+                                  </button>
+                                  <button
+                                    onClick={() =>
+                                      nextImage(
+                                        facility._key,
+                                        facility.images.length,
+                                      )
+                                    }
+                                    className="absolute right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center hover:bg-white transition-colors"
+                                  >
+                                    <FaChevronRight className="w-5 h-5 text-gray-700" />
+                                  </button>
+
+                                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                                    {facility.images.map((_, index) => (
+                                      <button
+                                        key={index}
+                                        onClick={() =>
+                                          setCurrentImageIndex((prev) => ({
+                                            ...prev,
+                                            [facility._key]: index,
+                                          }))
+                                        }
+                                        className={`w-2 h-2 rounded-full transition-colors ${
+                                          index === currentIndex
+                                            ? "bg-white"
+                                            : "bg-white/50"
+                                        }`}
+                                      />
+                                    ))}
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="p-8">
+                          <div className="flex items-center mb-6">
+                            <div
+                              className={`w-12 h-12 bg-gradient-to-r ${getCategoryColor(category)} rounded-lg flex items-center justify-center mr-4`}
+                            >
+                              {getCategoryIcon(category)}
+                            </div>
+                            <div>
+                              <h3 className="text-2xl font-bold text-gray-800">
+                                {facility.name}
+                              </h3>
+                              {facility.capacity && (
+                                <p className="text-gray-600 flex items-center">
+                                  <FaUsers className="w-4 h-4 mr-2" />
+                                  {facility.capacity}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="prose prose-teal max-w-none mb-6">
+                            <PortableTextComponent
+                              value={facility.description}
+                            />
+                          </div>
+
+                          {facility.features &&
+                            facility.features.length > 0 && (
+                              <div>
+                                <h4 className="font-semibold text-gray-800 mb-3">
+                                  Key Features:
+                                </h4>
+                                <div className="flex flex-wrap gap-2">
+                                  {facility.features.map((feature, index) => (
+                                    <span
+                                      key={index}
+                                      className="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm font-medium"
+                                    >
+                                      {feature}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </SubsectionTemplate>
+  );
 }

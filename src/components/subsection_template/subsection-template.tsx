@@ -34,6 +34,11 @@ export default function SubsectionTemplate({
             {title}
           </span>
         </h1>
+        {subtitle && subtitle.trim().length && (
+          <h3 className="text-center text-lg font-medium md:text-xl px-4">
+            <span className="text-black font-sans">{subtitle}</span>
+          </h3>
+        )}
         <div className="w-[3px] h-24 md:h-40 bg-gradient-to-br from-primary to-secondary mt-2 mb-8 md:mb-12 opacity-80 rounded-full"></div>
       </section>
 
