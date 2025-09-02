@@ -2,11 +2,11 @@
 
 /* Define your theme variables */
 @theme {
-  --color-primary: #832996c9;   
-  --color-secondary: #e79f4f; 
-  --color-accent: #A271A2;    
-  --color-muted: #ededed;     
-  --color-background: #9750A6;
+  --color-primary: #832996c9;
+  --color-secondary: #e79f4f;
+  --color-accent: #a271a2;
+  --color-muted: #ededed;
+  --color-background: #9750a6;
   --color-foreground: #0f172a;
 
   /* ✅ Link Tailwind font tokens to Next.js font vars */
@@ -18,7 +18,7 @@
 /* Base styles for HTML tags */
 @layer base {
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply font-sans;
   }
 
   h1 {
@@ -37,11 +37,11 @@
     @apply text-2xl font-semibold font-serif text-primary;
   }
 
-  h5{
+  h5 {
     @apply text-xl font-semibold font-serif text-primary;
   }
 
-  h6{
+  h6 {
     @apply text-lg font-semibold font-serif text-primary;
   }
 
@@ -54,8 +54,7 @@
   }
 
   button {
-  @apply text-white font-sans px-6 py-3 rounded-xl transition 
+    @apply text-white font-sans px-6 py-3 rounded-xl transition
          bg-gradient-to-r from-primary via-accent to-secondary;
   }
-
 }

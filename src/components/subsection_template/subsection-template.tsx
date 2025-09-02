@@ -1,18 +1,21 @@
-'use client'
-
-import Image from 'next/image'
-import { PortableText } from '@portabletext/react'
-import { urlFor } from '@/lib/sanity.client'
-import { FaArrowLeft } from 'react-icons/fa'
-import { ReactNode } from 'react'
+"use client";
+import Image from "next/image";
+import { urlFor } from "@/lib/sanity.client";
+import { FaArrowLeft } from "react-icons/fa";
+import { ReactNode } from "react";
+import PortableTextComponent from "../PortableTextComponent";
+import Link from "next/link";
 
 interface SubsectionTemplateProps {
-  title: string
-  subtitle?: string
-  heroImage?: any
-  introContent?: any[]
-  heroIcon: ReactNode
-  children: ReactNode
+  title: string;
+  subtitle?: string;
+  heroImage?: any;
+  introContent?: any[];
+  children: ReactNode;
+  backTo: {
+    text: string;
+    url: string;
+  };
 }
 
 export default function SubsectionTemplate({
@@ -20,72 +23,67 @@ export default function SubsectionTemplate({
   subtitle,
   heroImage,
   introContent,
-  heroIcon,
-  children
+  children,
+  backTo,
 }: SubsectionTemplateProps) {
   return (
     <>
-      {/* Hero Section */}
-      <section className="w-full bg-white">
-        <h1 className="text-center py-20 font-bold text-5xl">
+      <section className="w-full flex flex-col items-center justify-center bg-white">
+        <h1 className="text-center pt-16 md:pt-20 font-bold text-4xl md:text-6xl px-4">
           <span className="bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">
             {title}
           </span>
         </h1>
+        <div className="w-[3px] h-24 md:h-40 bg-gradient-to-br from-primary to-secondary mt-2 mb-8 md:mb-12 opacity-80 rounded-full"></div>
       </section>
 
-      <section className="relative h-[60vh] flex items-center justify-center bg-white overflow-hidden">
+      <section className="w-full">
         {heroImage && (
-          <div className="absolute inset-0 z-100 w-full px-10">
-            <Image
-              src={urlFor(heroImage).url()}
-              alt={title}
-              fill
-              className="object-fill"
-            />
-          </div>
-        )}
-
-        <div className="relative z-10 text-center text-white px-6 max-w-5xl">
-          <div className="flex justify-center mb-8">
-            <div className="w-24 h-24 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-              {heroIcon}
+          <div className="mx-auto max-w-6xl px-4 md:px-6">
+            <div className="bg-black shadow-xl p-1 rounded-2xl">
+              <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
+                <Image
+                  src={urlFor(heroImage)
+                    .width(1920)
+                    .height(1080)
+                    .fit("crop")
+                    .auto("format")
+                    .url()}
+                  alt={title}
+                  fill
+                  priority
+                  sizes="(min-width: 1280px) 1152px, (min-width: 1024px) 960px, (min-width: 640px) 600px, 100vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
           </div>
-
-          {/* <h1 className="text-4xl lg:text-6xl font-bold mb-4">{title}</h1>
-          {subtitle && (
-            <p className="text-xl lg:text-2xl font-light opacity-90">{subtitle}</p>
-          )} */}
-        </div>
+        )}
       </section>
 
-      {/* Introduction */}
       {introContent && introContent.length > 0 && (
-        <section className="py-16 bg-white">
-          <div className="max-w-4xl mx-auto px-6">
-            <div className="prose prose-xl max-w-none text-center">
-              <PortableText value={introContent} />
+        <section className="py-12 md:py-16 bg-white">
+          <div className="max-w-4xl mx-auto px-4 md:px-6">
+            <div className="prose prose-lg md:prose-xl max-w-none text-center">
+              <PortableTextComponent value={introContent} />
             </div>
           </div>
         </section>
       )}
 
-      {/* Children Content */}
       {children}
 
-      {/* Back Navigation */}
       <section className="py-8 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <a
-            href="/academics"
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <Link
+            href={backTo.url}
             className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-800 transition-colors group"
           >
             <FaArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Back to Academics
-          </a>
+            Back To {backTo.text}
+          </Link>
         </div>
       </section>
     </>
-  )
+  );
 }
