@@ -41,11 +41,11 @@ export default function AchievementsSection({ section }: AchievementsSectionProp
         <section className="py-8 md:py-16 bg-muted">
             <div className="max-w-7xl mx-auto md:px-6 px-2">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl font-normal text-primary mb-4">
+                    <h2 className="text-3xl font-normal mb-4">
                         {section.title}
                     </h2>
                     {section.subtitle && (
-                        <p className="md:text-lg text-gray-700 max-w-3xl">
+                        <p className="md:text-lg text-gray-700 w-full">
                             {section.subtitle}
                         </p>
                     )}
@@ -56,15 +56,16 @@ export default function AchievementsSection({ section }: AchievementsSectionProp
                         <>
                             <button
                                 onClick={prevSlide}
-                                className="absolute  top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3"
+                                className="absolute  top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-1 sm:p-3"
                                 aria-label="Previous achievements"
                             >
-                                <CgChevronLeft className="w-4 h-4 text-gray-600" />
+                                <CgChevronLeft className="sm
+                                :w-4 sm:h-4 text-gray-600" />
                             </button>
 
                             <button
                                 onClick={nextSlide}
-                                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50"
+                                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-1 sm:p-3 hover:bg-gray-50"
                                 aria-label="Next achievements"
                             >
                                 <CgChevronRight className="w-4 h-4 text-gray-600" />
@@ -72,7 +73,7 @@ export default function AchievementsSection({ section }: AchievementsSectionProp
                         </>
                     )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-12">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-12">
                         {visibleAchievements.map((achievement) => (
                             <div
                                 key={achievement._key}
@@ -90,7 +91,7 @@ export default function AchievementsSection({ section }: AchievementsSectionProp
                                     )}
                                 </div>
 
-                                <div className="p-6">
+                                <div className="md:p-6">
                                     <p className="text-gray-700 text-center leading-relaxed">
                                         {achievement.description}
                                     </p>

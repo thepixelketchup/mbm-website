@@ -18,11 +18,11 @@ export default function EducationNetworkSection({ section }: EducationNetworkSec
     if (!section) return null
 
     return (
-        <section className='w-full h-auto flex flex-col items-center bg-white px-2 py-2 lg:px-20 md:py-10'>
+        <section className='w-full h-auto flex flex-col items-center bg-white px-2 pb-20 pt-4 lg:px-20 md:pt-10'>
              <h2 className="flex flex-col items-center justify-start h-full  my-10"><span className="bg-gradient-to-b from-primary via-accent to-secondary bg-clip-text text-transparent">{section.sectionTitle.split(' ')[0]}</span><span className="bg-gradient-to-b from-primary via-accent to-secondary bg-clip-text text-transparent">{section.sectionTitle.split(' ').slice(1).join(' ')}</span></h2>
 
 
-              <div className='w-full lg:h-[500px] flex flex-col lg:flex-row bg-gradient-to-r from-secondary/10 via-accent/30 to-background/20 rounded-xl items-center px-2 py-10 justify-start'>
+              <div className='w-full lg:h-[500px] flex flex-col lg:flex-row bg-gradient-to-r from-secondary/10 via-accent/30 to-background/20 rounded-xl items-center px-2 md:px-10 lg:px-0 py-10 justify-start'>
                
                  {section.image && (
                                     <div className="relative h-full w-full min-h-[250px] md:min-h-[350px] lg:w-[55%] rounded-xl overflow-hidden mb-6 lg:mb-0">
@@ -35,7 +35,7 @@ export default function EducationNetworkSection({ section }: EducationNetworkSec
                                     </div>
                  )}
                 <div className='w-full lg:w-[40%] h-full flex flex-col justify-start items-center px-5'>
-                    <p className='text-lg mb-10'>
+                    <p className='mb-10'>
                         {section.description}
                     </p>
                     <Link href="#" className='flex flex-row items-center text-xl w-full'>
