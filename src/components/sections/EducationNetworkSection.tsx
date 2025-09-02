@@ -18,7 +18,7 @@ export default function EducationNetworkSection({ section }: EducationNetworkSec
     if (!section) return null
 
     return (
-        <section className='w-screen h-auto flex flex-col items-center bg-white px-2 py-2 md:px-20 md:py-10'>
+        <section className='w-full h-auto flex flex-col items-center bg-white px-2 py-2 lg:px-20 md:py-10'>
              <h2 className="flex flex-col items-center justify-start h-full  my-10"><span className="bg-gradient-to-b from-primary via-accent to-secondary bg-clip-text text-transparent">{section.sectionTitle.split(' ')[0]}</span><span className="bg-gradient-to-b from-primary via-accent to-secondary bg-clip-text text-transparent">{section.sectionTitle.split(' ').slice(1).join(' ')}</span></h2>
 
 
