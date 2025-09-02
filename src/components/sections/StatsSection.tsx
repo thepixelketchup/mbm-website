@@ -23,7 +23,8 @@ export default function StatsSection({ section }: StatsSectionProps) {
                         <div key={stat._key} className="flex items-center">
                             {/* Stat Item */}
                             <div className="text-center">
-                                <p className="font-bold text-6xl text-primary mb-2">
+                                <p className="font-bold text-4xl sm
+                                :text-6xl text-primary mb-2">
                                     {stat.number}
                                 </p>
                                 <p className="text-primary font-light text-lg">

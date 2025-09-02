@@ -38,14 +38,14 @@ export default function AchievementsSection({ section }: AchievementsSectionProp
     const visibleAchievements = achievements.slice(currentIndex, currentIndex + cardsPerView)
 
     return (
-        <section className="py-16 bg-muted">
-            <div className="max-w-7xl mx-auto px-6">
+        <section className="py-8 md:py-16 bg-muted">
+            <div className="max-w-7xl mx-auto md:px-6 px-2">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-normal text-primary mb-4">
                         {section.title}
                     </h2>
                     {section.subtitle && (
-                        <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+                        <p className="md:text-lg text-gray-700 max-w-3xl">
                             {section.subtitle}
                         </p>
                     )}

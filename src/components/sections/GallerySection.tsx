@@ -32,7 +32,7 @@ export default function GallerySection({ section }: GallerySectionProps) {
                     {section.images.map((image, index) => (
                         <div
                             key={image._key || index}
-                            className="group relative aspect-[4/5] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                            className="group relative aspect-[4/5] rounded-2xl overflow-hidden shadow-lg max-h-[300px] hover:shadow-xl transition-shadow duration-300 w-full"
                         >
                             <Image
                                 src={urlFor(image).width(400).height(500).url()}
@@ -52,7 +52,7 @@ export default function GallerySection({ section }: GallerySectionProps) {
                     <div className="text-center">
                         <Link
                             href={section.ctaUrl}
-                            className="inline-block bg-gradient-to-r from-primary via-accent to-secondary text-white font-bold py-4 px-12 rounded-full text-lg tracking-wide transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                            className="inline-block bg-gradient-to-r from-primary via-accent to-secondary text-white px-2 py-2 font-bold md:py-4 md:px-12 rounded-full text-lg tracking-wide transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
                         >
                             {section.ctaText}
                         </Link>

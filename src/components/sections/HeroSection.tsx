@@ -21,12 +21,12 @@ export default function HeroSectionAdvanced({ section }: HeroSectionAdvancedProp
     if (!section) return null
 
     return (
-        <section className="relative w-screen h-screen min-h-[700px] overflow-hidden bg-white bg-gradient-to-b from-background/80 via-accent/80 to-secondary/80">
+        <section className="relative w-full h-screen min-h-[300px] lg:min-h-[600px] overflow-hidden bg-white bg-gradient-to-b from-background/80 via-accent/80 to-secondary/80">
             {/* Background with Gradient */}
             
 
             {/* Content Grid */}
-            <div className="relative z-10 h-full grid lg:grid-cols-2 items-center px-8 lg:px-16">
+            <div className="relative z-10 h-full grid lg:grid-cols-2 items-center px-4 lg:px-16">
 
                 {/* Text Content */}
                 <div className="space-y-8 max-w-2xl">
@@ -44,7 +44,7 @@ export default function HeroSectionAdvanced({ section }: HeroSectionAdvancedProp
                         <div className="pt-6">
                             <Link
                                 href={section.ctaButton.link || '#'}
-                                className="px-5 py-5 border rounded-full  border-primary bg-white text-secondary text-xl hover:bg-gradient-to-r hover:from-primary/80 hover:via-accent/80 hover:to-secondary/80 hover:text-white"
+                                className=" py-3 px-3 md:px-5 md:py-5 border rounded-full  border-primary bg-white text-secondary md:text-xl text-lg hover:bg-gradient-to-r hover:from-primary/80 hover:via-accent/80 hover:to-secondary/80 hover:text-white"
                             >
                                 {section.ctaButton.text}
                             </Link>

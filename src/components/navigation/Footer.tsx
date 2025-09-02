@@ -14,7 +14,7 @@ export default function Footer({ data }: { data: FooterData }) {
                 </div>
             )}
 
-            <div className="mx-auto max-w-7xl grid gap-10 px-6 py-14 md:grid-cols-4">
+            <div className="mx-auto max-w-7xl grid gap-10 px-6 py-14 lg:grid-cols-4">
                 <div>
                     <h3 className="mb-6 border-b border-zinc-700 pb-2 text-lg font-bold uppercase">
                         Our Pages
@@ -50,7 +50,7 @@ export default function Footer({ data }: { data: FooterData }) {
                         Contact Information
                     </h3>
 
-                    <div className="grid gap-y-8 gap-x-12 text-xs sm:grid-cols-3">
+                    <div className="grid gap-y-8 lg:gap-x-2 text-xs sm:grid-cols-3">
                         <div>
                             <h4 className="text-xl font-normal mb-2 text-foreground">Head Office</h4>
                             <PortableTextComponent value={data.headOffice} />
