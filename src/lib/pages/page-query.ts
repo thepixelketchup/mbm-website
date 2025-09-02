@@ -1,6 +1,5 @@
 import { groq } from 'next-sanity'
 import { client } from '@/lib/sanity.client'
-
 export const pageBySlugQuery = groq`
   *[_type == "page" && slug.current == $slug][0]{
     title,
@@ -27,7 +26,6 @@ export const pageBySlugQuery = groq`
         },
         textPosition
       },
-
       // Gallery section fields
       _type == "gallerySection" => {
         sectionTitle,
@@ -93,7 +91,6 @@ export const pageBySlugQuery = groq`
           }
         }
       },
-
       // Contact section fields
       _type == "contactSection" => {
         sectionTitle,
@@ -111,9 +108,7 @@ export const pageBySlugQuery = groq`
           platform, url
         }
       },
-
       // ABOUT US SECTIONS
-
       // About Us section fields
       _type == "aboutUsSection" => {
         title,
@@ -136,7 +131,6 @@ export const pageBySlugQuery = groq`
         visionTitle,
         visionContent
       },
-
       // Content Page section fields (for generic about pages)
       _type == "contentPageSection" => {
         pageType,
@@ -227,7 +221,6 @@ export const pageBySlugQuery = groq`
         },
         legacyContent
       },
-
       // Milestones & Achievements section fields
       _type == "milestonesSection" => {
         title,
@@ -252,9 +245,7 @@ export const pageBySlugQuery = groq`
           label
         }
       },
-
       // METHODOLOGY SECTIONS (NEWLY ADDED)
-
       // Methodology Overview section fields
       _type == "methodologyOverviewSection" => {
         title,
@@ -274,7 +265,6 @@ export const pageBySlugQuery = groq`
           link
         }
       },
-
       // Methodology Detail section fields
       _type == "methodologyDetailSection" => {
         title,
@@ -304,9 +294,7 @@ export const pageBySlugQuery = groq`
         },
         outcomes
       },
-
       // ACADEMICS SECTIONS
-
       // Curriculum section fields
       _type == "curriculumSection" => {
         title,
@@ -351,7 +339,6 @@ export const pageBySlugQuery = groq`
           }
         }
       },
-
       // Facilities section fields
       _type == "facilitiesSection" => {
         title,
@@ -376,7 +363,6 @@ export const pageBySlugQuery = groq`
           }
         }
       },
-
       // Extracurricular section fields
       _type == "extracurricularSection" => {
         title,
@@ -402,7 +388,6 @@ export const pageBySlugQuery = groq`
           }
         }
       },
-
       // Photo & Video Gallery section fields
       _type == "photoVideoGallery" => {
         title,
@@ -428,7 +413,6 @@ export const pageBySlugQuery = groq`
           }
         }
       },
-
       // ADMISSIONS & DOWNLOADS SECTIONS
       
       // Admissions section fields
@@ -470,7 +454,6 @@ export const pageBySlugQuery = groq`
           hours
         }
       },
-
       // Downloads section fields
       _type == "downloadsSection" => {
         title,
@@ -585,15 +568,55 @@ export const pageBySlugQuery = groq`
           icon,
           color
         }
-      }
+      },
+
+      // in your pageBySlugQuery
+// ...
+// Methodology Overview section
+_type == "methodologyOverviewSection" => {
+  title,
+  subtitle,
+  heroImage{asset->{url}},
+  introContent,
+  methodologyCards[]{
+    _key,
+    title,
+    description,
+    iconName,
+    color,
+    link
+  }
+},
+
+// Methodology Detail section
+_type == "methodologyDetailSection" => {
+  title,
+  subtitle,
+  heroImage{asset->{url}},
+  introContent,
+  keyPrinciples[]{
+    _key,
+    title,
+    description,
+    iconDescription
+  },
+  practicalApplications[]{
+    _key,
+    title,
+    description,
+    benefits,
+    image{asset->{url}}
+  },
+  outcomes
+},
+// ...
+
     }
   }
 `
-
 export async function getPageBySlug(slug: string) {
     return client.fetch(pageBySlugQuery, { slug })
 }
-
 export const allAdmissionDocumentsQuery = groq`
   *[_type == "admissionDocument" && isActive == true] | order(displayOrder asc, category asc) {
     _id,
@@ -612,11 +635,9 @@ export const allAdmissionDocumentsQuery = groq`
     }
   }
 `
-
 export async function getAllAdmissionDocuments() {
     return client.fetch(allAdmissionDocumentsQuery)
 }
-
 export const homePageQuery = groq`
   *[_type == "page" && slug.current == "home"][0]{
     title,
@@ -627,7 +648,6 @@ export const homePageQuery = groq`
     }
   }
 `
-
 export const aboutPageQuery = groq`
   *[_type == "page" && slug.current == $slug][0]{
     title,

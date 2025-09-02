@@ -1,71 +1,42 @@
-import CurriculumSection from '@/components/sections/CurriculumSection'
-import FacilitiesSection from '@/components/sections/FacilitiesSection'
-import ExtracurricularSection from '@/components/sections/ExtracurricularSection'
-import PhotoVideoGallerySection from '@/components/sections/PhotoVideoGallerySection'
-import { getPageBySlug, getAllAdmissionDocuments } from "@/lib/pages/page-query"
+import MethodologyOverviewSection from '@/components/sections/MethodologyOverviewSection'
+import MethodologyDetailSection from '@/components/sections/MethodologyDetailsSection'
+import { getPageBySlug } from "@/lib/pages/page-query"
 import { Metadata } from 'next'
+import Link from 'next/link'
 
-interface PageProps {
+interface MethodologyPageProps {
     params: { slug: string }
 }
 
-// Generate metadata for SEO
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export default async function MethodologyPage({ params }: MethodologyPageProps) {
     try {
         const data = await getPageBySlug(params.slug)
 
-        return {
-            title: data?.seoTitle || data?.title || 'Academics - Podar Education Network',
-            description: data?.seoDescription || 'Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at Podar Education Network.',
-            openGraph: {
-                title: data?.seoTitle || data?.title || 'Academics - Podar Education Network',
-                description: data?.seoDescription || 'Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at Podar Education Network.',
-                type: 'website',
-            }
-        }
-    } catch (error) {
-        console.error('Error generating metadata:', error)
-        return {
-            title: 'Academics - Podar Education Network',
-            description: 'Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at Podar Education Network.'
-        }
-    }
-}
-
-export default async function AcademicsPage({ params }: PageProps) {
-    try {
-        const [data, allDocuments] = await Promise.all([
-            getPageBySlug(params.slug),
-            getAllAdmissionDocuments()
-        ])
-
+        // Handle page not found
         if (!data) {
             return (
-                <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-blue-50">
+                <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-indigo-50">
                     <div className="text-center px-6">
-                        <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <svg className="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="w-24 h-24 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg className="w-12 h-12 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                             </svg>
                         </div>
-                        <h1 className="text-3xl font-bold text-gray-800 mb-4">Academic Page Not Found</h1>
-                        <p className="text-xl text-gray-600 mb-8">
-                            The academic page "{params.slug}" could not be found.
-                        </p>
+                        <h1 className="text-3xl font-bold text-gray-800 mb-4">Methodology Page Not Found</h1>
                         <div className="space-y-4">
-                            <a
-                                href="/academics"
-                                className="inline-block bg-gradient-to-r from-blue-600 to-indigo-500 text-white px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200"
+                            <Link
+                                href="/methodology"
+                                className="inline-block bg-gradient-to-r from-indigo-600 to-purple-500 text-white px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200"
                             >
-                                Go to Academics
-                            </a>
+                                Go to Methodology
+                            </Link>
                             <br />
-                            <a
+                            <Link
                                 href="/"
-                                className="inline-block text-blue-600 hover:text-blue-800 font-medium"
+                                className="inline-block text-indigo-600 hover:text-indigo-800 font-medium"
                             >
                                 Return to Homepage
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </main>
@@ -74,23 +45,23 @@ export default async function AcademicsPage({ params }: PageProps) {
 
         if (!data.sections || data.sections.length === 0) {
             return (
-                <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-blue-50">
+                <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-indigo-50">
                     <div className="text-center px-6">
                         <div className="w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
                             <svg className="w-12 h-12 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
                             </svg>
                         </div>
-                        <h1 className="text-3xl font-bold text-gray-800 mb-4">Academic Content Coming Soon</h1>
+                        <h1 className="text-3xl font-bold text-gray-800 mb-4">Methodology Content Coming Soon</h1>
                         <p className="text-xl text-gray-600 mb-8">
-                            This academic page is being prepared. Please check back later.
+                            This methodology page is being prepared. Please check back later.
                         </p>
-                        <a
-                            href="/academics"
-                            className="inline-block bg-gradient-to-r from-blue-600 to-indigo-500 text-white px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200"
+                        <Link
+                            href="/methodology"
+                            className="inline-block bg-gradient-to-r from-indigo-600 to-purple-500 text-white px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-200"
                         >
-                            Go to Academics
-                        </a>
+                            Go to Methodology
+                        </Link>
                     </div>
                 </main>
             )
@@ -101,24 +72,14 @@ export default async function AcademicsPage({ params }: PageProps) {
                 {data.sections.map((section: any) => {
                     try {
                         switch (section._type) {
-                            case 'curriculumSection':
-                                return <CurriculumSection
-                                    key={section._key}
-                                    section={section}
-                                    allDocuments={allDocuments}
-                                />
+                            case 'methodologyOverviewSection':
+                                return <MethodologyOverviewSection key={section._key} section={section} />
 
-                            case 'facilitiesSection':
-                                return <FacilitiesSection key={section._key} section={section} />
-
-                            case 'extracurricularSection':
-                                return <ExtracurricularSection key={section._key} section={section} />
-
-                            case 'photoVideoGallery':
-                                return <PhotoVideoGallerySection key={section._key} section={section} />
+                            case 'methodologyDetailSection':
+                                return <MethodologyDetailSection key={section._key} section={section} />
 
                             default:
-                                console.warn(`Unknown academic section type: ${section._type}`)
+                                console.warn(`Unknown methodology section type: ${section._type}`)
                                 return null
                         }
                     } catch (sectionError) {
@@ -136,7 +97,7 @@ export default async function AcademicsPage({ params }: PageProps) {
                                         Section Error
                                     </h3>
                                     <p className="text-red-600">
-                                        There was an error loading this academic section. Please try refreshing the page.
+                                        There was an error loading this methodology section. Please try refreshing the page.
                                     </p>
                                 </div>
                             </section>
@@ -147,7 +108,7 @@ export default async function AcademicsPage({ params }: PageProps) {
         )
 
     } catch (error) {
-        console.error('Error loading academics page:', error)
+        console.error('Error loading methodology page:', error)
 
         return (
             <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-pink-50">
@@ -159,7 +120,7 @@ export default async function AcademicsPage({ params }: PageProps) {
                     </div>
                     <h1 className="text-3xl font-bold text-red-800 mb-4">Something Went Wrong</h1>
                     <p className="text-xl text-red-600 mb-8">
-                        We encountered an error while loading this academic page. Please try again later.
+                        We encountered an error while loading this methodology page. Please try again later.
                     </p>
                     <div className="space-y-4">
                         <button
@@ -169,12 +130,12 @@ export default async function AcademicsPage({ params }: PageProps) {
                             Try Again
                         </button>
                         <br />
-                        <a
-                            href="/academics"
+                        <Link
+                            href="/methodology"
                             className="inline-block text-red-600 hover:text-red-800 font-medium"
                         >
-                            Go to Academics
-                        </a>
+                            Go to Methodology
+                        </Link>
                     </div>
                 </div>
             </main>

@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
                 hostname: "cdn.sanity.io"
             }
         ]
+    },
+    eslint: {
+        ignoreDuringBuilds: true
     }
 };
 

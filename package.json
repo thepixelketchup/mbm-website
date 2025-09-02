@@ -5,7 +5,7 @@
   "scripts": {
     "dev:app": "next dev --turbopack",
     "dev:sanity": "sanity dev",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
