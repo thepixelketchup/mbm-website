@@ -12,7 +12,7 @@ interface SubsectionTemplateProps {
   heroImage?: any;
   introContent?: any[];
   children: ReactNode;
-  backTo: {
+  backTo?: {
     text: string;
     url: string;
   };
@@ -78,17 +78,19 @@ export default function SubsectionTemplate({
 
       {children}
 
-      <section className="py-8 bg-white">
-        <div className="max-w-6xl mx-auto px-4 md:px-6">
-          <Link
-            href={backTo.url}
-            className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-800 transition-colors group"
-          >
-            <FaArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Back To {backTo.text}
-          </Link>
-        </div>
-      </section>
+      {backTo && (
+        <section className="py-8 bg-white">
+          <div className="max-w-6xl mx-auto px-4 md:px-6">
+            <Link
+              href={backTo.url}
+              className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-800 transition-colors group"
+            >
+              <FaArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              Back To {backTo.text}
+            </Link>
+          </div>
+        </section>
+      )}
     </>
   );
 }
