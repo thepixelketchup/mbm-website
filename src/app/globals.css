@@ -22,39 +22,39 @@
   }
 
   h1 {
-    @apply text-3xl sm:text-4xl md:text-5xl font-bold font-serif text-primary;
+    @apply text-3xl sm:text-4xl md:text-5xl font-bold font-serif;
   }
 
   h2 {
-    @apply lg:text-5xl sm:text-4xl text-3xl font-normal font-serif text-primary;
+    @apply lg:text-5xl sm:text-4xl text-3xl font-normal font-serif;
   }
 
   h3 {
-    @apply text-3xl font-semibold font-serif text-primary;
+    @apply text-3xl font-semibold font-serif;
   }
 
   h4 {
-    @apply text-2xl font-semibold font-serif text-primary;
+    @apply text-2xl font-semibold font-serif;
   }
 
   h5 {
-    @apply text-xl font-semibold font-serif text-primary;
+    @apply text-xl font-semibold font-serif;
   }
 
   h6 {
-    @apply text-lg font-semibold font-serif text-primary;
+    @apply text-lg font-semibold font-serif;
   }
-
+  /*
   p {
     @apply text-sm sm:text-base md:text-lg lg:text-xl font-sans text-foreground leading-relaxed;
-  }
+  }*/
 
   a {
     @apply text-primary transition;
   }
-
+  /*
   button {
     @apply text-white font-sans px-6 py-3 rounded-xl transition
          bg-gradient-to-r from-primary via-accent to-secondary;
-  }
+  }*/
 }

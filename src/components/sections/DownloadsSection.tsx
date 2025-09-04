@@ -1,8 +1,4 @@
 "use client";
-
-import Image from "next/image";
-import { PortableText } from "@portabletext/react";
-import { urlFor } from "@/lib/sanity.client";
 import {
   FaDownload,
   FaFileAlt,
@@ -12,6 +8,9 @@ import {
   FaNewspaper,
   FaFolder,
   FaCalendarAlt,
+  FaExternalLinkAlt,
+  FaSync,
+  FaInfoCircle,
 } from "react-icons/fa";
 import SubsectionTemplate from "../subsection_template/subsection-template";
 
@@ -48,30 +47,42 @@ export default function DownloadsSection({
 
   const getCategoryIcon = (category: string) => {
     const icons = {
-      forms: <FaClipboardList className="w-8 h-8" />,
-      fees: <FaMoneyBillWave className="w-8 h-8" />,
-      academic: <FaBook className="w-8 h-8" />,
-      guidelines: <FaFileAlt className="w-8 h-8" />,
-      prospectus: <FaNewspaper className="w-8 h-8" />,
-      other: <FaFolder className="w-8 h-8" />,
+      forms: (
+        <FaClipboardList className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      ),
+      fees: (
+        <FaMoneyBillWave className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      ),
+      academic: (
+        <FaBook className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      ),
+      guidelines: (
+        <FaFileAlt className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      ),
+      prospectus: (
+        <FaNewspaper className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      ),
+      other: (
+        <FaFolder className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      ),
     };
     return (
-      icons[category as keyof typeof icons] || <FaFileAlt className="w-8 h-8" />
+      icons[category as keyof typeof icons] || (
+        <FaFileAlt className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      )
     );
   };
 
   const getCategoryColor = (category: string) => {
     const colors = {
-      forms: "from-blue-500 to-blue-600",
-      fees: "from-green-500 to-green-600",
-      academic: "from-purple-500 to-purple-600",
-      guidelines: "from-orange-500 to-orange-600",
-      prospectus: "from-red-500 to-red-600",
-      other: "from-gray-500 to-gray-600",
+      forms: "bg-primary",
+      fees: "bg-accent",
+      academic: "bg-secondary",
+      guidelines: "bg-primary",
+      prospectus: "bg-accent",
+      other: "bg-secondary",
     };
-    return (
-      colors[category as keyof typeof colors] || "from-indigo-500 to-indigo-600"
-    );
+    return colors[category as keyof typeof colors] || "bg-primary";
   };
 
   const getCategoryTitle = (category: string) => {
@@ -88,7 +99,6 @@ export default function DownloadsSection({
 
   // Determine which documents to display
   let documentsToShow: Document[] = [];
-
   if (section.autoSync) {
     // Show all active documents, optionally filtered by category
     documentsToShow = allDocuments.filter((doc) => {
@@ -132,120 +142,175 @@ export default function DownloadsSection({
       introContent={section.introContent}
       heroImage={section.heroImage}
     >
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-indigo-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-indigo-700 mb-4">
+      {/* Documents Section */}
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-br from-muted/20 to-muted/40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+            <div className="inline-flex items-center gap-3 bg-primary text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-4 sm:mb-6 shadow-lg">
+              {section.autoSync ? (
+                <>
+                  <FaSync className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="font-bold text-sm sm:text-base lg:text-lg">
+                    Auto-Sync Downloads
+                  </span>
+                </>
+              ) : (
+                <>
+                  <FaDownload className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="font-bold text-sm sm:text-base lg:text-lg">
+                    Selected Downloads
+                  </span>
+                </>
+              )}
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
               Available Downloads
             </h2>
-            <p className="text-xl text-gray-600">
+            <div className="w-20 sm:w-24 lg:w-32 h-1 bg-gradient-to-r from-secondary to-accent rounded-full mx-auto mb-4 sm:mb-6"></div>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/80 max-w-3xl mx-auto leading-relaxed">
               {section.autoSync
-                ? "All available documents are automatically listed below"
-                : "Selected documents for download"}
+                ? "All available documents are automatically listed below and updated in real-time"
+                : "Carefully selected documents for download"}
             </p>
           </div>
 
+          {/* Documents Content */}
           {Object.keys(groupedDocuments).length === 0 ? (
-            <div className="text-center py-16">
-              <FaFileAlt className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-2xl font-semibold text-gray-600 mb-2">
-                No Documents Available
-              </h3>
-              <p className="text-gray-500">
-                Please check back later for updated documents.
-              </p>
+            /* Empty State */
+            <div className="text-center py-12 sm:py-16 lg:py-20">
+              <div className="max-w-md mx-auto">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 sm:mb-8">
+                  <FaFileAlt className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-primary" />
+                </div>
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary mb-3 sm:mb-4">
+                  No Documents Available
+                </h3>
+                <p className="text-sm sm:text-base lg:text-lg text-foreground/70 leading-relaxed">
+                  Please check back later for updated documents or contact
+                  administration for assistance.
+                </p>
+              </div>
             </div>
           ) : (
-            Object.entries(groupedDocuments).map(([category, docs]) => (
-              <div key={category} className="mb-12">
-                {/* Category Header */}
-                <div
-                  className={`bg-gradient-to-r ${getCategoryColor(category)} rounded-2xl p-6 mb-6`}
-                >
-                  <div className="flex items-center text-white">
-                    <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mr-6">
-                      {getCategoryIcon(category)}
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold">
-                        {getCategoryTitle(category)}
-                      </h3>
-                      <p className="text-white/90">
-                        {docs.length} document{docs.length > 1 ? "s" : ""}{" "}
-                        available
-                      </p>
-                    </div>
-                  </div>
-                </div>
+            /* Document Categories */
+            Object.entries(groupedDocuments).map(
+              ([category, docs], categoryIndex) => (
+                <div key={category} className="mb-8 sm:mb-12 lg:mb-16">
+                  {/* Category Header */}
+                  <div
+                    className={`${getCategoryColor(category)} rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8 shadow-xl hover:shadow-2xl transition-all duration-500 group`}
+                  >
+                    <div className="flex items-center text-white relative overflow-hidden">
+                      {/* Background decorative elements */}
+                      <div className="absolute -top-4 -right-4 w-16 h-16 sm:w-20 sm:h-20 bg-white/10 rounded-full blur-xl"></div>
+                      <div className="absolute -bottom-2 -left-2 w-12 h-12 sm:w-16 sm:h-16 bg-white/10 rounded-full blur-lg"></div>
 
-                {/* Documents Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {docs.map((doc) => (
-                    <div
-                      key={doc._id}
-                      className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 group hover:-translate-y-2"
-                    >
-                      {/* Document Header */}
-                      <div className="flex items-start justify-between mb-4">
-                        <div
-                          className={`w-12 h-12 bg-gradient-to-r ${getCategoryColor(category)} rounded-lg flex items-center justify-center`}
-                        >
-                          <FaFileAlt className="w-6 h-6 text-white" />
+                      <div className="relative z-10 flex items-center w-full">
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl lg:rounded-2xl flex items-center justify-center mr-4 sm:mr-6 group-hover:scale-110 transition-transform duration-300">
+                          {getCategoryIcon(category)}
                         </div>
-                        <div className="text-right">
-                          {doc.fileSize && (
-                            <span className="text-sm bg-gray-100 text-gray-600 px-2 py-1 rounded-full">
-                              {doc.fileSize}
-                            </span>
-                          )}
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold mb-1 sm:mb-2">
+                            {getCategoryTitle(category)}
+                          </h3>
+                          <p className="text-white/90 text-sm sm:text-base lg:text-lg">
+                            {docs.length} document{docs.length > 1 ? "s" : ""}{" "}
+                            available
+                          </p>
+                        </div>
+                        <div className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white/20 flex-shrink-0">
+                          {String(categoryIndex + 1).padStart(2, "0")}
                         </div>
                       </div>
-
-                      {/* Document Info */}
-                      <h4 className="text-lg font-bold text-gray-800 mb-2">
-                        {doc.title}
-                      </h4>
-
-                      {doc.description && (
-                        <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                          {doc.description}
-                        </p>
-                      )}
-
-                      {doc.lastUpdated && (
-                        <div className="flex items-center text-xs text-gray-500 mb-4">
-                          <FaCalendarAlt className="w-3 h-3 mr-1" />
-                          Last updated:{" "}
-                          {new Date(doc.lastUpdated).toLocaleDateString()}
-                        </div>
-                      )}
-
-                      {/* Download Button */}
-                      <a
-                        href={doc.file.asset.url}
-                        download
-                        className={`w-full bg-gradient-to-r ${getCategoryColor(category)} text-white py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 hover:scale-105 transition-transform duration-200`}
-                      >
-                        <FaDownload className="w-4 h-4" />
-                        Download
-                      </a>
                     </div>
-                  ))}
+                  </div>
+
+                  {/* Documents Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                    {docs.map((doc) => (
+                      <div
+                        key={doc._id}
+                        className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-4 sm:p-6 group hover:-translate-y-2 border border-muted"
+                      >
+                        {/* Document Header */}
+                        <div className="flex items-start justify-between mb-4 sm:mb-6">
+                          <div
+                            className={`w-10 h-10 sm:w-12 sm:h-12 ${getCategoryColor(category)} rounded-lg sm:rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}
+                          >
+                            <FaFileAlt className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                          </div>
+                          <div className="text-right">
+                            {doc.fileSize && (
+                              <span className="text-xs sm:text-sm bg-muted text-foreground/70 px-2 sm:px-3 py-1 rounded-full font-medium">
+                                {doc.fileSize}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Document Content */}
+                        <h4 className="text-base sm:text-lg lg:text-xl font-bold text-primary mb-2 sm:mb-3 line-clamp-2 group-hover:text-accent transition-colors duration-300">
+                          {doc.title}
+                        </h4>
+
+                        {doc.description && (
+                          <p className="text-xs sm:text-sm lg:text-base text-foreground/80 mb-3 sm:mb-4 leading-relaxed line-clamp-3">
+                            {doc.description}
+                          </p>
+                        )}
+
+                        {/* Document Meta */}
+                        {doc.lastUpdated && (
+                          <div className="flex items-center gap-2 text-xs sm:text-sm text-foreground/60 mb-4 sm:mb-6">
+                            <FaCalendarAlt className="w-3 h-3 sm:w-4 sm:h-4" />
+                            <span>
+                              Last updated:{" "}
+                              {new Date(doc.lastUpdated).toLocaleDateString()}
+                            </span>
+                          </div>
+                        )}
+
+                        {/* Download Button */}
+                        <a
+                          href={doc.file.asset.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`w-full ${getCategoryColor(category)} text-white py-3 sm:py-4 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base flex items-center justify-center gap-2 hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl`}
+                        >
+                          <FaExternalLinkAlt className="w-3 h-3 sm:w-4 sm:h-4" />
+                          View Document
+                        </a>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))
+              ),
+            )
           )}
         </div>
       </section>
 
       {/* Auto-sync Notice */}
       {section.autoSync && (
-        <section className="py-8 bg-indigo-600 text-white">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <p className="text-indigo-100">
-              📄 This page automatically updates when new documents are added to
-              our admissions section
-            </p>
+        <section className="py-6 sm:py-8 bg-accent">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/20">
+              <div className="flex items-center justify-center gap-3 text-white">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <FaInfoCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+                </div>
+                <div className="text-center">
+                  <p className="text-sm sm:text-base font-semibold text-white drop-shadow-sm">
+                    📄 Auto-Sync Enabled
+                  </p>
+                  <p className="text-xs sm:text-sm text-white/90 mt-1 drop-shadow-sm">
+                    This page automatically updates when new documents are added
+                    to our system
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       )}

@@ -181,7 +181,7 @@ export default function AboutUsSection({ section }: AboutUsSectionProps) {
                     />
                   </svg>
                 </div>
-                <h3 className="text-3xl font-bold">
+                <h3 className="text-3xl font-bold text-primary">
                   {section.missionTitle || "Our Mission"}
                 </h3>
               </div>
@@ -232,7 +232,7 @@ export default function AboutUsSection({ section }: AboutUsSectionProps) {
                     />
                   </svg>
                 </div>
-                <h3 className="text-3xl font-bold">
+                <h3 className="text-3xl font-bold text-primary">
                   {section.visionTitle || "Our Vision"}
                 </h3>
               </div>
@@ -261,7 +261,7 @@ export default function AboutUsSection({ section }: AboutUsSectionProps) {
         {/* School Values or Footer */}
         <div className="mt-16 text-center">
           <div className="bg-gradient-to-r from-primary/30 to-secondary/30 rounded-2xl p-8 text-white">
-            <h3 className="text-3xl font-bold mb-4">
+            <h3 className="text-3xl font-bold mb-4 text-primary">
               Excellence in Education Since 1927
             </h3>
             <p className="text-xl opacity-90">

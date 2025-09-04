@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity.client";
 import {
@@ -15,6 +14,9 @@ import {
   FaUsers,
   FaBook,
   FaLightbulb,
+  FaCogs,
+  FaRocket,
+  FaTrophy,
 } from "react-icons/fa";
 import SubsectionTemplate from "../subsection_template/subsection-template";
 import PortableTextComponent from "../PortableTextComponent";
@@ -53,87 +55,114 @@ export default function MethodologyDetailSection({
 
   const getIcon = (iconDescription?: string) => {
     const desc = iconDescription?.toLowerCase() || "";
-
     if (
       desc.includes("target") ||
       desc.includes("goal") ||
       desc.includes("aim")
     ) {
-      return <FaBullseye className="w-8 h-8" />;
+      return (
+        <FaBullseye className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      );
     }
     if (
       desc.includes("brain") ||
       desc.includes("thinking") ||
       desc.includes("mind")
     ) {
-      return <FaBrain className="w-8 h-8" />;
+      return (
+        <FaBrain className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      );
     }
     if (
       desc.includes("heart") ||
       desc.includes("emotion") ||
       desc.includes("care")
     ) {
-      return <FaHeart className="w-8 h-8" />;
+      return (
+        <FaHeart className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      );
     }
     if (
       desc.includes("plant") ||
       desc.includes("growth") ||
       desc.includes("develop")
     ) {
-      return <FaSeedling className="w-8 h-8" />;
+      return (
+        <FaSeedling className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      );
     }
     if (
       desc.includes("hands") ||
       desc.includes("help") ||
       desc.includes("collaboration")
     ) {
-      return <FaHandsHelping className="w-8 h-8" />;
+      return (
+        <FaHandsHelping className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      );
     }
     if (
       desc.includes("search") ||
       desc.includes("discovery") ||
       desc.includes("explore")
     ) {
-      return <FaSearch className="w-8 h-8" />;
+      return (
+        <FaSearch className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      );
     }
     if (
       desc.includes("balance") ||
       desc.includes("equal") ||
       desc.includes("fair")
     ) {
-      return <FaBalanceScale className="w-8 h-8" />;
+      return (
+        <FaBalanceScale className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      );
     }
     if (
       desc.includes("art") ||
       desc.includes("creative") ||
       desc.includes("palette")
     ) {
-      return <FaPalette className="w-8 h-8" />;
+      return (
+        <FaPalette className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      );
     }
     if (
       desc.includes("book") ||
       desc.includes("reading") ||
       desc.includes("learning")
     ) {
-      return <FaBook className="w-8 h-8" />;
+      return (
+        <FaBook className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      );
     }
     if (
       desc.includes("light") ||
       desc.includes("idea") ||
       desc.includes("innovation")
     ) {
-      return <FaLightbulb className="w-8 h-8" />;
+      return (
+        <FaLightbulb className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      );
     }
     if (
       desc.includes("students") ||
       desc.includes("people") ||
       desc.includes("community")
     ) {
-      return <FaUsers className="w-8 h-8" />;
+      return (
+        <FaUsers className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+      );
     }
-
     // Default
-    return <FaBullseye className="w-8 h-8" />;
+    return (
+      <FaBullseye className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+    );
+  };
+
+  const getPrincipleColor = (index: number) => {
+    const colors = ["bg-primary", "bg-secondary", "bg-accent"];
+    return colors[index % colors.length];
   };
 
   return (
@@ -147,35 +176,51 @@ export default function MethodologyDetailSection({
         url: "/methodology",
       }}
     >
+      {/* Key Principles Section */}
       {section.keyPrinciples && section.keyPrinciples.length > 0 && (
-        <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-indigo-700 mb-4">
+        <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-br from-muted/20 to-muted/40">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Section Header */}
+            <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+              <div className="inline-flex items-center gap-3 bg-primary text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-4 sm:mb-6 shadow-lg">
+                <FaCogs className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="font-bold text-sm sm:text-base lg:text-lg">
+                  Core Foundation
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
                 Key Principles
               </h2>
-              <p className="text-xl text-gray-600">
-                The fundamental beliefs that guide our approach
+              <div className="w-20 sm:w-24 lg:w-32 h-1 bg-gradient-to-r from-secondary to-accent rounded-full mx-auto mb-4 sm:mb-6"></div>
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/80 max-w-3xl mx-auto leading-relaxed">
+                The fundamental beliefs that guide our educational approach
               </p>
             </div>
 
-            <div className="space-y-12">
+            {/* Principles List */}
+            <div className="space-y-8 sm:space-y-12 lg:space-y-16">
               {section.keyPrinciples.map((principle, index) => (
                 <div
                   key={principle._key}
-                  className={`flex items-center gap-8 ${index % 2 === 1 ? "flex-row-reverse" : ""}`}
+                  className={`flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-12 ${
+                    index % 2 === 1 ? "lg:flex-row-reverse" : ""
+                  }`}
                 >
+                  {/* Icon Circle */}
                   <div className="flex-shrink-0">
-                    <div className="w-24 h-24 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-full flex items-center justify-center text-white shadow-2xl">
+                    <div
+                      className={`w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 ${getPrincipleColor(index)} rounded-full flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform duration-300`}
+                    >
                       {getIcon(principle.iconDescription)}
                     </div>
                   </div>
 
-                  <div className="flex-grow bg-white rounded-2xl p-8 shadow-lg">
-                    <h3 className="text-2xl font-bold text-indigo-700 mb-4">
+                  {/* Content Card */}
+                  <div className="flex-1 bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl hover:shadow-2xl transition-all duration-300 border border-muted">
+                    <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-primary mb-3 sm:mb-4 lg:mb-6">
                       {principle.title}
                     </h3>
-                    <div className="prose prose-indigo max-w-none">
+                    <div className="prose prose-sm sm:prose-base lg:prose-lg max-w-none text-foreground/80">
                       <PortableTextComponent value={principle.description} />
                     </div>
                   </div>
@@ -186,27 +231,38 @@ export default function MethodologyDetailSection({
         </section>
       )}
 
+      {/* Practical Applications Section */}
       {section.practicalApplications &&
         section.practicalApplications.length > 0 && (
-          <section className="py-20 bg-white">
-            <div className="max-w-6xl mx-auto px-6">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold text-indigo-700 mb-4">
+          <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Section Header */}
+              <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+                <div className="inline-flex items-center gap-3 bg-secondary text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-4 sm:mb-6 shadow-lg">
+                  <FaRocket className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="font-bold text-sm sm:text-base lg:text-lg">
+                    In Practice
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
                   Practical Applications
                 </h2>
-                <p className="text-xl text-gray-600">
-                  How we implement our methodology in daily learning
+                <div className="w-20 sm:w-24 lg:w-32 h-1 bg-gradient-to-r from-secondary to-accent rounded-full mx-auto mb-4 sm:mb-6"></div>
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/80 max-w-3xl mx-auto leading-relaxed">
+                  How we implement our methodology in daily learning experiences
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-8">
-                {section.practicalApplications.map((application) => (
+              {/* Applications Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
+                {section.practicalApplications.map((application, index) => (
                   <div
                     key={application._key}
-                    className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-2xl p-8 shadow-lg"
+                    className="bg-muted/30 rounded-xl sm:rounded-2xl lg:rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-muted group"
                   >
+                    {/* Application Image */}
                     {application.image && (
-                      <div className="relative h-48 rounded-xl overflow-hidden mb-6">
+                      <div className="relative h-48 sm:h-56 lg:h-64 rounded-lg sm:rounded-xl overflow-hidden mb-4 sm:mb-6">
                         <Image
                           src={urlFor(application.image)
                             .width(600)
@@ -214,35 +270,41 @@ export default function MethodologyDetailSection({
                             .url()}
                           alt={application.title}
                           fill
-                          className="object-cover"
+                          style={{ objectFit: "cover" }}
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       </div>
                     )}
 
-                    <h3 className="text-2xl font-bold text-indigo-700 mb-4">
+                    {/* Application Content */}
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-primary mb-3 sm:mb-4 group-hover:text-accent transition-colors duration-300">
                       {application.title}
                     </h3>
-
-                    <p className="text-gray-700 leading-relaxed mb-6">
+                    <p className="text-sm sm:text-base lg:text-lg text-foreground/80 leading-relaxed mb-4 sm:mb-6">
                       {application.description}
                     </p>
 
+                    {/* Benefits List */}
                     {application.benefits &&
                       application.benefits.length > 0 && (
                         <div>
-                          <h4 className="font-semibold text-indigo-600 mb-3">
-                            Benefits:
+                          <h4 className="font-semibold text-accent mb-3 sm:mb-4 text-sm sm:text-base">
+                            Key Benefits:
                           </h4>
-                          <ul className="space-y-2">
-                            {application.benefits.map((benefit, index) => (
-                              <li
-                                key={index}
-                                className="flex items-start gap-2"
-                              >
-                                <FaCheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                                <span className="text-gray-700">{benefit}</span>
-                              </li>
-                            ))}
+                          <ul className="space-y-2 sm:space-y-3">
+                            {application.benefits.map(
+                              (benefit, benefitIndex) => (
+                                <li
+                                  key={benefitIndex}
+                                  className="flex items-start gap-2 sm:gap-3"
+                                >
+                                  <FaCheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-secondary mt-0.5 flex-shrink-0" />
+                                  <span className="text-xs sm:text-sm lg:text-base text-foreground/80 leading-relaxed">
+                                    {benefit}
+                                  </span>
+                                </li>
+                              ),
+                            )}
                           </ul>
                         </div>
                       )}
@@ -253,32 +315,71 @@ export default function MethodologyDetailSection({
           </section>
         )}
 
+      {/* Expected Outcomes Section - Timeline Design */}
       {section.outcomes && section.outcomes.length > 0 && (
-        <section className="py-20 bg-gradient-to-br from-indigo-600 to-purple-600">
-          <div className="max-w-4xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-white mb-4">
+        <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 bg-accent overflow-hidden">
+          {/* Dark overlay for better text contrast */}
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+
+          {/* Background decorative elements */}
+          <div className="absolute -top-10 -left-10 w-32 h-32 bg-white/5 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+
+          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Section Header */}
+            <div className="text-center mb-12 sm:mb-16 text-white">
+              <div className="inline-flex items-center gap-3 bg-white/20 backdrop-blur-md border border-white/30 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full mb-6 sm:mb-8 shadow-xl">
+                <FaTrophy className="w-5 h-5 sm:w-6 sm:h-6" />
+                <span className="font-bold text-base sm:text-lg lg:text-xl">
+                  Student Success
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 drop-shadow-2xl">
                 Expected Outcomes
               </h2>
-              <p className="text-xl text-indigo-100">
-                What students achieve through our methodology
+              <div className="w-24 sm:w-28 lg:w-36 h-1.5 bg-white rounded-full mx-auto mb-6 sm:mb-8 shadow-lg"></div>
+              <p className="text-xl sm:text-2xl md:text-3xl text-white/95 max-w-3xl mx-auto leading-relaxed drop-shadow-lg font-medium">
+                What students achieve through our comprehensive methodology
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              {section.outcomes.map((outcome, index) => (
-                <div
-                  key={index}
-                  className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-white"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <span className="text-sm font-bold">{index + 1}</span>
+            {/* Timeline Layout */}
+            <div className="relative">
+              {/* Connecting Line */}
+              <div className="absolute left-6 sm:left-8 top-0 bottom-0 w-0.5 sm:w-1 bg-white/30 rounded-full"></div>
+
+              <div className="space-y-6 sm:space-y-8 lg:space-y-12">
+                {section.outcomes.map((outcome, index) => (
+                  <div key={index} className="relative flex items-center group">
+                    {/* Timeline Node */}
+                    <div className="relative z-10 w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-white rounded-full shadow-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-lg sm:text-2xl lg:text-3xl font-bold text-accent">
+                        {index + 1}
+                      </span>
+                      <div className="absolute inset-0 bg-white/30 rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
-                    <p className="text-lg leading-relaxed">{outcome}</p>
+
+                    {/* Content Card */}
+                    <div className="ml-6 sm:ml-8 lg:ml-12 flex-1 bg-white/20 backdrop-blur-lg border border-white/30 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 group-hover:bg-white/30 group-hover:border-white/50 transition-all duration-300 group-hover:-translate-y-1 hover:shadow-2xl">
+                      <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white font-semibold leading-relaxed drop-shadow-sm">
+                        {outcome}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom decoration */}
+            <div className="text-center mt-12 sm:mt-16 lg:mt-20">
+              <div className="inline-flex items-center gap-3 text-white/90 text-base sm:text-lg">
+                <div className="w-12 h-px bg-white/70"></div>
+                <span className="font-medium">
+                  Transforming Students, Shaping Futures
+                </span>
+                <div className="w-12 h-px bg-white/70"></div>
+              </div>
             </div>
           </div>
         </section>
