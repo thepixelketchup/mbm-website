@@ -46,7 +46,7 @@ export default function AchievementsSection({
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
     }
-  }, []);
+  });
 
   const totalSlides = Math.max(0, achievements.length - cardsPerView + 1);
 
