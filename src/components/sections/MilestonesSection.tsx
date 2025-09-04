@@ -1,17 +1,15 @@
 "use client";
-
 import { PortableText } from "@portabletext/react";
 import {
   FaTrophy,
-  FaArrowLeft,
   FaAward,
   FaBuilding,
   FaLightbulb,
   FaExpandArrowsAlt,
   FaGraduationCap,
+  FaStar,
 } from "react-icons/fa";
 import SubsectionTemplate from "../subsection_template/subsection-template";
-import Link from "next/link";
 
 interface Achievement {
   _key: string;
@@ -44,29 +42,28 @@ export default function MilestonesSection({ section }: MilestonesSectionProps) {
 
   const getCategoryIcon = (category: string) => {
     const icons = {
-      academic: <FaGraduationCap className="w-6 h-6" />,
-      infrastructure: <FaBuilding className="w-6 h-6" />,
-      awards: <FaAward className="w-6 h-6" />,
-      expansion: <FaExpandArrowsAlt className="w-6 h-6" />,
-      innovation: <FaLightbulb className="w-6 h-6" />,
+      academic: <FaGraduationCap className="w-5 h-5 sm:w-6 sm:h-6" />,
+      infrastructure: <FaBuilding className="w-5 h-5 sm:w-6 sm:h-6" />,
+      awards: <FaAward className="w-5 h-5 sm:w-6 sm:h-6" />,
+      expansion: <FaExpandArrowsAlt className="w-5 h-5 sm:w-6 sm:h-6" />,
+      innovation: <FaLightbulb className="w-5 h-5 sm:w-6 sm:h-6" />,
     };
     return (
-      icons[category as keyof typeof icons] || <FaTrophy className="w-6 h-6" />
+      icons[category as keyof typeof icons] || (
+        <FaTrophy className="w-5 h-5 sm:w-6 sm:h-6" />
+      )
     );
   };
 
   const getCategoryColor = (category: string) => {
     const colors = {
-      academic: "from-blue-500 to-blue-600",
-      infrastructure: "from-gray-500 to-gray-600",
-      awards: "from-yellow-500 to-yellow-600",
-      expansion: "from-purple-500 to-purple-600",
-      innovation: "from-green-500 to-green-600",
+      academic: "from-primary to-accent",
+      infrastructure: "from-accent to-secondary",
+      awards: "from-secondary to-primary",
+      expansion: "from-primary to-secondary",
+      innovation: "from-accent to-primary",
     };
-    return (
-      colors[category as keyof typeof colors] ||
-      "from-emerald-500 to-emerald-600"
-    );
+    return colors[category as keyof typeof colors] || "from-primary to-accent";
   };
 
   return (
@@ -74,31 +71,46 @@ export default function MilestonesSection({ section }: MilestonesSectionProps) {
       title={section.title}
       subtitle={section.subtitle}
       heroImage={section.heroImage}
-      backTo={{
-        text: "About",
-        url: "/about",
-      }}
+      backTo={{ text: "About", url: "/about" }}
     >
+      {/* Introduction Section */}
       {section.introduction && section.introduction.length > 0 && (
-        <section className="py-16 bg-white">
-          <div className="max-w-4xl mx-auto px-6">
-            <div className="prose prose-xl prose-emerald max-w-none text-center">
-              <PortableText value={section.introduction} />
+        <section className="py-8 sm:py-12 md:py-16 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="prose prose-sm sm:prose-base lg:prose-xl max-w-none text-center">
+              <PortableText
+                value={section.introduction}
+                components={{
+                  block: {
+                    normal: ({ children }) => (
+                      <p className="text-foreground/90 leading-relaxed mb-4 sm:mb-6">
+                        {children}
+                      </p>
+                    ),
+                  },
+                }}
+              />
             </div>
           </div>
         </section>
       )}
 
+      {/* Statistics Section */}
       {section.statistics && section.statistics.length > 0 && (
-        <section className="py-16 bg-gradient-to-r from-emerald-50 to-teal-50">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-r from-muted/30 to-muted/50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
               {section.statistics.map((stat) => (
-                <div key={stat._key} className="text-center">
-                  <div className="text-4xl font-bold text-emerald-600 mb-2">
+                <div
+                  key={stat._key}
+                  className="text-center bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-muted group"
+                >
+                  <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary mb-2 group-hover:text-accent transition-colors duration-300">
                     {stat.number}
                   </div>
-                  <div className="text-gray-700 font-medium">{stat.label}</div>
+                  <div className="text-xs sm:text-sm lg:text-base text-foreground/70 font-medium leading-tight">
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
@@ -106,80 +118,112 @@ export default function MilestonesSection({ section }: MilestonesSectionProps) {
         </section>
       )}
 
-      <section className="py-20 bg-gradient-to-br from-transparent to-emerald-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="space-y-8">
+      {/* Achievements Section */}
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-br from-transparent to-muted/30">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="space-y-6 lg:space-y-8">
             {section.achievements.map((achievement) => (
-              <div
+              <article
                 key={achievement._key}
-                className={`bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden ${
+                className={`bg-white rounded-2xl lg:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border group ${
                   achievement.isHighlight
-                    ? "border-4 border-yellow-400 shadow-yellow-100"
-                    : ""
+                    ? "border-2 border-secondary shadow-secondary/20"
+                    : "border-muted"
                 }`}
               >
-                <div className="p-8 lg:p-12">
-                  <div className="flex items-start gap-6">
-                    <div className="flex-shrink-0">
+                {/* Mobile Layout (xs-md) */}
+                <div className="block md:hidden p-4 sm:p-6">
+                  {/* Header with icon, category, and year */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
                       <div
-                        className={`w-20 h-20 bg-gradient-to-r ${getCategoryColor(achievement.category)} rounded-full flex items-center justify-center text-white shadow-lg`}
+                        className={`w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r ${getCategoryColor(achievement.category)} rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform duration-300`}
                       >
                         {getCategoryIcon(achievement.category)}
                       </div>
-                      <div className="text-center mt-2 text-sm font-bold text-gray-600">
+                      <div>
+                        <div className="text-xs sm:text-sm font-bold text-accent bg-accent/10 px-2 sm:px-3 py-1 rounded-full">
+                          {achievement.year}
+                        </div>
+                      </div>
+                    </div>
+                    {achievement.isHighlight && (
+                      <FaStar className="w-5 h-5 text-secondary flex-shrink-0" />
+                    )}
+                  </div>
+
+                  {/* Title and category */}
+                  <div className="mb-4">
+                    <h3 className="text-lg sm:text-xl font-bold text-primary mb-2 group-hover:text-accent transition-colors duration-300">
+                      {achievement.title}
+                    </h3>
+                    <div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium capitalize">
+                      {achievement.category}
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-sm sm:text-base text-foreground/90 leading-relaxed">
+                    {achievement.description}
+                  </p>
+                </div>
+
+                {/* Desktop Layout (md+) */}
+                <div className="hidden md:block p-6 lg:p-8">
+                  <div className="flex items-start gap-6">
+                    {/* Icon and Year */}
+                    <div className="flex-shrink-0 text-center">
+                      <div
+                        className={`w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-r ${getCategoryColor(achievement.category)} rounded-xl lg:rounded-2xl flex items-center justify-center text-white shadow-xl group-hover:scale-105 transition-transform duration-300`}
+                      >
+                        {getCategoryIcon(achievement.category)}
+                      </div>
+                      <div className="text-sm lg:text-base font-bold text-accent mt-3 bg-accent/10 px-3 py-1 rounded-full">
                         {achievement.year}
                       </div>
                     </div>
 
-                    <div className="flex-grow">
-                      <div className="flex items-center gap-3 mb-4">
-                        <h3 className="text-2xl font-bold text-emerald-700">
-                          {achievement.title}
-                        </h3>
-                        {achievement.isHighlight && (
-                          <FaAward className="w-6 h-6 text-yellow-500" />
-                        )}
+                    {/* Content */}
+                    <div className="flex-grow min-w-0">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex-grow min-w-0 pr-4">
+                          <div className="flex items-center gap-3 mb-3">
+                            <h3 className="text-xl lg:text-2xl xl:text-3xl font-bold text-primary group-hover:text-accent transition-colors duration-300">
+                              {achievement.title}
+                            </h3>
+                            {achievement.isHighlight && (
+                              <FaStar className="w-5 h-5 lg:w-6 lg:h-6 text-secondary flex-shrink-0" />
+                            )}
+                          </div>
+                          <div className="inline-block px-3 py-1 lg:px-4 lg:py-2 bg-primary/10 text-primary rounded-full text-sm lg:text-base font-medium capitalize">
+                            {achievement.category}
+                          </div>
+                        </div>
                       </div>
 
-                      <div className="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-sm font-medium mb-4">
-                        {achievement.category.charAt(0).toUpperCase() +
-                          achievement.category.slice(1)}
-                      </div>
-
-                      <p className="text-gray-700 leading-relaxed text-lg">
+                      <p className="text-base lg:text-lg xl:text-xl text-foreground/90 leading-relaxed">
                         {achievement.description}
                       </p>
                     </div>
                   </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-gradient-to-r from-emerald-600 to-teal-600">
-        <div className="max-w-4xl mx-auto text-center px-6">
-          <FaTrophy className="w-16 h-16 text-white mx-auto mb-6" />
-          <h3 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+      {/* Footer CTA Section */}
+      <section className="py-12 sm:py-16 bg-gradient-to-r from-primary to-accent">
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <FaTrophy className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 text-white mx-auto mb-4 sm:mb-6" />
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4">
             Excellence Recognized Globally
           </h3>
-          <p className="text-xl text-emerald-100">
+          <p className="text-base sm:text-lg lg:text-xl text-white/90 max-w-2xl mx-auto">
             Our commitment to educational excellence continues to earn
-            recognition and accolades
+            recognition and accolades worldwide
           </p>
-        </div>
-      </section>
-
-      <section className="py-8 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <Link
-            href="/about"
-            className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-800 transition-colors group"
-          >
-            <FaArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Back to About Us
-          </Link>
         </div>
       </section>
     </SubsectionTemplate>
