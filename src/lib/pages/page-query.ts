@@ -1,5 +1,5 @@
-import { groq } from 'next-sanity'
-import { client } from '@/lib/sanity.client'
+import { groq } from "next-sanity";
+import { client } from "@/lib/sanity.client";
 export const pageBySlugQuery = groq`
   *[_type == "page" && slug.current == $slug][0]{
     title,
@@ -8,9 +8,9 @@ export const pageBySlugQuery = groq`
     sections[]{
       _type,
       _key,
-      
+
       // MAIN SECTIONS
-      
+
       // Hero section fields
       _type == "heroSection" => {
         title,
@@ -38,7 +38,7 @@ export const pageBySlugQuery = groq`
           }
         }
       },
-      
+
       // Stats section fields
       _type == "statsSection" => {
         stats[]{
@@ -47,7 +47,7 @@ export const pageBySlugQuery = groq`
           label
         }
       },
-      
+
       // Education Network section fields
       _type == "educationNetworkSection" => {
         sectionTitle,
@@ -60,7 +60,7 @@ export const pageBySlugQuery = groq`
           }
         }
       },
-      
+
       // Info Cards section fields
       _type == "infoCardsSection" => {
         sectionTitle,
@@ -75,7 +75,7 @@ export const pageBySlugQuery = groq`
           }
         }
       },
-      
+
       // Achievements section fields
       _type == "achievementsSection" => {
         title,
@@ -143,7 +143,7 @@ export const pageBySlugQuery = groq`
         },
         content
       },
-      
+
       // Timeline section fields
       _type == "timelineSection" => {
         title,
@@ -166,7 +166,7 @@ export const pageBySlugQuery = groq`
           }
         }
       },
-      
+
       // Leadership Team section fields
       _type == "leadershipTeamSection" => {
         title,
@@ -188,7 +188,7 @@ export const pageBySlugQuery = groq`
           }
         }
       },
-      
+
       // Mission & Vision section fields
       _type == "missionVisionSection" => {
         title,
@@ -201,7 +201,7 @@ export const pageBySlugQuery = groq`
         valuesTitle,
         valuesContent
       },
-      
+
       // Founding Story section fields
       _type == "foundingStorySection" => {
         title,
@@ -401,9 +401,6 @@ export const pageBySlugQuery = groq`
         mediaItems[]{
           _key,
           type,
-          title,
-          caption,
-          category,
           date,
           videoUrl,
           image{
@@ -414,7 +411,7 @@ export const pageBySlugQuery = groq`
         }
       },
       // ADMISSIONS & DOWNLOADS SECTIONS
-      
+
       // Admissions section fields
       _type == "admissionsSection" => {
         title,
@@ -483,7 +480,7 @@ export const pageBySlugQuery = groq`
           }
         }
       },
-      
+
       // Academics Overview section fields
       _type == "academicsOverviewSection" => {
         title,
@@ -613,9 +610,9 @@ _type == "methodologyDetailSection" => {
 
     }
   }
-`
+`;
 export async function getPageBySlug(slug: string) {
-    return client.fetch(pageBySlugQuery, { slug })
+  return client.fetch(pageBySlugQuery, { slug });
 }
 export const allAdmissionDocumentsQuery = groq`
   *[_type == "admissionDocument" && isActive == true] | order(displayOrder asc, category asc) {
@@ -634,9 +631,9 @@ export const allAdmissionDocumentsQuery = groq`
       }
     }
   }
-`
+`;
 export async function getAllAdmissionDocuments() {
-    return client.fetch(allAdmissionDocumentsQuery)
+  return client.fetch(allAdmissionDocumentsQuery);
 }
 export const homePageQuery = groq`
   *[_type == "page" && slug.current == "home"][0]{
@@ -647,7 +644,7 @@ export const homePageQuery = groq`
       ...
     }
   }
-`
+`;
 export const aboutPageQuery = groq`
   *[_type == "page" && slug.current == $slug][0]{
     title,
@@ -657,4 +654,4 @@ export const aboutPageQuery = groq`
       ...
     }
   }
-`
+`;
