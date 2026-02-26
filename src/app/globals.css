@@ -2,59 +2,73 @@
 
 /* Define your theme variables */
 @theme {
-  --color-primary: #832996c9;
-  --color-secondary: #e79f4f;
-  --color-accent: #a271a2;
-  --color-muted: #ededed;
-  --color-background: #9750a6;
-  --color-foreground: #0f172a;
-
-  /* ✅ Link Tailwind font tokens to Next.js font vars */
+  --color-primary: #581c87; /* Deep elegant purple */
+  --color-secondary: #f59e0b; /* Amber/Gold */
+  --color-accent: #8b5cf6; /* Vibrant secondary purple */
+  --color-muted: #f3f4f6; /* Light gray */
+  --color-background: #ffffff; /* Clean white */
+  --color-foreground: #0f172a; /* Slate 900 text */
+  --color-card: rgba(255, 255, 255, 0.8);
+  
+  /* Link Tailwind font tokens to Next.js font vars */
   --font-sans: var(--font-content), system-ui, sans-serif;
   --font-serif: var(--font-headings), serif;
   --font-mono: "Fira Code", monospace;
+
+  /* Custom utility extensions */
+  --animate-soft-bounce: soft-bounce 2s infinite;
 }
 
 /* Base styles for HTML tags */
 @layer base {
   body {
-    @apply font-sans;
+    @apply font-sans bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
   }
 
   h1 {
-    @apply text-3xl sm:text-4xl md:text-5xl font-bold font-serif;
+    @apply text-4xl sm:text-5xl md:text-6xl font-bold font-serif tracking-tight text-foreground;
   }
 
   h2 {
-    @apply lg:text-5xl sm:text-4xl text-3xl font-normal font-serif;
+    @apply text-3xl sm:text-4xl md:text-5xl font-semibold font-serif tracking-tight text-foreground;
   }
 
   h3 {
-    @apply text-3xl font-semibold font-serif;
+    @apply text-2xl sm:text-3xl font-semibold font-serif text-foreground;
   }
 
   h4 {
-    @apply text-2xl font-semibold font-serif;
+    @apply text-xl sm:text-2xl font-semibold font-serif text-foreground;
   }
 
   h5 {
-    @apply text-xl font-semibold font-serif;
+    @apply text-lg sm:text-xl font-medium font-sans text-foreground;
   }
 
   h6 {
-    @apply text-lg font-semibold font-serif;
+    @apply text-base font-medium font-sans text-foreground;
   }
-  /*
+
   p {
-    @apply text-sm sm:text-base md:text-lg lg:text-xl font-sans text-foreground leading-relaxed;
-  }*/
+    @apply text-base sm:text-lg text-foreground/80 leading-relaxed max-w-prose;
+  }
 
   a {
-    @apply text-primary transition;
+    @apply text-primary transition-colors duration-200 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-sm;
   }
-  /*
-  button {
-    @apply text-white font-sans px-6 py-3 rounded-xl transition
-         bg-gradient-to-r from-primary via-accent to-secondary;
-  }*/
+}
+
+/* Custom utilities */
+@layer utilities {
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
+  }
+  
+  .glass-dark {
+    @apply bg-slate-900/70 backdrop-blur-md border border-white/10 shadow-sm text-white;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-secondary;
+  }
 }

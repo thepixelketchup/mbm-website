@@ -2,7 +2,9 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { urlFor } from '@/lib/sanity.client'
+import { Camera, ArrowRight, Expand } from 'lucide-react'
 
 interface GallerySectionProps {
     section: {
@@ -16,45 +18,114 @@ interface GallerySectionProps {
 export default function GallerySection({ section }: GallerySectionProps) {
     if (!section?.images?.length) return null
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.2
+            }
+        }
+    }
+
+    const itemVariants = {
+        hidden: { opacity: 0, scale: 0.8, y: 30 },
+        visible: {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            transition: { duration: 0.6, ease: "easeOut" as any }
+        }
+    }
+
     return (
-        <section className="py-16 bg-gradient-to-br bg-white from-primary/10 to-secondary/10">
-            <div className="max-w-7xl mx-auto px-6">
+        <section className="py-24 relative bg-background overflow-hidden">
+            <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
 
-                {/* Section Title */}
-                <div className="text-center mb-12">
-                    <h2 className="text-lg lg:text-2xl font-normal text-primary mb-4">
-                        {section.sectionTitle}
-                    </h2>
-                </div>
-
-                {/* Image Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                    {section.images.map((image, index) => (
-                        <div
-                            key={image._key || index}
-                            className="group relative aspect-[4/5] rounded-2xl overflow-hidden shadow-lg max-h-[300px] hover:shadow-xl transition-shadow duration-300 w-full"
-                        >
-                            <Image
-                                src={urlFor(image).width(400).height(500).url()}
-                                alt={`Gallery image ${index + 1}`}
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-
-                            {/* Subtle overlay on hover */}
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                {/* Section Header */}
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
+                >
+                    <div className="max-w-2xl">
+                        <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-6 border border-primary/20">
+                            <Camera className="w-4 h-4" />
+                            <span className="font-semibold text-sm tracking-wide uppercase">
+                                Campus Life
+                            </span>
                         </div>
-                    ))}
-                </div>
+                        <h2 className="text-4xl md:text-5xl font-bold font-serif text-foreground">
+                            {section.sectionTitle}
+                        </h2>
+                    </div>
 
-                {/* CTA Button */}
+                    {/* Desktop CTA */}
+                    {section.ctaUrl && section.ctaText && (
+                        <div className="hidden md:block">
+                            <Link
+                                href={section.ctaUrl}
+                                className="group relative inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-primary transition-all duration-300 bg-primary/10 rounded-full hover:bg-primary hover:text-white border border-primary/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary overflow-hidden"
+                            >
+                                <span className="relative z-10 flex items-center">
+                                    {section.ctaText}
+                                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                </span>
+                            </Link>
+                        </div>
+                    )}
+                </motion.div>
+
+                {/* Responsive Masonry-like Grid */}
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-100px" }}
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12"
+                >
+                    {section.images.slice(0, 8).map((image, index) => {
+                        // Make the first item larger on desktop grids
+                        const isFeatured = index === 0 || index === 5;
+
+                        return (
+                            <motion.div
+                                variants={itemVariants}
+                                key={image._key || index}
+                                className={`group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 w-full ${isFeatured ? "sm:col-span-2 sm:row-span-2 aspect-[4/3] sm:aspect-auto" : "aspect-[4/3] sm:aspect-[4/5] "
+                                    }`}
+                            >
+                                <Image
+                                    src={urlFor(image).width(isFeatured ? 800 : 400).height(isFeatured ? 600 : 500).url()}
+                                    alt={`Gallery image ${index + 1}`}
+                                    fill
+                                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                                />
+
+                                {/* Glassmorphic Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                    <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transform scale-50 group-hover:scale-100 transition-all duration-500 delay-100 text-white border border-white/50">
+                                        <Expand className="w-6 h-6" />
+                                    </div>
+                                </div>
+                            </motion.div>
+                        );
+                    })}
+                </motion.div>
+
+                {/* Mobile CTA */}
                 {section.ctaUrl && section.ctaText && (
-                    <div className="text-center">
+                    <div className="md:hidden text-center mt-10">
                         <Link
                             href={section.ctaUrl}
-                            className="inline-block bg-gradient-to-r from-primary via-accent to-secondary text-white px-2 py-2 font-bold md:py-4 md:px-12 rounded-full text-lg tracking-wide transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                            className="group relative inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white transition-all duration-300 bg-primary rounded-full hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 overflow-hidden w-full"
                         >
-                            {section.ctaText}
+                            <span className="relative z-10 flex items-center">
+                                {section.ctaText}
+                                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            </span>
                         </Link>
                     </div>
                 )}
@@ -62,3 +133,4 @@ export default function GallerySection({ section }: GallerySectionProps) {
         </section>
     )
 }
+

@@ -1,25 +1,26 @@
 "use client";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { urlFor } from "@/lib/sanity.client";
 import {
-  FaBook,
-  FaGraduationCap,
-  FaUsers,
-  FaTrophy,
-  FaBuilding,
-  FaFlask,
-  FaFutbol,
-  FaUtensils,
-  FaPalette,
-  FaLaptopCode,
-  FaDownload,
-  FaArrowRight,
-  FaPlay,
-  FaCalendarAlt,
-  FaFileAlt,
-  FaChartLine,
-  FaEye,
-} from "react-icons/fa";
+  BookOpen,
+  GraduationCap,
+  Users,
+  Trophy,
+  Building2,
+  FlaskConical,
+  Activity,
+  Utensils,
+  Palette,
+  Laptop,
+  Download,
+  ArrowRight,
+  Play,
+  CalendarDays,
+  FileText,
+  TrendingUp,
+  Eye,
+} from "lucide-react";
 import { JSX } from "react";
 import SubsectionTemplate from "../subsection_template/subsection-template";
 
@@ -47,7 +48,7 @@ interface Facility {
   icon?: string;
 }
 
-interface Activity {
+interface ActivityType {
   _key: string;
   name: string;
   description: string;
@@ -86,7 +87,7 @@ interface AcademicsOverviewSectionProps {
     activitiesHighlights?: {
       title: string;
       description: string;
-      featuredActivities?: Activity[];
+      featuredActivities?: ActivityType[];
       viewAllLink: string;
     };
     galleryHighlights?: {
@@ -106,49 +107,38 @@ export default function AcademicsOverviewSection({
 
   const getIcon = (iconName?: string) => {
     const icons: Record<string, JSX.Element> = {
-      FaBook: <FaBook className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />,
-      FaUsers: <FaUsers className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />,
-      FaTrophy: <FaTrophy className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />,
-      FaGraduationCap: (
-        <FaGraduationCap className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-      ),
-      FaChartLine: (
-        <FaChartLine className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-      ),
-      FaBuilding: (
-        <FaBuilding className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-      ),
-      FaFlask: <FaFlask className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />,
-      FaFutbol: <FaFutbol className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />,
-      FaUtensils: (
-        <FaUtensils className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-      ),
-      FaPalette: <FaPalette className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />,
-      FaLaptopCode: (
-        <FaLaptopCode className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-      ),
-      FaCalendarAlt: (
-        <FaCalendarAlt className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-      ),
-      FaFileAlt: <FaFileAlt className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />,
+      FaBook: <BookOpen className="w-5 h-5 lg:w-6 lg:h-6" />,
+      FaUsers: <Users className="w-5 h-5 lg:w-6 lg:h-6" />,
+      FaTrophy: <Trophy className="w-5 h-5 lg:w-6 lg:h-6" />,
+      FaGraduationCap: <GraduationCap className="w-5 h-5 lg:w-6 lg:h-6" />,
+      FaChartLine: <TrendingUp className="w-5 h-5 lg:w-6 lg:h-6" />,
+      FaBuilding: <Building2 className="w-5 h-5 lg:w-6 lg:h-6" />,
+      FaFlask: <FlaskConical className="w-5 h-5 lg:w-6 lg:h-6" />,
+      FaFutbol: <Activity className="w-5 h-5 lg:w-6 lg:h-6" />,
+      FaUtensils: <Utensils className="w-5 h-5 lg:w-6 lg:h-6" />,
+      FaPalette: <Palette className="w-5 h-5 lg:w-6 lg:h-6" />,
+      FaLaptopCode: <Laptop className="w-5 h-5 lg:w-6 lg:h-6" />,
+      FaCalendarAlt: <CalendarDays className="w-5 h-5 lg:w-6 lg:h-6" />,
+      FaFileAlt: <FileText className="w-5 h-5 lg:w-6 lg:h-6" />,
     };
     return (
       icons[iconName || "FaBook"] || (
-        <FaBook className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
+        <BookOpen className="w-5 h-5 lg:w-6 lg:h-6" />
       )
     );
   };
 
-  const getColorClasses = (color?: string) => {
-    const colors = {
-      blue: "from-primary to-accent hover:from-accent hover:to-primary",
-      green: "from-accent to-secondary hover:from-secondary hover:to-accent",
-      purple: "from-primary to-accent hover:from-accent hover:to-secondary",
-      orange: "from-secondary to-accent hover:from-accent hover:to-primary",
-      pink: "from-accent to-secondary hover:from-primary hover:to-accent",
-      teal: "from-accent to-primary hover:from-primary hover:to-secondary",
-    };
-    return colors[color as keyof typeof colors] || colors.blue;
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as any } }
   };
 
   return (
@@ -164,89 +154,120 @@ export default function AcademicsOverviewSection({
     >
       {/* Academic Statistics Section */}
       {section.academicStats && section.academicStats.length > 0 && (
-        <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-r from-muted/30 to-muted/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
-                Academic Excellence in Numbers
-              </h2>
-              <div className="w-20 sm:w-24 lg:w-32 h-1 bg-gradient-to-r from-secondary to-accent rounded-full mx-auto"></div>
-            </div>
+        <section className="py-20 lg:py-28 relative bg-background overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
 
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl md:text-5xl font-bold font-serif text-foreground mb-6">
+                Academic Excellence
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto" />
+            </motion.div>
+
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8"
+            >
               {section.academicStats.map((stat) => (
-                <div
+                <motion.div
+                  variants={fadeInUp}
                   key={stat._key}
-                  className="text-center bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-muted group hover:-translate-y-2"
+                  className="glass p-8 rounded-[2rem] text-center border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:-translate-y-2 group relative overflow-hidden"
                 >
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 text-white group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    {getIcon(stat.icon)}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative z-10">
+                    <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-primary group-hover:scale-110 transition-transform duration-300 group-hover:bg-primary group-hover:text-white">
+                      {getIcon(stat.icon)}
+                    </div>
+                    <div className="text-4xl lg:text-5xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
+                      {stat.number}
+                    </div>
+                    <div className="text-sm md:text-base text-foreground/70 font-medium">
+                      {stat.label}
+                    </div>
                   </div>
-                  <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-primary mb-2 group-hover:text-accent transition-colors duration-300">
-                    {stat.number}
-                  </div>
-                  <div className="text-xs sm:text-sm lg:text-base text-foreground/70 font-medium leading-tight">
-                    {stat.label}
-                  </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
       )}
 
       {/* Curriculum Highlights Section */}
       {section.curriculumHighlights && (
-        <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
+        <section className="py-20 lg:py-28 bg-muted/30">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl md:text-5xl font-bold font-serif text-foreground mb-6">
                 {section.curriculumHighlights.title}
               </h2>
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/80 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-lg text-foreground/70 max-w-3xl mx-auto leading-relaxed">
                 {section.curriculumHighlights.description}
               </p>
-            </div>
+            </motion.div>
 
             {section.curriculumHighlights.featuredDocuments &&
               section.curriculumHighlights.featuredDocuments.length > 0 && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
+                <motion.div
+                  variants={staggerContainer}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+                >
                   {section.curriculumHighlights.featuredDocuments.map((doc) => (
-                    <div
+                    <motion.div
+                      variants={fadeInUp}
                       key={doc._id}
-                      className="bg-gradient-to-br from-primary/5 to-accent/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:shadow-lg transition-all duration-300 group border border-muted"
+                      className="bg-white rounded-[2rem] p-8 shadow-sm hover:shadow-xl transition-all duration-300 group border border-transparent hover:border-primary/20"
                     >
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
-                        <FaFileAlt className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                      <div className="w-14 h-14 bg-primary/5 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
+                        <FileText className="w-6 h-6 text-primary group-hover:text-white transition-colors" />
                       </div>
-                      <h3 className="text-base sm:text-lg font-bold text-primary mb-2 sm:mb-3 line-clamp-2">
+                      <h3 className="text-xl font-bold text-foreground mb-3 line-clamp-2">
                         {doc.title}
                       </h3>
                       {doc.description && (
-                        <p className="text-xs sm:text-sm text-foreground/70 mb-3 sm:mb-4 line-clamp-3">
+                        <p className="text-sm text-foreground/60 mb-6 line-clamp-3">
                           {doc.description}
                         </p>
                       )}
                       <a
                         href={doc.file.asset.url}
                         download
-                        className="inline-flex items-center gap-2 text-primary font-semibold text-sm sm:text-base group-hover:text-accent transition-colors duration-300"
+                        className="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:text-accent transition-colors duration-300"
                       >
-                        <FaDownload className="w-3 h-3 sm:w-4 sm:h-4" />
-                        Download
+                        <Download className="w-4 h-4" />
+                        Download PDF
                       </a>
-                    </div>
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
               )}
 
             <div className="text-center">
               <a
                 href={section.curriculumHighlights.viewAllLink}
-                className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-primary to-accent text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base hover:from-accent hover:to-secondary transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                className="inline-flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-full font-semibold hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 group"
               >
                 View Complete Curriculum
-                <FaArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </div>
@@ -255,237 +276,136 @@ export default function AcademicsOverviewSection({
 
       {/* Facilities Highlights Section */}
       {section.facilitiesHighlights && (
-        <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-br from-muted/20 to-muted/40">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
+        <section className="py-20 lg:py-28 relative bg-white overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl md:text-5xl font-bold font-serif text-foreground mb-6">
                 {section.facilitiesHighlights.title}
               </h2>
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/80 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-lg text-foreground/70 max-w-3xl mx-auto leading-relaxed">
                 {section.facilitiesHighlights.description}
               </p>
-            </div>
+            </motion.div>
 
             {section.facilitiesHighlights.featuredFacilities &&
               section.facilitiesHighlights.featuredFacilities.length > 0 && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
+                <motion.div
+                  variants={staggerContainer}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
+                >
                   {section.facilitiesHighlights.featuredFacilities.map(
                     (facility) => (
-                      <div
+                      <motion.div
+                        variants={fadeInUp}
                         key={facility._key}
-                        className="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group border border-muted hover:-translate-y-2"
+                        className="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group border border-gray-100 flex flex-col"
                       >
                         {facility.image && (
-                          <div className="relative h-40 sm:h-48 lg:h-56 overflow-hidden">
+                          <div className="relative h-64 overflow-hidden">
                             <Image
-                              src={urlFor(facility.image)
-                                .width(500)
-                                .height(300)
-                                .url()}
+                              src={urlFor(facility.image).width(600).height(400).url()}
                               alt={facility.name}
                               fill
-                              className="object-cover group-hover:scale-110 transition-transform duration-500"
+                              className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60" />
                           </div>
                         )}
-                        <div className="p-4 sm:p-6">
-                          <div className="flex items-center mb-3 sm:mb-4">
-                            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-accent to-secondary rounded-lg flex items-center justify-center mr-3 text-white group-hover:scale-110 transition-transform duration-300">
+                        <div className="p-8 flex-1 flex flex-col">
+                          <div className="flex items-center mb-6">
+                            <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mr-4 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                               {getIcon(facility.icon)}
                             </div>
-                            <h3 className="text-base sm:text-lg lg:text-xl font-bold text-primary group-hover:text-accent transition-colors duration-300">
+                            <h3 className="text-xl font-bold text-foreground">
                               {facility.name}
                             </h3>
                           </div>
-                          <p className="text-sm sm:text-base text-foreground/80 leading-relaxed line-clamp-3">
+                          <p className="text-foreground/70 leading-relaxed">
                             {facility.description}
                           </p>
                         </div>
-                      </div>
+                      </motion.div>
                     ),
                   )}
-                </div>
+                </motion.div>
               )}
 
             <div className="text-center">
               <a
                 href={section.facilitiesHighlights.viewAllLink}
-                className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-accent to-secondary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base hover:from-secondary hover:to-primary transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                className="inline-flex items-center gap-3 bg-secondary text-white px-8 py-4 rounded-full font-semibold hover:bg-secondary/90 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/30 group"
               >
                 Explore All Facilities
-                <FaArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </div>
         </section>
       )}
-
-      {/* Activities Highlights Section */}
-      {section.activitiesHighlights && (
-        <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
-                {section.activitiesHighlights.title}
-              </h2>
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/80 max-w-4xl mx-auto leading-relaxed">
-                {section.activitiesHighlights.description}
-              </p>
-            </div>
-
-            {section.activitiesHighlights.featuredActivities &&
-              section.activitiesHighlights.featuredActivities.length > 0 && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
-                  {section.activitiesHighlights.featuredActivities.map(
-                    (activity) => (
-                      <div key={activity._key} className="group">
-                        <div className="relative overflow-hidden rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500">
-                          {activity.image && (
-                            <div className="relative h-48 sm:h-56 lg:h-64">
-                              <Image
-                                src={urlFor(activity.image)
-                                  .width(400)
-                                  .height(400)
-                                  .url()}
-                                alt={activity.name}
-                                fill
-                                className="object-cover group-hover:scale-110 transition-transform duration-500"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                              <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white">
-                                <h3 className="text-sm sm:text-base lg:text-lg font-bold mb-1 sm:mb-2">
-                                  {activity.name}
-                                </h3>
-                                {activity.category && (
-                                  <span className="text-xs sm:text-sm bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full">
-                                    {activity.category}
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                        <p className="text-sm sm:text-base text-foreground/80 mt-3 sm:mt-4 px-2 leading-relaxed line-clamp-3">
-                          {activity.description}
-                        </p>
-                      </div>
-                    ),
-                  )}
-                </div>
-              )}
-
-            <div className="text-center">
-              <a
-                href={section.activitiesHighlights.viewAllLink}
-                className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-accent to-secondary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base hover:from-primary hover:to-accent transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
-              >
-                Discover All Activities
-                <FaArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
-              </a>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Gallery Highlights Section */}
-      {section.galleryHighlights &&
-        section.galleryHighlights.featuredImages && (
-          <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-br from-primary/5 to-accent/10">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
-                  {section.galleryHighlights.title}
-                </h2>
-                <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/80 max-w-4xl mx-auto leading-relaxed">
-                  {section.galleryHighlights.description}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-12">
-                {section.galleryHighlights.featuredImages
-                  .slice(0, 8)
-                  .map((image, index) => (
-                    <div
-                      key={index}
-                      className="relative aspect-square rounded-xl sm:rounded-2xl overflow-hidden group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300"
-                    >
-                      <Image
-                        src={urlFor(image).width(400).height(400).url()}
-                        alt="Gallery image"
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/30">
-                          <FaEye className="w-4 h-4 sm:w-5 sm:h-5 text-white ml-0.5" />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-
-              <div className="text-center">
-                <a
-                  href={section.galleryHighlights.viewAllLink}
-                  className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-primary to-accent text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base hover:from-accent hover:to-secondary transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
-                >
-                  View Complete Gallery
-                  <FaArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
-                </a>
-              </div>
-            </div>
-          </section>
-        )}
 
       {/* Quick Links Section */}
       {section.quickLinks && section.quickLinks.length > 0 && (
-        <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
+        <section className="py-20 lg:py-28 bg-gradient-to-b from-transparent to-muted/30">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl md:text-5xl font-bold font-serif text-foreground mb-6">
                 Quick Access
               </h2>
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/80">
-                Find what you're looking for faster
-              </p>
-            </div>
+            </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
               {section.quickLinks.map((link) => (
-                <a
+                <motion.a
+                  variants={fadeInUp}
                   key={link._key}
                   href={link.url}
-                  className={`group block p-4 sm:p-6 bg-gradient-to-r ${getColorClasses(link.color)} text-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2`}
+                  className="glass block p-8 rounded-[2rem] hover:-translate-y-2 transition-transform duration-300 group border border-primary/10 hover:border-primary"
                 >
-                  <div className="flex items-center mb-3 sm:mb-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center mr-3 sm:mr-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="flex items-center mb-6">
+                    <div className="w-14 h-14 bg-primary text-white rounded-2xl flex items-center justify-center mr-5 group-hover:scale-110 transition-transform shadow-md">
                       {getIcon(link.icon)}
                     </div>
-                    <div>
-                      <h3 className="text-base sm:text-lg lg:text-xl font-bold">
-                        {link.title}
-                      </h3>
-                    </div>
+                    <h3 className="text-xl font-bold text-foreground">
+                      {link.title}
+                    </h3>
                   </div>
                   {link.description && (
-                    <p className="text-white/90 mb-3 sm:mb-4 text-sm sm:text-base line-clamp-3">
+                    <p className="text-foreground/70 mb-6 line-clamp-2">
                       {link.description}
                     </p>
                   )}
-                  <div className="flex items-center text-white group-hover:translate-x-2 transition-transform duration-300">
-                    <span className="font-semibold mr-2 text-sm sm:text-base">
-                      Access Now
-                    </span>
-                    <FaArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <div className="flex items-center text-primary group-hover:translate-x-2 transition-transform duration-300 font-semibold">
+                    Access Now
+                    <ArrowRight className="w-5 h-5 ml-2" />
                   </div>
-                </a>
+                </motion.a>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
       )}
     </SubsectionTemplate>
   );
 }
+

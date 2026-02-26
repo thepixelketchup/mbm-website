@@ -1,8 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, X, ChevronDown } from 'lucide-react'
 import { NavItem } from '@/lib/navigation/navbar/nav-types'
 
 interface Props {
@@ -12,135 +14,168 @@ interface Props {
 
 export default function NavBar({ logo, items }: Props) {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-50 w-screen bg-background shadow-sm">
-      <nav className="flex items-center justify-between px-4 py-2 lg:px-4 w-full">
-        
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
+        scrolled ? 'py-2 glass shadow-md' : 'py-4 bg-transparent'
+      }`}
+    >
+      <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 lg:px-8 w-full">
         {/* Logo */}
-        <Link href="/" className="flex w-12">
+        <Link href="/" className="flex items-center space-x-2 z-50 relative">
           {logo ? (
             <Image
               src={logo}
               alt="Logo"
               width={140}
               height={45}
-              className="h-10 object-contain"
+              className="h-10 object-contain drop-shadow-sm"
+              priority
             />
           ) : (
-            <span className="text-xl font-bold text-white tracking-wide">
+            <span className="text-2xl font-bold text-primary font-serif tracking-wide drop-shadow-sm">
               PODAR
             </span>
           )}
         </Link>
 
         {/* Desktop Navigation */}
-        <ul className="hidden lg:flex items-center">
+        <ul className="hidden lg:flex items-center space-x-1">
           {items.map((link) => (
             <li key={link.label} className="relative group">
               {link.submenu?.length ? (
                 <>
                   <Link
                     href={link.href ?? '#'}
-                    className="flex items-center font-medium text-white px-6 py-3 rounded-xl hover:text-foreground hover:bg-white"
+                    className="flex items-center font-medium text-foreground/80 px-4 py-2.5 rounded-full hover:text-primary hover:bg-primary/5 transition-all duration-200"
                   >
                     {link.label}
-                    <svg
-                      className="ml-1 w-4 h-4"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                    <ChevronDown className="ml-1 w-4 h-4 text-foreground/50 group-hover:text-primary transition-transform duration-200 group-hover:rotate-180" />
                   </Link>
 
-                  {/* Dropdown */}
-                  <ul className="absolute left-0 mt-2 w-52 rounded-xl bg-white shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    {link.submenu.map((sub) => (
-                      <li key={sub.label}>
-                        <Link
-                          href={sub.href}
-                          className="block px-5 py-3 text-sm text-foreground hover:bg-muted/50 rounded-lg transition"
-                        >
-                          {sub.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                  {/* Dropdown Menu */}
+                  <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-left scale-95 group-hover:scale-100">
+                    <ul className="w-56 p-2 rounded-2xl glass shadow-xl border border-white/50">
+                      {link.submenu.map((sub) => (
+                        <li key={sub.label}>
+                          <Link
+                            href={sub.href}
+                            className="block px-4 py-2.5 text-sm font-medium text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-colors duration-200"
+                          >
+                            {sub.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </>
               ) : (
                 <Link
                   href={link.href}
-                  className="font-medium text-white px-6 py-3 rounded-xl 
-                             hover:bg-white hover:text-foreground"
+                  className="font-medium text-foreground/80 px-4 py-2.5 rounded-full hover:text-primary hover:bg-primary/5 transition-all duration-200"
                 >
                   {link.label}
                 </Link>
               )}
             </li>
           ))}
+          
+          {/* CTA Button Example - can be dynamic if needed */}
+          <li className="pl-4">
+            <Link 
+              href="/admissions" 
+              className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white transition-all duration-200 bg-primary border border-transparent rounded-full hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            >
+              Apply Now
+            </Link>
+          </li>
         </ul>
 
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setOpen(!open)}
-          className="lg:hidden p-2 rounded-md text-white hover:bg-primary/80 transition"
+          className="lg:hidden p-2 -mr-2 text-foreground/80 hover:text-primary transition-colors focus:outline-none z-50 relative"
           aria-label="Toggle menu"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d={open ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
-            />
-          </svg>
+          {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </nav>
 
       {/* Mobile Navigation */}
-      {open && (
-        <div className="lg:hidden bg-background">
-          <ul className="px-6 py-4 space-y-2 overflow-y-scroll">
-            {items.map((link) => (
-              <li key={link.label}>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: '100vh' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl lg:hidden overflow-y-auto"
+          >
+            <div className="flex flex-col pt-24 pb-8 px-6 min-h-screen">
+              <ul className="space-y-4 flex-1">
+                {items.map((link, index) => (
+                  <motion.li 
+                    key={link.label}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1, duration: 0.3 }}
+                    className="border-b border-primary/10 pb-4"
+                  >
+                    <Link
+                      href={link.href}
+                      className="text-2xl font-serif text-foreground hover:text-primary transition-colors block"
+                      onClick={() => setOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+
+                    {link.submenu?.length && (
+                      <ul className="pt-4 space-y-3 pl-4">
+                        {link.submenu.map((sub) => (
+                          <li key={sub.label}>
+                            <Link
+                              href={sub.href}
+                              className="block text-lg text-foreground/70 hover:text-primary transition-colors"
+                              onClick={() => setOpen(false)}
+                            >
+                              {sub.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </motion.li>
+                ))}
+              </ul>
+              
+              <div className="pt-8 w-full mt-auto">
                 <Link
-                  href={link.href}
-                  className="block font-medium text-white rounded-lg"
+                  href="/admissions"
+                  className="w-full flex items-center justify-center px-6 py-4 text-lg font-semibold text-white bg-primary rounded-xl focus:outline-none"
                   onClick={() => setOpen(false)}
                 >
-                  {link.label}
+                  Apply Now
                 </Link>
-
-                {link.submenu?.length && (
-                  <ul className="pl-4 space-y-1">
-                    {link.submenu.map((sub) => (
-                      <li key={sub.label}>
-                        <Link
-                          href={sub.href}
-                          className="block py-2 text-white w-full"
-                          onClick={() => setOpen(false)}
-                        >
-                          {sub.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </header>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   )
 }
+

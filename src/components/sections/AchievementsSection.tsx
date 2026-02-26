@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { urlFor } from "@/lib/sanity.client";
-import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
-import { FaArrowRight, FaTrophy, FaEye } from "react-icons/fa";
+import { ChevronLeft, ChevronRight, ArrowRight, Trophy, Eye } from "lucide-react";
 
 interface Achievement {
   _key: string;
@@ -25,143 +25,158 @@ export default function AchievementsSection({
   section,
 }: AchievementsSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardsPerView, setCardsPerView] = useState(3);
   const { achievements } = section;
 
-  // Responsive cards per view
-  const getCardsPerView = () => {
-    if (typeof window !== "undefined") {
-      if (window.innerWidth >= 1024) return 3; // lg and above
-      if (window.innerWidth >= 768) return 2; // md
-      return 1; // sm and below
-    }
-    return 3; // default for SSR
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) setCardsPerView(3);
+      else if (window.innerWidth >= 768) setCardsPerView(2);
+      else setCardsPerView(1);
+    };
 
-  const [cardsPerView, setCardsPerView] = useState(getCardsPerView());
+    handleResize(); // Initial call
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-  // Update cards per view on resize
-  useState(() => {
-    if (typeof window !== "undefined") {
-      const handleResize = () => setCardsPerView(getCardsPerView());
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }
-  });
+  const totalSlides = Math.max(0, achievements?.length - cardsPerView + 1);
 
-  const totalSlides = Math.max(0, achievements.length - cardsPerView + 1);
+  const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % totalSlides);
+  const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % totalSlides);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
-  };
-
-  const visibleAchievements = achievements.slice(
+  const visibleAchievements = achievements?.slice(
     currentIndex,
     currentIndex + cardsPerView,
-  );
+  ) || [];
+
+  if (!achievements?.length) return null;
 
   return (
-    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-br from-muted/20 to-muted/40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 relative bg-background overflow-hidden">
+      {/* Soft decorative background elements */}
+      <div className="absolute left-0 bottom-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[100px] -translate-x-1/2 translate-y-1/2 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+
         {/* Section Header */}
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-          <div className="inline-flex items-center gap-3 bg-primary text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-4 sm:mb-6 shadow-lg">
-            <FaTrophy className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span className="font-bold text-sm sm:text-base lg:text-lg">
-              Our Success
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-6 border border-primary/20">
+            <Trophy className="w-4 h-4" />
+            <span className="font-semibold text-sm tracking-wide uppercase">
+              Hall of Fame
             </span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
+
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-serif text-foreground mb-6">
             {section.title}
           </h2>
-          <div className="w-20 sm:w-24 lg:w-32 h-1 bg-gradient-to-r from-secondary to-accent rounded-full mx-auto mb-4 sm:mb-6"></div>
+
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mb-6" />
+
           {section.subtitle && (
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/80 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto leading-relaxed">
               {section.subtitle}
             </p>
           )}
-        </div>
+        </motion.div>
 
         {/* Carousel Container */}
-        <div className="relative">
+        <div className="relative group/carousel">
           {/* Navigation Buttons */}
           {totalSlides > 1 && (
-            <>
+            <div className="hidden sm:block">
               <button
                 onClick={prevSlide}
-                className="absolute left-0 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white hover:bg-primary hover:text-white border-2 border-primary shadow-xl rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-                aria-label="Previous achievements"
+                className="absolute -left-4 md:-left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white text-foreground hover:bg-primary hover:text-white border border-gray-200 shadow-xl rounded-full flex items-center justify-center transition-all duration-300 opacity-0 group-hover/carousel:opacity-100 transform -translate-x-4 group-hover/carousel:translate-x-0"
+                aria-label="Previous"
               >
-                <CgChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                <ChevronLeft className="w-6 h-6" />
               </button>
               <button
                 onClick={nextSlide}
-                className="absolute right-0 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white hover:bg-primary hover:text-white border-2 border-primary shadow-xl rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-                aria-label="Next achievements"
+                className="absolute -right-4 md:-right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white text-foreground hover:bg-primary hover:text-white border border-gray-200 shadow-xl rounded-full flex items-center justify-center transition-all duration-300 opacity-0 group-hover/carousel:opacity-100 transform translate-x-4 group-hover/carousel:translate-x-0"
+                aria-label="Next"
               >
-                <CgChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                <ChevronRight className="w-6 h-6" />
               </button>
-            </>
+            </div>
           )}
 
           {/* Achievement Cards Grid */}
-          <div className="px-2 sm:px-8 lg:px-16">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-              {visibleAchievements.map((achievement, index) => (
-                <article
-                  key={achievement._key}
-                  className="group bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-muted hover:-translate-y-2"
-                >
-                  {/* Image Container - Updated with object-cover */}
-                  <div className="relative h-48 sm:h-56 lg:h-64 overflow-hidden">
-                    {achievement.image && (
-                      <Image
-                        src={urlFor(achievement.image)
-                          .width(600)
-                          .height(400)
-                          .url()}
-                        alt={achievement.description}
-                        fill
-                        style={{ objectFit: "cover" }}
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      />
-                    )}
+          <div className="overflow-hidden px-2 py-4">
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                key={currentIndex}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+              >
+                {visibleAchievements.map((achievement, index) => (
+                  <motion.article
+                    key={achievement._key}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                    className="group bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-primary/20 flex flex-col h-full"
+                  >
+                    {/* Image Container */}
+                    <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-50">
+                      {achievement.image ? (
+                        <Image
+                          src={urlFor(achievement.image).width(800).height(600).url()}
+                          alt={achievement.description || "Achievement"}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-300 bg-gray-100">
+                          <Trophy className="w-16 h-16 opacity-50" />
+                        </div>
+                      )}
 
-                    {/* Overlay on hover */}
-                    <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                        <FaEye className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                      {/* Overlay on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transform scale-50 group-hover:scale-100 transition-all duration-500 delay-100 text-white">
+                          <Eye className="w-6 h-6" />
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Content */}
-                  <div className="p-4 sm:p-6">
-                    <p className="text-sm sm:text-base lg:text-lg text-foreground/80 leading-relaxed text-center group-hover:text-primary transition-colors duration-300">
-                      {achievement.description}
-                    </p>
-                  </div>
-                </article>
-              ))}
-            </div>
+                    {/* Content */}
+                    <div className="p-6 md:p-8 flex-1 flex items-center justify-center text-center">
+                      <p className="text-lg text-foreground/80 leading-relaxed font-medium line-clamp-4">
+                        {achievement.description}
+                      </p>
+                    </div>
+
+                    {/* Decorative bottom line */}
+                    <div className="h-1 w-0 bg-primary group-hover:w-full transition-all duration-500 ease-out" />
+                  </motion.article>
+                ))}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Dots Indicator */}
           {totalSlides > 1 && (
-            <div className="flex justify-center items-center gap-2 mt-6 sm:mt-8">
+            <div className="flex justify-center items-center gap-3 mt-10">
               {Array.from({ length: totalSlides }).map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
-                  className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-                    index === currentIndex
-                      ? "bg-primary w-6 sm:w-8"
-                      : "bg-muted hover:bg-primary/50"
-                  }`}
+                  className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex
+                      ? "bg-primary w-8"
+                      : "bg-gray-300 hover:bg-primary/50 w-2"
+                    }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
@@ -170,22 +185,17 @@ export default function AchievementsSection({
         </div>
 
         {/* View All Button */}
-        <div className="text-center mt-8 sm:mt-12 lg:mt-16">
-          {section.viewAllLink ? (
+        {section.viewAllLink && (
+          <div className="text-center mt-16">
             <Link
               href={section.viewAllLink}
-              className="inline-flex items-center gap-3 bg-primary hover:bg-accent text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base lg:text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center gap-2 group border border-primary/20 bg-primary/5 hover:bg-primary text-primary hover:text-white px-8 py-4 rounded-full font-semibold transition-all duration-300"
             >
               <span>View All Achievements</span>
-              <FaArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
-          ) : (
-            <button className="inline-flex items-center gap-3 bg-primary hover:bg-accent text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base lg:text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
-              <span>View All Achievements</span>
-              <FaArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            </button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );

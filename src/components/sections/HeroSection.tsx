@@ -1,7 +1,9 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+import { ArrowRight, Sparkles } from 'lucide-react'
 import { urlFor } from '@/lib/sanity.client'
 
 interface HeroSectionAdvancedProps {
@@ -20,60 +22,152 @@ interface HeroSectionAdvancedProps {
 export default function HeroSectionAdvanced({ section }: HeroSectionAdvancedProps) {
     if (!section) return null
 
+    // Animation variants
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.2,
+                delayChildren: 0.3
+            }
+        }
+    }
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.8, ease: "easeOut" as any }
+        }
+    }
+
     return (
-        <section className="relative w-full h-screen min-h-[300px] lg:min-h-[600px] overflow-hidden bg-white bg-gradient-to-b from-background/80 via-accent/80 to-secondary/80">
-            {/* Background with Gradient */}
-            
+        <section className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-background">
+            {/* Dynamic Background Effects */}
+            <div className="absolute inset-0 z-0">
+                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '8s' }} />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-accent/20 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '10s' }} />
+                <div className="absolute top-[30%] left-[40%] w-[30%] h-[30%] bg-secondary/15 blur-[100px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '6s' }} />
+            </div>
 
             {/* Content Grid */}
-            <div className="relative z-10 h-full grid lg:grid-cols-2 items-center px-4 lg:px-16">
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center pt-20 pb-16">
 
                 {/* Text Content */}
-                <div className="space-y-8 max-w-2xl">
-                    <h1 className="font-bold text-white leading-[1.1] drop-shadow-2xl">
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="space-y-8 max-w-2xl"
+                >
+                    <motion.div variants={itemVariants} className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 text-primary w-fit">
+                        <Sparkles className="w-4 h-4" />
+                        <span className="text-sm font-medium">Empowering the Future</span>
+                    </motion.div>
+
+                    <motion.h1
+                        variants={itemVariants as any}
+                        className="text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] tracking-tight"
+                    >
                         {section.title}
-                    </h1>
+                    </motion.h1>
 
                     {section.subtitle && (
-                        <p className="text-xl lg:text-2xl text-white/95 leading-relaxed drop-shadow-lg">
+                        <motion.p
+                            variants={itemVariants as any}
+                            className="text-xl lg:text-2xl text-foreground/70 leading-relaxed font-sans max-w-xl"
+                        >
                             {section.subtitle}
-                        </p>
+                        </motion.p>
                     )}
 
                     {section.ctaButton && (
-                        <div className="pt-6">
+                        <motion.div variants={itemVariants as any} className="pt-4 flex flex-wrap gap-4">
                             <Link
                                 href={section.ctaButton.link || '#'}
-                                className=" py-3 px-3 md:px-5 md:py-5 border rounded-full  border-primary bg-white text-secondary md:text-xl text-lg hover:bg-gradient-to-r hover:from-primary/80 hover:via-accent/80 hover:to-secondary/80 hover:text-white"
+                                className="group relative inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white transition-all duration-300 bg-primary rounded-full hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 overflow-hidden"
                             >
-                                {section.ctaButton.text}
+                                <span className="relative z-10 flex items-center">
+                                    {section.ctaButton.text}
+                                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                </span>
+                                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
                             </Link>
-                        </div>
+
+                            {/* Optional secondary button style */}
+                            <Link
+                                href="/about"
+                                className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-foreground transition-all duration-300 bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:shadow-md hover:border-gray-300"
+                            >
+                                Learn More
+                            </Link>
+                        </motion.div>
                     )}
-                </div>
+                </motion.div>
 
                 {/* Visual Element */}
-                <div className="hidden lg:flex justify-end items-center">
-                    <div className="relative">
-                        {/* You can add decorative elements, students image, or icons here */}
-                        <div className="w-96 h-96 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                            <div className="w-80 h-80 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                                <div className="text-white text-center">
-                                    {/* Add your school logo or students image here */}
-                                    <svg className="w-32 h-32 mx-auto mb-4 opacity-80" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
-                                    </svg>
-                                    <p className="text-lg font-semibold">Excellence in Education</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1, delay: 0.4, ease: "easeOut" as any }}
+                    className="hidden lg:flex justify-end items-center relative"
+                >
+                    <div className="relative w-full aspect-square max-w-[600px]">
+                        {/* Decorative background circle */}
+                        <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-accent/10 to-transparent rounded-[3rem] rotate-3 scale-105" />
 
-            {/* Decorative Shapes */}
-            <div className="absolute top-20 right-20 w-32 h-32 bg-white/10 rounded-full animate-pulse"></div>
-            <div className="absolute bottom-32 left-20 w-20 h-20 bg-white/10 rounded-full animate-pulse delay-300"></div>
+                        {/* Main Image Container */}
+                        <div className="absolute inset-0 bg-white rounded-[3rem] shadow-2xl overflow-hidden glass border border-white/50">
+                            {/* Ideally replace this with an actual image from CMS using urlFor(section.backgroundImage) */}
+                            {section.backgroundImage ? (
+                                <Image
+                                    src={urlFor(section.backgroundImage).url()}
+                                    alt="Hero background"
+                                    fill
+                                    className="object-cover"
+                                    priority
+                                />
+                            ) : (
+                                <div className="w-full h-full bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center">
+                                    <div className="text-center p-8">
+                                        <div className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                                            <Sparkles className="w-12 h-12" />
+                                        </div>
+                                        <p className="text-xl font-medium text-foreground/80 font-serif">A Tradition of Excellence</p>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Floating elements */}
+                        <motion.div
+                            animate={{ y: [-10, 10, -10] }}
+                            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                            className="absolute -bottom-8 -left-8 p-6 glass-dark rounded-2xl shadow-xl border border-white/10"
+                        >
+                            <p className="font-bold text-3xl">100%</p>
+                            <p className="text-sm text-gray-300">College Acceptance</p>
+                        </motion.div>
+
+                        <motion.div
+                            animate={{ y: [10, -10, 10] }}
+                            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                            className="absolute -top-8 -right-8 p-6 glass rounded-2xl shadow-xl flex items-center gap-4"
+                        >
+                            <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center text-secondary">
+                                <span className="font-bold text-xl">A+</span>
+                            </div>
+                            <div>
+                                <p className="font-bold text-foreground">Top Rated</p>
+                                <p className="text-sm text-foreground/60">Institution</p>
+                            </div>
+                        </motion.div>
+                    </div>
+                </motion.div>
+            </div>
         </section>
     )
 }
+

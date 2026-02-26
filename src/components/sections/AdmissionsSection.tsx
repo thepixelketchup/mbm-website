@@ -1,22 +1,23 @@
 "use client";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-  FaDownload,
-  FaFileAlt,
-  FaMoneyBillWave,
-  FaBook,
-  FaClipboardList,
-  FaNewspaper,
-  FaFolder,
-  FaPhone,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaClock,
-  FaArrowRight,
-  FaCalendarAlt,
-  FaExternalLinkAlt,
-  FaUsers,
-  FaHeadset,
-} from "react-icons/fa";
+  Download,
+  FileText,
+  Banknote,
+  BookOpen,
+  ClipboardList,
+  Newspaper,
+  FolderOpen,
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  ArrowRight,
+  CalendarDays,
+  ExternalLink,
+  Users,
+  Headphones,
+} from "lucide-react";
 import SubsectionTemplate from "../subsection_template/subsection-template";
 
 interface Document {
@@ -60,42 +61,18 @@ export default function AdmissionsSection({ section }: AdmissionsSectionProps) {
 
   const getCategoryIcon = (category: string) => {
     const icons = {
-      forms: (
-        <FaClipboardList className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
-      ),
-      fees: (
-        <FaMoneyBillWave className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
-      ),
-      academic: (
-        <FaBook className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
-      ),
-      guidelines: (
-        <FaFileAlt className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
-      ),
-      prospectus: (
-        <FaNewspaper className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
-      ),
-      other: (
-        <FaFolder className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
-      ),
+      forms: <ClipboardList className="w-6 h-6 lg:w-8 lg:h-8" />,
+      fees: <Banknote className="w-6 h-6 lg:w-8 lg:h-8" />,
+      academic: <BookOpen className="w-6 h-6 lg:w-8 lg:h-8" />,
+      guidelines: <FileText className="w-6 h-6 lg:w-8 lg:h-8" />,
+      prospectus: <Newspaper className="w-6 h-6 lg:w-8 lg:h-8" />,
+      other: <FolderOpen className="w-6 h-6 lg:w-8 lg:h-8" />,
     };
     return (
       icons[category as keyof typeof icons] || (
-        <FaFileAlt className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-8 xl:h-8" />
+        <FileText className="w-6 h-6 lg:w-8 lg:h-8" />
       )
     );
-  };
-
-  const getCategoryColor = (category: string) => {
-    const colors = {
-      forms: "bg-primary",
-      fees: "bg-accent",
-      academic: "bg-secondary",
-      guidelines: "bg-primary",
-      prospectus: "bg-accent",
-      other: "bg-secondary",
-    };
-    return colors[category as keyof typeof colors] || "bg-primary";
   };
 
   const getCategoryTitle = (category: string) => {
@@ -110,7 +87,7 @@ export default function AdmissionsSection({ section }: AdmissionsSectionProps) {
     return titles[category as keyof typeof titles] || "Documents";
   };
 
-  const groupedDocuments = section.documents.reduce(
+  const groupedDocuments = section.documents ? section.documents.reduce(
     (acc, doc) => {
       if (!acc[doc.category]) {
         acc[doc.category] = [];
@@ -119,7 +96,20 @@ export default function AdmissionsSection({ section }: AdmissionsSectionProps) {
       return acc;
     },
     {} as Record<string, Document[]>,
-  );
+  ) : {};
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as any } }
+  };
 
   return (
     <SubsectionTemplate
@@ -128,277 +118,262 @@ export default function AdmissionsSection({ section }: AdmissionsSectionProps) {
       introContent={section.introContent}
       heroImage={section.heroImage}
     >
-      {/* Documents Section */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-br from-muted/20 to-muted/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section Header */}
-          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <div className="inline-flex items-center gap-3 bg-primary text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-4 sm:mb-6 shadow-lg">
-              <FaDownload className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="font-bold text-sm sm:text-base lg:text-lg">
-                Download Center
-              </span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
-              Required Documents
-            </h2>
-            <div className="w-20 sm:w-24 lg:w-32 h-1 bg-gradient-to-r from-secondary to-accent rounded-full mx-auto mb-4 sm:mb-6"></div>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/80 max-w-3xl mx-auto leading-relaxed">
-              Get all the forms and information you need for admission
-            </p>
+      {/* Admission Process Section */}
+      {section.admissionProcess && section.admissionProcess.length > 0 && (
+        <section className="py-20 lg:py-28 bg-background relative overflow-hidden">
+          {/* Decorative background gradients */}
+          <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-accent/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-[40rem] h-[40rem] bg-primary/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
+
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            {/* Section Header */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="text-center mb-16 lg:mb-24"
+            >
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-6 font-semibold">
+                <ClipboardList className="w-4 h-4" />
+                <span>Step by Step</span>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold font-serif text-foreground mb-6">
+                Admission Process
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mb-6" />
+              <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
+                Follow these simple steps to complete your admission and join our collaborative learning environment.
+              </p>
+            </motion.div>
+
+            {/* Process Steps List */}
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative"
+            >
+              {section.admissionProcess
+                .sort((a, b) => a.stepNumber - b.stepNumber)
+                .map((step, index) => (
+                  <motion.div
+                    variants={fadeInUp}
+                    key={step._key}
+                    className="relative"
+                  >
+                    <div className="glass p-8 rounded-[2rem] h-full border border-primary/10 hover:border-primary/40 transition-all duration-300 hover:-translate-y-2 group">
+                      <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-8 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        {step.stepNumber}
+                      </div>
+
+                      <h4 className="text-xl lg:text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
+                        {step.title}
+                      </h4>
+                      <p className="text-foreground/70 leading-relaxed">
+                        {step.description}
+                      </p>
+                    </div>
+
+                    {/* Arrow between steps - Desktop only */}
+                    {index < section.admissionProcess!.length - 1 && (
+                      <div className="hidden lg:block absolute top-1/2 -right-6 transform -translate-y-1/2 z-10">
+                        <div className="w-12 h-12 bg-white rounded-full shadow-lg border border-primary/10 flex items-center justify-center text-primary/50">
+                          <ArrowRight className="w-6 h-6" />
+                        </div>
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+            </motion.div>
           </div>
+        </section>
+      )}
 
-          {/* Document Categories */}
-          {Object.entries(groupedDocuments).map(
-            ([category, docs], categoryIndex) => (
-              <div key={category} className="mb-8 sm:mb-12 lg:mb-16">
-                {/* Category Header */}
-                <div
-                  className={`${getCategoryColor(category)} rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8 shadow-xl hover:shadow-2xl transition-all duration-500 group`}
+      {/* Documents Section */}
+      {section.documents && section.documents.length > 0 && (
+        <section className="py-20 lg:py-28 bg-muted/40 border-y border-primary/5">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            {/* Section Header */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="text-center mb-16 lg:mb-20"
+            >
+              <div className="inline-flex items-center gap-2 bg-secondary/10 text-secondary px-4 py-2 rounded-full mb-6 font-semibold">
+                <Download className="w-4 h-4" />
+                <span>Download Center</span>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold font-serif text-foreground mb-6">
+                Required Documents
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-secondary to-accent rounded-full mx-auto mb-6" />
+              <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
+                Access all the necessary forms, guidelines, and information required for your application.
+              </p>
+            </motion.div>
+
+            {/* Document Categories */}
+            {Object.entries(groupedDocuments).map(
+              ([category, docs], categoryIndex) => (
+                <motion.div
+                  key={category}
+                  className="mb-16 last:mb-0"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeInUp}
                 >
-                  <div className="flex items-center text-white relative overflow-hidden">
-                    {/* Background decorative elements */}
-                    <div className="absolute -top-4 -right-4 w-16 h-16 sm:w-20 sm:h-20 bg-white/10 rounded-full blur-xl"></div>
-                    <div className="absolute -bottom-2 -left-2 w-12 h-12 sm:w-16 sm:h-16 bg-white/10 rounded-full blur-lg"></div>
-
-                    <div className="relative z-10 flex items-center w-full">
-                      <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl lg:rounded-2xl flex items-center justify-center mr-4 sm:mr-6 group-hover:scale-110 transition-transform duration-300">
-                        {getCategoryIcon(category)}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold mb-1 sm:mb-2">
-                          {getCategoryTitle(category)}
-                        </h3>
-                        <p className="text-white/90 text-sm sm:text-base lg:text-lg">
-                          {docs.length} document{docs.length > 1 ? "s" : ""}{" "}
-                          available
-                        </p>
-                      </div>
-                      <div className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white/20 flex-shrink-0">
-                        {String(categoryIndex + 1).padStart(2, "0")}
-                      </div>
+                  {/* Category Header */}
+                  <div className="flex items-center gap-6 mb-8">
+                    <div className="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center shadow-inner">
+                      {getCategoryIcon(category)}
+                    </div>
+                    <div>
+                      <h3 className="text-2xl lg:text-3xl font-bold font-serif text-foreground">
+                        {getCategoryTitle(category)}
+                      </h3>
+                      <p className="text-foreground/60">
+                        {docs.length} document{docs.length > 1 ? "s" : ""} available
+                      </p>
                     </div>
                   </div>
-                </div>
 
-                {/* Documents Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-                  {docs.map((doc) => (
-                    <div
-                      key={doc._key}
-                      className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-4 sm:p-6 group hover:-translate-y-2 border border-muted"
-                    >
-                      {/* Document Header */}
-                      <div className="flex items-start justify-between mb-4 sm:mb-6">
-                        <div
-                          className={`w-10 h-10 sm:w-12 sm:h-12 ${getCategoryColor(category)} rounded-lg sm:rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}
-                        >
-                          <FaFileAlt className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                        </div>
-                        <div className="text-right">
+                  {/* Documents Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {docs.map((doc) => (
+                      <div
+                        key={doc._key}
+                        className="bg-white rounded-[2rem] p-8 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 border border-primary/5 hover:border-primary/20 flex flex-col h-full"
+                      >
+                        <div className="flex items-start justify-between mb-6">
+                          <div className="w-12 h-12 bg-muted rounded-xl flex items-center justify-center">
+                            <FileText className="w-6 h-6 text-foreground/50 group-hover:text-primary transition-colors" />
+                          </div>
                           {doc.fileSize && (
-                            <span className="text-xs sm:text-sm bg-muted text-foreground/70 px-2 sm:px-3 py-1 rounded-full font-medium">
+                            <span className="text-xs font-semibold px-3 py-1 bg-muted rounded-full text-foreground/60">
                               {doc.fileSize}
                             </span>
                           )}
                         </div>
-                      </div>
 
-                      {/* Document Content */}
-                      <h4 className="text-base sm:text-lg lg:text-xl font-bold text-primary mb-2 sm:mb-3 line-clamp-2 group-hover:text-accent transition-colors duration-300">
-                        {doc.title}
-                      </h4>
-
-                      {doc.description && (
-                        <p className="text-xs sm:text-sm lg:text-base text-foreground/80 mb-3 sm:mb-4 leading-relaxed line-clamp-3">
-                          {doc.description}
-                        </p>
-                      )}
-
-                      {/* Document Meta */}
-                      {doc.lastUpdated && (
-                        <div className="flex items-center gap-2 text-xs sm:text-sm text-foreground/60 mb-4 sm:mb-6">
-                          <FaCalendarAlt className="w-3 h-3 sm:w-4 sm:h-4" />
-                          <span>
-                            Last updated:{" "}
-                            {new Date(doc.lastUpdated).toLocaleDateString()}
-                          </span>
-                        </div>
-                      )}
-
-                      {/* Download Button */}
-                      <a
-                        href={doc.file.asset.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`w-full ${getCategoryColor(category)} text-white py-3 sm:py-4 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base flex items-center justify-center gap-2 hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl`}
-                      >
-                        <FaExternalLinkAlt className="w-3 h-3 sm:w-4 sm:h-4" />
-                        View Document
-                      </a>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ),
-          )}
-        </div>
-      </section>
-
-      {/* Admission Process Section - Scrollable for many steps */}
-      {section.admissionProcess && section.admissionProcess.length > 0 && (
-        <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Section Header */}
-            <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-              <div className="inline-flex items-center gap-3 bg-accent text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-4 sm:mb-6 shadow-lg">
-                <FaClipboardList className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="font-bold text-sm sm:text-base lg:text-lg">
-                  Step by Step
-                </span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
-                Admission Process
-              </h2>
-              <div className="w-20 sm:w-24 lg:w-32 h-1 bg-gradient-to-r from-secondary to-accent rounded-full mx-auto mb-4 sm:mb-6"></div>
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/80 max-w-3xl mx-auto leading-relaxed">
-                Follow these simple steps to complete your admission
-              </p>
-            </div>
-
-            {/* Process Steps - Scrollable Container */}
-            <div className="max-h-[600px] lg:max-h-[700px] overflow-y-auto scrollbar-thin scrollbar-track-muted scrollbar-thumb-primary p-2 pl-0">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
-                {section.admissionProcess
-                  .sort((a, b) => a.stepNumber - b.stepNumber)
-                  .map((step, index) => (
-                    <div key={step._key} className="relative">
-                      <div className="bg-muted/30 rounded-xl sm:rounded-2xl lg:rounded-3xl p-6 sm:p-8 h-full border-2 border-muted hover:border-primary transition-all duration-300 group hover:-translate-y-2">
-                        {/* Step Number */}
-                        <div className="w-14 h-14 sm:w-16 sm:h-16 bg-primary text-white rounded-full flex items-center justify-center text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                          {step.stepNumber}
-                        </div>
-
-                        {/* Step Content */}
-                        <h4 className="text-lg sm:text-xl lg:text-2xl font-bold text-primary mb-3 sm:mb-4 text-center group-hover:text-accent transition-colors duration-300">
-                          {step.title}
+                        <h4 className="text-lg font-bold text-foreground mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                          {doc.title}
                         </h4>
-                        <p className="text-sm sm:text-base text-foreground/80 leading-relaxed text-center">
-                          {step.description}
-                        </p>
-                      </div>
 
-                      {/* Arrow between steps - Desktop only */}
-                      {index < section.admissionProcess!.length - 1 && (
-                        <div className="hidden lg:block absolute top-1/2 -right-5 transform -translate-y-1/2 z-10">
-                          <div className="w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
-                            <FaArrowRight className="w-4 h-4 text-accent" />
-                          </div>
+                        {doc.description && (
+                          <p className="text-sm text-foreground/70 mb-6 leading-relaxed flex-1">
+                            {doc.description}
+                          </p>
+                        )}
+
+                        {/* Divider */}
+                        <div className="h-px bg-muted w-full my-6 opacity-60" />
+
+                        <div className="flex items-center justify-between mt-auto">
+                          {doc.lastUpdated && (
+                            <div className="flex items-center gap-2 text-xs text-foreground/50 font-medium">
+                              <CalendarDays className="w-4 h-4" />
+                              <span>{new Date(doc.lastUpdated).toLocaleDateString()}</span>
+                            </div>
+                          )}
+
+                          <a
+                            href={doc.file?.asset?.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center justify-center w-10 h-10 bg-primary/5 hover:bg-primary text-primary hover:text-white rounded-full transition-colors duration-300"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                          </a>
                         </div>
-                      )}
-                    </div>
-                  ))}
-              </div>
-            </div>
-
-            {/* Scroll indicator if many steps */}
-            {section.admissionProcess.length > 6 && (
-              <div className="text-center mt-6 sm:mt-8">
-                <p className="text-sm text-foreground/60 italic">
-                  Scroll to view all {section.admissionProcess.length} steps
-                </p>
-              </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              ),
             )}
           </div>
         </section>
       )}
 
-      {/* Contact Information Section - Fixed visibility issues */}
+      {/* Contact Information Section - Glassmorphic Dark */}
       {section.contactInfo && (
-        <section className="relative py-8 sm:py-12 md:py-16 lg:py-20 bg-primary overflow-hidden">
-          {/* Dark overlay for better text contrast */}
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+        <section className="relative py-20 lg:py-28 overflow-hidden bg-slate-900 border-t border-slate-800">
+          {/* Decorative elements */}
+          <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/20 rounded-full blur-[120px]" />
+          <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-accent/20 rounded-full blur-[120px]" />
 
-          {/* Background decorative elements */}
-          <div className="absolute -top-10 -left-10 w-32 h-32 bg-white/5 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-secondary/20 rounded-full blur-3xl"></div>
-
-          <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-            {/* Section Header */}
-            <div className="mb-8 sm:mb-12 lg:mb-16">
-              <div className="inline-flex items-center gap-3 bg-white/20 backdrop-blur-sm text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-4 sm:mb-6 shadow-lg">
-                <FaHeadset className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="font-bold text-sm sm:text-base lg:text-lg">
-                  Get Support
-                </span>
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="text-center mb-16 lg:mb-20"
+            >
+              <div className="inline-flex items-center gap-2 bg-white/10 text-white/90 px-4 py-2 rounded-full mb-6 font-semibold backdrop-blur-md border border-white/5">
+                <Headphones className="w-4 h-4" />
+                <span>Admissions Support</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-shadow-lg">
-                Need Help with Admissions?
+              <h2 className="text-3xl md:text-5xl font-bold font-serif text-white mb-6">
+                Need Help Applying?
               </h2>
-              <div className="w-20 sm:w-24 lg:w-32 h-1 bg-white/60 rounded-full mx-auto mb-4 sm:mb-6"></div>
-              <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed drop-shadow-lg">
-                Our admissions team is here to assist you throughout the process
+              <p className="text-lg text-white/60 max-w-2xl mx-auto">
+                Our admissions team is here to assist you throughout the entire process. Feel free to reach out with any questions.
               </p>
-            </div>
+            </motion.div>
 
-            {/* Contact Cards - Improved visibility */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            >
               {section.contactInfo.phone && (
-                <div className="bg-white/15 backdrop-blur-md border border-white/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:bg-white/25 transition-all duration-300 hover:-translate-y-2 shadow-xl">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                    <FaPhone className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                <motion.div variants={fadeInUp} className="glass-dark p-8 rounded-[2rem] border border-white/10 hover:bg-white/5 transition-colors group">
+                  <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <Phone className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="font-bold text-sm sm:text-base mb-2 sm:mb-3 text-white drop-shadow-md">
-                    Phone
-                  </h3>
-                  <p className="text-white/95 text-xs sm:text-sm font-semibold break-all drop-shadow-sm">
-                    {section.contactInfo.phone}
-                  </p>
-                </div>
+                  <h3 className="font-bold text-white/90 mb-2">Phone</h3>
+                  <p className="text-white/60 font-medium">{section.contactInfo.phone}</p>
+                </motion.div>
               )}
 
               {section.contactInfo.email && (
-                <div className="bg-white/15 backdrop-blur-md border border-white/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:bg-white/25 transition-all duration-300 hover:-translate-y-2 shadow-xl">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                    <FaEnvelope className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                <motion.div variants={fadeInUp} className="glass-dark p-8 rounded-[2rem] border border-white/10 hover:bg-white/5 transition-colors group">
+                  <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <Mail className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="font-bold text-sm sm:text-base mb-2 sm:mb-3 text-white drop-shadow-md">
-                    Email
-                  </h3>
-                  <p className="text-white/95 text-xs sm:text-sm font-semibold break-all drop-shadow-sm">
-                    {section.contactInfo.email}
-                  </p>
-                </div>
+                  <h3 className="font-bold text-white/90 mb-2">Email</h3>
+                  <p className="text-white/60 font-medium break-all">{section.contactInfo.email}</p>
+                </motion.div>
               )}
 
               {section.contactInfo.office && (
-                <div className="bg-white/15 backdrop-blur-md border border-white/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:bg-white/25 transition-all duration-300 hover:-translate-y-2 shadow-xl">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                    <FaMapMarkerAlt className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                <motion.div variants={fadeInUp} className="glass-dark p-8 rounded-[2rem] border border-white/10 hover:bg-white/5 transition-colors group">
+                  <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <MapPin className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="font-bold text-sm sm:text-base mb-2 sm:mb-3 text-white drop-shadow-md">
-                    Office
-                  </h3>
-                  <p className="text-white/95 text-xs sm:text-sm font-semibold drop-shadow-sm leading-relaxed">
-                    {section.contactInfo.office}
-                  </p>
-                </div>
+                  <h3 className="font-bold text-white/90 mb-2">Office</h3>
+                  <p className="text-white/60 font-medium leading-relaxed">{section.contactInfo.office}</p>
+                </motion.div>
               )}
 
               {section.contactInfo.hours && (
-                <div className="bg-white/15 backdrop-blur-md border border-white/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:bg-white/25 transition-all duration-300 hover:-translate-y-2 shadow-xl">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                    <FaClock className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                <motion.div variants={fadeInUp} className="glass-dark p-8 rounded-[2rem] border border-white/10 hover:bg-white/5 transition-colors group">
+                  <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <Clock className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="font-bold text-sm sm:text-base mb-2 sm:mb-3 text-white drop-shadow-md">
-                    Hours
-                  </h3>
-                  <p className="text-white/95 text-xs sm:text-sm font-semibold drop-shadow-sm leading-relaxed">
-                    {section.contactInfo.hours}
-                  </p>
-                </div>
+                  <h3 className="font-bold text-white/90 mb-2">Hours</h3>
+                  <p className="text-white/60 font-medium leading-relaxed">{section.contactInfo.hours}</p>
+                </motion.div>
               )}
-            </div>
+            </motion.div>
           </div>
         </section>
       )}
