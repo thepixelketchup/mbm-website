@@ -7,7 +7,6 @@ import {
   FaArrowRight,
   FaFolder,
   FaCloudDownloadAlt,
-  FaExternalLinkAlt,
 } from "react-icons/fa";
 import SubsectionTemplate from "../subsection_template/subsection-template";
 
@@ -201,25 +200,7 @@ export default function CurriculumSection({
                         )}
                       </div>
 
-                      {/* Action Button */}
-                      <div className="mt-auto">
-                        {documentUrl ? (
-                          <a
-                            href={documentUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-4 bg-primary hover:bg-accent text-white rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
-                          >
-                            <FaExternalLinkAlt className="w-3 h-3 sm:w-4 sm:h-4" />
-                            View Document
-                          </a>
-                        ) : (
-                          <div className="w-full inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-4 bg-muted text-foreground/50 rounded-xl font-semibold text-sm sm:text-base cursor-not-allowed">
-                            <FaFileAlt className="w-3 h-3 sm:w-4 sm:h-4" />
-                            Document Unavailable
-                          </div>
-                        )}
-                      </div>
+
                     </div>
                   </article>
                 );
@@ -321,15 +302,12 @@ export default function CurriculumSection({
                               </div>
                             </div>
                             {grade.syllabusDocument.file?.asset?.url && (
-                              <a
-                                href={grade.syllabusDocument.file.asset.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 text-primary hover:text-accent font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-105 flex-shrink-0"
+                              <div
+                                className="inline-flex items-center gap-2 text-primary font-semibold text-sm sm:text-base cursor-default flex-shrink-0"
                               >
-                                <span className="hidden sm:inline">View</span>
-                                <FaArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
-                              </a>
+                                <span className="hidden sm:inline">Syllabus</span>
+                                <FaBook className="w-3 h-3 sm:w-4 sm:h-4" />
+                              </div>
                             )}
                           </div>
                         </div>
