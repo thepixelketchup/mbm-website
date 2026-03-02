@@ -52,7 +52,7 @@ export default async function MethodologyPage() {
 
     return (
       <main className="min-h-screen">
-        {data.sections.map((section: any) => {
+        {data.sections?.map((section: any) => {
           switch (section._type) {
             case 'methodologyOverviewSection':
               return <MethodologyOverviewSection key={section._key} section={section} />

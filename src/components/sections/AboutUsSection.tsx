@@ -171,7 +171,7 @@ export default function AboutUsSection({ section }: AboutUsSectionProps) {
                   ) : (
                     <div className="w-56 h-56 mb-8 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-2xl">
                       <span className="text-white text-6xl font-bold font-serif">
-                        {section.personName.split(" ").map((n) => n[0]).join("")}
+                        {section.personName?.split(" ").map((n) => n[0]).join("")}
                       </span>
                     </div>
                   )}

@@ -147,7 +147,7 @@ export default function CurriculumSection({
           {/* Documents Grid */}
           {documentsToShow.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-              {documentsToShow.map((doc) => {
+              {documentsToShow?.map((doc) => {
                 // Get the document URL from your query structure
                 const documentUrl = getDocumentUrl(doc.file);
                 return (
@@ -271,7 +271,7 @@ export default function CurriculumSection({
 
               {/* Grade Cards */}
               <div className="space-y-6 sm:space-y-8">
-                {section.gradeWiseCurriculum.map((grade, index) => (
+                {section.gradeWiseCurriculum?.map((grade, index) => (
                   <div
                     key={grade.grade}
                     className="bg-muted/30 rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-muted group"
@@ -341,7 +341,7 @@ export default function CurriculumSection({
                             Subjects:
                           </h5>
                           <div className="flex flex-wrap gap-2">
-                            {grade.subjects.map(
+                            {grade.subjects?.map(
                               (subject: string, idx: number) => (
                                 <span
                                   key={idx}

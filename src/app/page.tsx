@@ -29,7 +29,7 @@ export default async function HomePage() {
 
   return (
     <main>
-      {page.sections.map((section: any) => {
+      {page.sections?.map((section: any) => {
         try {
           switch (section._type) {
             case 'heroSection':

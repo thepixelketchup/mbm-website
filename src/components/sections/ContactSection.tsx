@@ -166,7 +166,7 @@ export default function ContactSection({ section }: ContactSectionProps) {
                   variants={staggerContainer}
                   className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
                 >
-                  {section.faculty.map((member, index) => (
+                  {section.faculty?.map((member, index) => (
                     <motion.div variants={fadeInUp} key={`${member.name}-${index}`}>
                       <FacultyCard member={member} />
                     </motion.div>
@@ -214,7 +214,7 @@ export default function ContactSection({ section }: ContactSectionProps) {
                       Connect With Us
                     </h3>
                     <div className="flex flex-wrap justify-center gap-4">
-                      {section.socialLinks.map((social, index) => {
+                      {section.socialLinks?.map((social, index) => {
                         const IconComponent =
                           socialIcons[social.platform as keyof typeof socialIcons];
                         return (
@@ -340,7 +340,7 @@ function ContactForm({ fields }: { fields: any[] }) {
       className="space-y-6"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {fields.map((field) => (
+        {fields?.map((field) => (
           <div key={field.name} className={`group ${field.type === 'textarea' ? 'md:col-span-2' : ''}`}>
             <label
               htmlFor={field.name}

@@ -145,7 +145,7 @@ export default function MethodologyOverviewSection({
 
           {/* Methodology Cards Grid - Equal Height */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
-            {section.methodologyCards.map((card, index) => (
+            {section.methodologyCards?.map((card, index) => (
               <div key={card._key} className="group h-full">
                 <div className="bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden group-hover:-translate-y-2 border border-muted h-full flex flex-col">
                   {/* Card Header */}

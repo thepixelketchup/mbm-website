@@ -119,7 +119,7 @@ export default function AchievementsSection({
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
               >
-                {visibleAchievements.map((achievement, index) => (
+                {visibleAchievements?.map((achievement, index) => (
                   <motion.article
                     key={achievement._key}
                     initial={{ opacity: 0, y: 20 }}

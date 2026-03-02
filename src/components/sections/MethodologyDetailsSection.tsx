@@ -199,7 +199,7 @@ export default function MethodologyDetailSection({
 
             {/* Principles List */}
             <div className="space-y-8 sm:space-y-12 lg:space-y-16">
-              {section.keyPrinciples.map((principle, index) => (
+              {section.keyPrinciples?.map((principle, index) => (
                 <div
                   key={principle._key}
                   className={`flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-12 ${
@@ -255,7 +255,7 @@ export default function MethodologyDetailSection({
 
               {/* Applications Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
-                {section.practicalApplications.map((application, index) => (
+                {section.practicalApplications?.map((application, index) => (
                   <div
                     key={application._key}
                     className="bg-muted/30 rounded-xl sm:rounded-2xl lg:rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-muted group"
@@ -292,7 +292,7 @@ export default function MethodologyDetailSection({
                             Key Benefits:
                           </h4>
                           <ul className="space-y-2 sm:space-y-3">
-                            {application.benefits.map(
+                            {application.benefits?.map(
                               (benefit, benefitIndex) => (
                                 <li
                                   key={benefitIndex}
@@ -350,7 +350,7 @@ export default function MethodologyDetailSection({
               <div className="absolute left-6 sm:left-8 top-0 bottom-0 w-0.5 sm:w-1 bg-white/30 rounded-full"></div>
 
               <div className="space-y-6 sm:space-y-8 lg:space-y-12">
-                {section.outcomes.map((outcome, index) => (
+                {section.outcomes?.map((outcome, index) => (
                   <div key={index} className="relative flex items-center group">
                     {/* Timeline Node */}
                     <div className="relative z-10 w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-white rounded-full shadow-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">

@@ -181,7 +181,7 @@ export default function ExtracurricularSection({
 
                 {/* Activities Grid */}
                 <div className="space-y-8 sm:space-y-10 lg:space-y-12">
-                  {activities.map((activity, index) => {
+                  {activities?.map((activity, index) => {
                     const currentIndex = currentImageIndex[activity._key] || 0;
                     return (
                       <div
@@ -234,7 +234,7 @@ export default function ExtracurricularSection({
 
                                   {/* Image Indicators */}
                                   <div className="absolute bottom-3 sm:bottom-4 left-1/2 transform -translate-x-1/2 flex gap-1 sm:gap-2 z-10">
-                                    {activity.images.map((_, imageIndex) => (
+                                    {activity.images?.map((_, imageIndex) => (
                                       <button
                                         key={imageIndex}
                                         onClick={() =>
@@ -312,7 +312,7 @@ export default function ExtracurricularSection({
                                     Recent Achievements:
                                   </h4>
                                   <ul className="space-y-2">
-                                    {activity.achievements.map(
+                                    {activity.achievements?.map(
                                       (achievement, achievementIndex) => (
                                         <li
                                           key={achievementIndex}
@@ -376,7 +376,7 @@ export default function ExtracurricularSection({
 
                                     {/* Image Indicators */}
                                     <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
-                                      {activity.images.map((_, imageIndex) => (
+                                      {activity.images?.map((_, imageIndex) => (
                                         <button
                                           key={imageIndex}
                                           onClick={() =>
@@ -455,7 +455,7 @@ export default function ExtracurricularSection({
                                     Recent Achievements:
                                   </h4>
                                   <ul className="space-y-3">
-                                    {activity.achievements.map(
+                                    {activity.achievements?.map(
                                       (achievement, achievementIndex) => (
                                         <li
                                           key={achievementIndex}

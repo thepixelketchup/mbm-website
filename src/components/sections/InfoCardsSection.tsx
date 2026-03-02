@@ -73,7 +73,7 @@ export default function InfoCardsSection({ section }: InfoCardsSectionProps) {
                     viewport={{ once: true, margin: "-50px" }}
                     className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
                 >
-                    {section.cards.map((card) => (
+                    {section.cards?.map((card) => (
                         <motion.div key={card._key} variants={itemVariants}>
                             <Link href={card.link || '#'} className="block h-full outline-none">
                                 <div className="group relative h-full glass rounded-3xl p-6 lg:p-8 flex flex-col items-center justify-center text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border border-primary/5 hover:border-primary/20 overflow-hidden">

@@ -157,7 +157,7 @@ export default function AdmissionsSection({ section }: AdmissionsSectionProps) {
             >
               {section.admissionProcess
                 .sort((a, b) => a.stepNumber - b.stepNumber)
-                .map((step, index) => (
+                ?.map((step, index) => (
                   <motion.div
                     variants={fadeInUp}
                     key={step._key}
@@ -244,7 +244,7 @@ export default function AdmissionsSection({ section }: AdmissionsSectionProps) {
 
                   {/* Documents Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {docs.map((doc) => (
+                    {docs?.map((doc) => (
                       <div
                         key={doc._key}
                         className="bg-white rounded-[2rem] p-8 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 border border-primary/5 hover:border-primary/20 flex flex-col h-full"

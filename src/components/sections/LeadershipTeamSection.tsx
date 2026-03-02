@@ -39,7 +39,7 @@ export default function LeadershipTeamSection({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Mobile: Single column layout */}
           <div className="block md:hidden space-y-8 sm:space-y-12">
-            {section.members.map((member) => (
+            {section.members?.map((member) => (
               <article
                 key={member._key}
                 className="bg-white rounded-2xl sm:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-muted"
@@ -107,7 +107,7 @@ export default function LeadershipTeamSection({
 
           {/* Tablet/Medium: Flex row layout (same direction for all) */}
           <div className="hidden md:block lg:hidden space-y-12">
-            {section.members.map((member) => (
+            {section.members?.map((member) => (
               <article
                 key={member._key}
                 className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-muted group"
@@ -177,7 +177,7 @@ export default function LeadershipTeamSection({
 
           {/* Desktop: Alternating layout */}
           <div className="hidden lg:block space-y-16">
-            {section.members.map((member, index) => (
+            {section.members?.map((member, index) => (
               <article
                 key={member._key}
                 className="bg-white rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden border border-muted group"

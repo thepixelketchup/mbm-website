@@ -101,7 +101,7 @@ export default function DownloadsSection({
   let documentsToShow: Document[] = [];
   if (section.autoSync) {
     // Show all active documents, optionally filtered by category
-    documentsToShow = allDocuments.filter((doc) => {
+    documentsToShow = allDocuments?.filter((doc) => {
       if (!doc.isActive) return false;
       if (section.categoryFilter && section.categoryFilter.length > 0) {
         return section.categoryFilter.includes(doc.category);
@@ -228,7 +228,7 @@ export default function DownloadsSection({
 
                   {/* Documents Grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-                    {docs.map((doc) => (
+                    {docs?.map((doc) => (
                       <div
                         key={doc._id}
                         className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-4 sm:p-6 group hover:-translate-y-2 border border-muted"

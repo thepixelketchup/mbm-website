@@ -166,7 +166,7 @@ export default function FacilitiesSection({ section }: FacilitiesSectionProps) {
 
                 {/* Facilities Grid */}
                 <div className="space-y-8 sm:space-y-10 lg:space-y-12">
-                  {facilities.map((facility, index) => {
+                  {facilities?.map((facility, index) => {
                     const currentIndex = currentImageIndex[facility._key] || 0;
                     return (
                       <div
@@ -219,7 +219,7 @@ export default function FacilitiesSection({ section }: FacilitiesSectionProps) {
 
                                   {/* Image Indicators */}
                                   <div className="absolute bottom-3 sm:bottom-4 left-1/2 transform -translate-x-1/2 flex gap-1 sm:gap-2 z-10">
-                                    {facility.images.map((_, imageIndex) => (
+                                    {facility.images?.map((_, imageIndex) => (
                                       <button
                                         key={imageIndex}
                                         onClick={() =>
@@ -278,7 +278,7 @@ export default function FacilitiesSection({ section }: FacilitiesSectionProps) {
                                     Key Features:
                                   </h4>
                                   <div className="flex flex-wrap gap-2">
-                                    {facility.features.map(
+                                    {facility.features?.map(
                                       (feature, featureIndex) => (
                                         <span
                                           key={featureIndex}
@@ -341,7 +341,7 @@ export default function FacilitiesSection({ section }: FacilitiesSectionProps) {
 
                                     {/* Image Indicators */}
                                     <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
-                                      {facility.images.map((_, imageIndex) => (
+                                      {facility.images?.map((_, imageIndex) => (
                                         <button
                                           key={imageIndex}
                                           onClick={() =>
@@ -399,7 +399,7 @@ export default function FacilitiesSection({ section }: FacilitiesSectionProps) {
                                     Key Features:
                                   </h4>
                                   <div className="flex flex-wrap gap-3">
-                                    {facility.features.map(
+                                    {facility.features?.map(
                                       (feature, featureIndex) => (
                                         <span
                                           key={featureIndex}

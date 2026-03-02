@@ -100,7 +100,7 @@ export default function MilestonesSection({ section }: MilestonesSectionProps) {
         <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-r from-muted/30 to-muted/50">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-              {section.statistics.map((stat) => (
+              {section.statistics?.map((stat) => (
                 <div
                   key={stat._key}
                   className="text-center bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-muted group"
@@ -122,7 +122,7 @@ export default function MilestonesSection({ section }: MilestonesSectionProps) {
       <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-br from-transparent to-muted/30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-6 lg:space-y-8">
-            {section.achievements.map((achievement) => (
+            {section.achievements?.map((achievement) => (
               <article
                 key={achievement._key}
                 className={`bg-white rounded-2xl lg:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border group ${

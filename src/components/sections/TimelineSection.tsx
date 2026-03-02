@@ -45,7 +45,7 @@ export default function TimelineSection({ section }: TimelineSectionProps) {
             />
 
             <div className="space-y-16">
-              {section.events.map((event, index) => (
+              {section.events?.map((event, index) => (
                 <div
                   key={event._key}
                   className={`

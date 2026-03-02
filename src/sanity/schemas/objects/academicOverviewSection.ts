@@ -103,7 +103,7 @@ export default defineType({
                         icon: 'icon'
                     },
                     prepare(selection) {
-                        const iconEmoji = iconOptions.find(opt => opt.value === selection.icon)?.title.split(' ')[0] || '📊'
+                        const iconEmoji = iconOptions.find(opt => opt.value === selection.icon)?.title?.split(' ')[0] || '📊'
                         return {
                             title: `${iconEmoji} ${selection.title}`,
                             subtitle: selection.subtitle
@@ -181,7 +181,7 @@ export default defineType({
                                 icon: 'icon'
                             },
                             prepare(selection) {
-                                const iconEmoji = iconOptions.find(opt => opt.value === selection.icon)?.title.split(' ')[0] || '🏢'
+                                const iconEmoji = iconOptions.find(opt => opt.value === selection.icon)?.title?.split(' ')[0] || '🏢'
                                 return {
                                     title: `${iconEmoji} ${selection.title}`,
                                     media: selection.media
@@ -343,7 +343,7 @@ export default defineType({
                         color: 'color'
                     },
                     prepare(selection) {
-                        const iconEmoji = iconOptions.find(opt => opt.value === selection.icon)?.title.split(' ')[0] || '🔗'
+                        const iconEmoji = iconOptions.find(opt => opt.value === selection.icon)?.title?.split(' ')[0] || '🔗'
                         const colorEmoji = {
                             blue: '🔵', green: '🟢', purple: '🟣', orange: '🟠',
                             pink: '🩷', teal: '🩵', red: '🔴', yellow: '🟡'

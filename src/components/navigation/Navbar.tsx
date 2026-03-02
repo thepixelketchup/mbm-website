@@ -55,7 +55,7 @@ export default function NavBar({ logo, items }: Props) {
 
         {/* Desktop Navigation */}
         <ul className="hidden lg:flex items-center space-x-1">
-          {items.map((link) => (
+          {items?.map((link) => (
             <li key={link.label} className="relative group">
               {link.submenu?.length ? (
                 <>
@@ -70,7 +70,7 @@ export default function NavBar({ logo, items }: Props) {
                   {/* Dropdown Menu */}
                   <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-left scale-95 group-hover:scale-100">
                     <ul className="w-56 p-2 rounded-2xl glass shadow-xl border border-white/50">
-                      {link.submenu.map((sub) => (
+                      {link.submenu?.map((sub) => (
                         <li key={sub.label}>
                           <Link
                             href={sub.href}
@@ -127,7 +127,7 @@ export default function NavBar({ logo, items }: Props) {
           >
             <div className="flex flex-col pt-24 pb-8 px-6 min-h-screen">
               <ul className="space-y-4 flex-1">
-                {items.map((link, index) => (
+                {items?.map((link, index) => (
                   <motion.li 
                     key={link.label}
                     initial={{ opacity: 0, x: -20 }}
@@ -145,7 +145,7 @@ export default function NavBar({ logo, items }: Props) {
 
                     {link.submenu?.length && (
                       <ul className="pt-4 space-y-3 pl-4">
-                        {link.submenu.map((sub) => (
+                        {link.submenu?.map((sub) => (
                           <li key={sub.label}>
                             <Link
                               href={sub.href}

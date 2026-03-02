@@ -68,7 +68,7 @@ export default function PhotoVideoGallerySection({
           ) : (
             /* Gallery Grid */
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
-              {section.mediaItems.map((item, index) => (
+              {section.mediaItems?.map((item, index) => (
                 <div
                   key={item._key}
                   className="group relative bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden cursor-pointer hover:-translate-y-2"

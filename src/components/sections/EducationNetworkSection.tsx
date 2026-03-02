@@ -22,9 +22,9 @@ export default function EducationNetworkSection({
   if (!section) return null;
 
   // Split title if possible to highlight the first word
-  const words = section.sectionTitle.split(" ");
+  const words = section.sectionTitle?.split(" ");
   const firstWord = words[0];
-  const restOfTitle = words.slice(1).join(" ");
+  const restOfTitle = words?.slice(1).join(" ");
 
   return (
     <section className="py-24 relative bg-background overflow-hidden">

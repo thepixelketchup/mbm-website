@@ -90,7 +90,7 @@ export default function FoundingStorySection({
                 <div className="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-accent to-secondary rounded-full"></div>
 
                 <div className="space-y-8">
-                  {section.milestones.map((milestone, index) => (
+                  {section.milestones?.map((milestone, index) => (
                     <div
                       key={milestone._key}
                       className="relative flex items-start"
@@ -138,7 +138,7 @@ export default function FoundingStorySection({
               {/* Tablet Enhanced Cards (md-lg) - Fixed height */}
               <div className="hidden md:block lg:hidden">
                 <div className="grid md:grid-cols-2 gap-6">
-                  {section.milestones.map((milestone, index) => (
+                  {section.milestones?.map((milestone, index) => (
                     <div
                       key={milestone._key}
                       className="group relative overflow-hidden"
@@ -179,7 +179,7 @@ export default function FoundingStorySection({
               {/* Desktop Premium Cards (lg+) - Fixed height */}
               <div className="hidden lg:block">
                 <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 items-stretch">
-                  {section.milestones.map((milestone, index) => (
+                  {section.milestones?.map((milestone, index) => (
                     <div key={milestone._key} className="group relative h-full">
                       {/* Main card with premium styling - Fixed height */}
                       <div className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-muted group-hover:-translate-y-3 relative h-96 flex flex-col">

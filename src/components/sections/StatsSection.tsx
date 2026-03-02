@@ -53,7 +53,7 @@ export default function StatsSection({ section }: StatsSectionProps) {
                     viewport={{ once: true, margin: "-100px" }}
                     className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12"
                 >
-                    {section.stats.map((stat, index) => (
+                    {section.stats?.map((stat, index) => (
                         <motion.div
                             key={stat._key}
                             variants={itemVariants}

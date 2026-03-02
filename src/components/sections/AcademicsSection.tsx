@@ -178,7 +178,7 @@ export default function AcademicsOverviewSection({
               viewport={{ once: true }}
               className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8"
             >
-              {section.academicStats.map((stat) => (
+              {section.academicStats?.map((stat) => (
                 <motion.div
                   variants={fadeInUp}
                   key={stat._key}
@@ -231,7 +231,7 @@ export default function AcademicsOverviewSection({
                   viewport={{ once: true }}
                   className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
                 >
-                  {section.curriculumHighlights.featuredDocuments.map((doc) => (
+                  {section.curriculumHighlights.featuredDocuments?.map((doc) => (
                     <motion.div
                       variants={fadeInUp}
                       key={doc._id}
@@ -302,7 +302,7 @@ export default function AcademicsOverviewSection({
                   viewport={{ once: true }}
                   className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
                 >
-                  {section.facilitiesHighlights.featuredFacilities.map(
+                  {section.facilitiesHighlights.featuredFacilities?.map(
                     (facility) => (
                       <motion.div
                         variants={fadeInUp}
@@ -375,7 +375,7 @@ export default function AcademicsOverviewSection({
               viewport={{ once: true }}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
-              {section.quickLinks.map((link) => (
+              {section.quickLinks?.map((link) => (
                 <motion.a
                   variants={fadeInUp}
                   key={link._key}
