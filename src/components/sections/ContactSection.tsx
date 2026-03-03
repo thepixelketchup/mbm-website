@@ -51,9 +51,10 @@ interface ContactSectionProps {
       url: string;
     }>;
   };
+  footerData?: any;
 }
 
-export default function ContactSection({ section }: ContactSectionProps) {
+export default function ContactSection({ section, footerData }: ContactSectionProps) {
   if (!section) return null;
 
   const staggerContainer = {
@@ -176,7 +177,7 @@ export default function ContactSection({ section }: ContactSectionProps) {
             )}
 
             <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-start">
-              {/* Contact Form */}
+              {/* Contact Information */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -184,18 +185,38 @@ export default function ContactSection({ section }: ContactSectionProps) {
                 transition={{ duration: 0.6 }}
                 className="lg:col-span-8 w-full"
               >
-                <div className="glass rounded-[2.5rem] shadow-xl overflow-hidden border border-primary/10">
+                <div className="glass rounded-[2.5rem] shadow-xl overflow-hidden border border-primary/10 h-full">
                   <div className="bg-gradient-to-br from-primary/10 to-primary/5 p-6 sm:p-8 lg:p-12 border-b border-primary/10 relative overflow-hidden">
                     <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay" />
                     <h3 className="text-2xl lg:text-3xl font-bold font-serif text-foreground mb-3 relative z-10">
-                      Send us a Message
+                      Reach Out To Us
                     </h3>
                     <p className="text-foreground/70 text-lg relative z-10">
-                      We'll get back to you as soon as possible.
+                      Have any questions? Send us an email and we'll get back to you as soon as possible.
                     </p>
                   </div>
                   <div className="p-6 sm:p-8 lg:p-12">
-                    <ContactForm fields={section.formFields || []} />
+                    {footerData?.emails && footerData.emails.length > 0 ? (
+                      <div className="space-y-6">
+                        {footerData.emails.map((email: any, index: number) => (
+                          <div key={index} className="flex items-center gap-4 p-4 rounded-xl bg-white/50 border border-primary/10 hover:bg-white transition-colors">
+                            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary flex-shrink-0">
+                              <Mail className="w-6 h-6" />
+                            </div>
+                            <div>
+                              <p className="text-sm text-foreground/60 mb-1">Email us at</p>
+                              <Link href={`mailto:${email.href}`} className="text-lg font-semibold text-foreground hover:text-primary transition-colors">
+                                {email.href}
+                              </Link>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-foreground/70 text-lg">
+                        Please check our footer for contact information.
+                      </p>
+                    )}
                   </div>
                 </div>
               </motion.div>
