@@ -55,7 +55,7 @@ export default function AchievementsSection({
   return (
     <section className="py-24 relative bg-background overflow-hidden">
       {/* Soft decorative background elements */}
-      <div className="absolute left-0 bottom-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[100px] -translate-x-1/2 translate-y-1/2 pointer-events-none" />
+      <div className="hidden md:block absolute left-0 bottom-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[100px] -translate-x-1/2 translate-y-1/2 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
 
@@ -174,8 +174,8 @@ export default function AchievementsSection({
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                      ? "bg-primary w-8"
-                      : "bg-gray-300 hover:bg-primary/50 w-2"
+                    ? "bg-primary w-8"
+                    : "bg-gray-300 hover:bg-primary/50 w-2"
                     }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />

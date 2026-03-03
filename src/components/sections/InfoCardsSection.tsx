@@ -46,8 +46,8 @@ export default function InfoCardsSection({ section }: InfoCardsSectionProps) {
     return (
         <section className="py-24 bg-background relative overflow-hidden">
             {/* Soft decorative background gradients */}
-            <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-primary/5 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none" />
+            <div className="hidden md:block absolute top-0 right-0 w-1/2 h-1/2 bg-primary/5 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+            <div className="hidden md:block absolute bottom-0 left-0 w-1/2 h-1/2 bg-accent/5 blur-3xl rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
                 {/* Section Title */}

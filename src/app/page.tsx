@@ -8,6 +8,7 @@ import EducationNetworkSection from '@/components/sections/EducationNetworkSecti
 import StatsSection from '@/components/sections/StatsSection'
 import GallerySection from '@/components/sections/GallerySection'
 import { getPageBySlug } from '@/lib/pages/page-query'
+import { MobileMotionProvider } from '@/components/MobileMotionProvider'
 
 export default async function HomePage() {
   const page = await getPageBySlug('home')
@@ -28,35 +29,37 @@ export default async function HomePage() {
   }
 
   return (
-    <main>
-      {page.sections?.map((section: any) => {
-        try {
-          switch (section._type) {
-            case 'heroSection':
-              return <HeroSection key={section._key} section={section} />
-            case 'achievementsSection':
-              return <AchievementsSection key={section._key} section={section} />
-            case 'infoCardsSection':
-              return <InfoCardsSection key={section._key} section={section} />
-            case 'educationNetworkSection':
-              return <EducationNetworkSection key={section._key} section={section} />
-            case 'statsSection':
-              return <StatsSection key={section._key} section={section} />
-            case 'gallerySection':
-              return <GallerySection key={section._key} section={section} />
-            default:
-              // Make unknown/typo’d types visible so nothing fails silently [13]
-              return (
-                <pre key={section?._key} className="p-4 m-4 bg-yellow-50 text-yellow-800 rounded">
-                  Unknown section: {String(section?._type)}
-                </pre>
-              )
+    <MobileMotionProvider>
+      <main>
+        {page.sections?.map((section: any) => {
+          try {
+            switch (section._type) {
+              case 'heroSection':
+                return <HeroSection key={section._key} section={section} />
+              case 'achievementsSection':
+                return <AchievementsSection key={section._key} section={section} />
+              case 'infoCardsSection':
+                return <InfoCardsSection key={section._key} section={section} />
+              case 'educationNetworkSection':
+                return <EducationNetworkSection key={section._key} section={section} />
+              case 'statsSection':
+                return <StatsSection key={section._key} section={section} />
+              case 'gallerySection':
+                return <GallerySection key={section._key} section={section} />
+              default:
+                // Make unknown/typo’d types visible so nothing fails silently [13]
+                return (
+                  <pre key={section?._key} className="p-4 m-4 bg-yellow-50 text-yellow-800 rounded">
+                    Unknown section: {String(section?._type)}
+                  </pre>
+                )
+            }
+          } catch (err) {
+            // Bubble up to the route error boundary (step below) [2][3]
+            throw err
           }
-        } catch (err) {
-          // Bubble up to the route error boundary (step below) [2][3]
-          throw err
-        }
-      })}
-    </main>
+        })}
+      </main>
+    </MobileMotionProvider>
   )
 }

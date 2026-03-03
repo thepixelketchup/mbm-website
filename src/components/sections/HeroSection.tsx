@@ -46,7 +46,7 @@ export default function HeroSectionAdvanced({ section }: HeroSectionAdvancedProp
     return (
         <section className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-background">
             {/* Dynamic Background Effects */}
-            <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 z-0 hidden md:block">
                 <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '8s' }} />
                 <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-accent/20 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '10s' }} />
                 <div className="absolute top-[30%] left-[40%] w-[30%] h-[30%] bg-secondary/15 blur-[100px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '6s' }} />

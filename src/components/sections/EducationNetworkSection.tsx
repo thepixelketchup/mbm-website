@@ -29,8 +29,8 @@ export default function EducationNetworkSection({
   return (
     <section className="py-24 relative bg-background overflow-hidden">
       {/* Background gradients */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/5 rounded-full blur-[120px] translate-x-1/3 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-accent/5 rounded-full blur-[100px] -translate-x-1/4 pointer-events-none" />
+      <div className="hidden md:block absolute top-0 right-0 w-1/2 h-full bg-primary/5 rounded-full blur-[120px] translate-x-1/3 pointer-events-none" />
+      <div className="hidden md:block absolute bottom-0 left-0 w-1/3 h-1/2 bg-accent/5 rounded-full blur-[100px] -translate-x-1/4 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
 
