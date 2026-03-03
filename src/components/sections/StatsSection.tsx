@@ -60,18 +60,18 @@ export default function StatsSection({ section }: StatsSectionProps) {
                             className="relative group"
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/5 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-300 opacity-50" />
-                            <div className="relative h-full text-center glass rounded-3xl p-8 border border-primary/10 hover:border-primary/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                            <div className="relative h-full text-center glass rounded-3xl p-6 sm:p-8 border border-primary/10 hover:border-primary/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                                 <motion.div
                                     initial={{ scale: 0.5, opacity: 0 }}
                                     whileInView={{ scale: 1, opacity: 1 }}
                                     transition={{ delay: 0.5 + index * 0.1, duration: 0.5, type: 'spring' }}
                                     viewport={{ once: true }}
                                 >
-                                    <p className="font-bold text-5xl sm:text-6xl text-primary mb-3 font-serif tracking-tight">
+                                    <p className="font-bold text-4xl sm:text-5xl md:text-6xl text-primary mb-3 font-serif tracking-tight">
                                         {stat.number}
                                     </p>
                                 </motion.div>
-                                <p className="text-foreground/80 font-medium text-lg lg:text-xl">
+                                <p className="text-foreground/80 font-medium text-base sm:text-lg lg:text-xl">
                                     {stat.label}
                                 </p>
                             </div>

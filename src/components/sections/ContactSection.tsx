@@ -185,7 +185,7 @@ export default function ContactSection({ section }: ContactSectionProps) {
                 className="lg:col-span-8 w-full"
               >
                 <div className="glass rounded-[2.5rem] shadow-xl overflow-hidden border border-primary/10">
-                  <div className="bg-gradient-to-br from-primary/10 to-primary/5 p-8 lg:p-12 border-b border-primary/10 relative overflow-hidden">
+                  <div className="bg-gradient-to-br from-primary/10 to-primary/5 p-6 sm:p-8 lg:p-12 border-b border-primary/10 relative overflow-hidden">
                     <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay" />
                     <h3 className="text-2xl lg:text-3xl font-bold font-serif text-foreground mb-3 relative z-10">
                       Send us a Message
@@ -194,7 +194,7 @@ export default function ContactSection({ section }: ContactSectionProps) {
                       We'll get back to you as soon as possible.
                     </p>
                   </div>
-                  <div className="p-8 lg:p-12">
+                  <div className="p-6 sm:p-8 lg:p-12">
                     <ContactForm fields={section.formFields || []} />
                   </div>
                 </div>
@@ -209,7 +209,7 @@ export default function ContactSection({ section }: ContactSectionProps) {
                   transition={{ duration: 0.6 }}
                   className="lg:col-span-4"
                 >
-                  <div className="glass rounded-[2.5rem] shadow-xl p-8 lg:p-12 border border-primary/10 text-center h-full flex flex-col justify-center">
+                  <div className="glass rounded-[2.5rem] shadow-xl p-6 sm:p-8 lg:p-12 border border-primary/10 text-center h-full flex flex-col justify-center">
                     <h3 className="text-2xl font-bold font-serif text-foreground mb-8">
                       Connect With Us
                     </h3>
@@ -357,7 +357,7 @@ function ContactForm({ fields }: { fields: any[] }) {
                 required={field.required}
                 placeholder={field.placeholder}
                 rows={5}
-                className="w-full px-5 py-4 bg-white/50 border border-primary/20 rounded-xl shadow-sm focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 resize-none text-foreground placeholder:text-foreground/40 backdrop-blur-sm hover:bg-white"
+                className="w-full px-4 py-3 sm:px-5 sm:py-4 bg-white/50 border border-primary/20 rounded-xl shadow-sm focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 resize-none text-foreground placeholder:text-foreground/40 backdrop-blur-sm hover:bg-white"
               />
             ) : (
               <input
@@ -366,7 +366,7 @@ function ContactForm({ fields }: { fields: any[] }) {
                 name={field.name}
                 required={field.required}
                 placeholder={field.placeholder}
-                className="w-full px-5 py-4 bg-white/50 border border-primary/20 rounded-xl shadow-sm focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 text-foreground placeholder:text-foreground/40 backdrop-blur-sm hover:bg-white"
+                className="w-full px-4 py-3 sm:px-5 sm:py-4 bg-white/50 border border-primary/20 rounded-xl shadow-sm focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 text-foreground placeholder:text-foreground/40 backdrop-blur-sm hover:bg-white"
               />
             )}
           </div>
@@ -375,7 +375,7 @@ function ContactForm({ fields }: { fields: any[] }) {
 
       <button
         type="submit"
-        className="group w-full md:w-auto bg-gradient-to-r from-primary to-accent text-white py-4 px-10 rounded-xl font-bold focus:outline-none focus:ring-4 focus:ring-primary/20 transition-all duration-300 flex items-center justify-center gap-3 hover:scale-105 shadow-lg mt-8"
+        className="group w-full md:w-auto bg-gradient-to-r from-primary to-accent text-white py-3 px-8 sm:py-4 sm:px-10 rounded-xl font-bold focus:outline-none focus:ring-4 focus:ring-primary/20 transition-all duration-300 flex items-center justify-center gap-3 hover:scale-105 shadow-lg mt-8"
       >
         <span>Send Message</span>
         <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
