@@ -145,10 +145,10 @@ export default function HeroSectionAdvanced({ section }: HeroSectionAdvancedProp
                         <motion.div
                             animate={{ y: [-10, 10, -10] }}
                             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute -bottom-8 -left-8 p-6 glass-dark rounded-2xl shadow-xl border border-white/10"
+                            className="absolute -bottom-8 -left-8 p-6 glass rounded-2xl shadow-xl"
                         >
-                            <p className="font-bold text-3xl">100%</p>
-                            <p className="text-sm text-gray-300">College Acceptance</p>
+                            <p className="font-bold text-3xl text-foreground">100%</p>
+                            <p className="text-sm text-foreground/60">College Acceptance</p>
                         </motion.div>
 
                         <motion.div
