@@ -125,11 +125,10 @@ export default function MilestonesSection({ section }: MilestonesSectionProps) {
             {section.achievements?.map((achievement) => (
               <article
                 key={achievement._key}
-                className={`bg-white rounded-2xl lg:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border group ${
-                  achievement.isHighlight
+                className={`bg-white rounded-2xl lg:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border group ${achievement.isHighlight
                     ? "border-2 border-secondary shadow-secondary/20"
                     : "border-muted"
-                }`}
+                  }`}
               >
                 {/* Mobile Layout (xs-md) */}
                 <div className="block md:hidden p-4 sm:p-6">
@@ -218,7 +217,7 @@ export default function MilestonesSection({ section }: MilestonesSectionProps) {
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <FaTrophy className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 text-white mx-auto mb-4 sm:mb-6" />
           <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4">
-            Excellence Recognized Globally
+            Committed to serving with Excellence
           </h3>
           <p className="text-base sm:text-lg lg:text-xl text-white/90 max-w-2xl mx-auto">
             Our commitment to educational excellence continues to earn

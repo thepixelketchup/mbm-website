@@ -9,7 +9,7 @@ export default defineType({
             name: 'sectionTitle',
             title: 'Section Title',
             type: 'string',
-            initialValue: 'Podar Education Network',
+            initialValue: 'MBM Inter College',
             validation: Rule => Rule.required()
         }),
         defineField({

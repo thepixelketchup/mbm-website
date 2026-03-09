@@ -309,7 +309,7 @@ export default function AboutUsSection({ section }: AboutUsSectionProps) {
 
             <div className="relative z-10">
               <h3 className="text-3xl md:text-5xl font-bold font-serif mb-6 drop-shadow-sm">
-                Excellence in Education Since 1927
+                Excellence in Education Since 1980
               </h3>
               <p className="text-xl lg:text-2xl text-white/90 font-medium max-w-2xl mx-auto drop-shadow-sm">
                 Building tomorrow's leaders through innovative learning experiences and collaborative growth.

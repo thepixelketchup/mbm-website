@@ -3,8 +3,8 @@ import { Metadata } from 'next'
 import AcademicsOverviewSection from "@/components/sections/AcademicsSection";
 
 export const metadata: Metadata = {
-    title: 'Academics - Podar Education Network',
-    description: 'Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at Podar Education Network.',
+    title: 'Academics',
+    description: 'Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at MBM Inter College.',
 }
 
 export default async function AcademicsPage() {

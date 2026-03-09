@@ -88,6 +88,12 @@ export default function Footer({ data }: { data: FooterData }) {
       <div className="border-t border-zinc-800 py-5">
         <div className="mx-auto max-w-7xl px-6 text-center text-xs text-zinc-400">
           {data.copyright}
+          <br />
+          <span className="text-zinc-400 text-xs">
+            Designed & developed by <Link href="https://thepixelketchup.com" target="_blank" className="text-primary text-xs">
+              The Pixel Ketchup Studios
+            </Link>
+          </span>
         </div>
       </div>
     </footer>

@@ -26,27 +26,27 @@ export async function generateMetadata({
 
     return {
       title:
-        data?.seoTitle || data?.title || "Academics - Podar Education Network",
+        data?.seoTitle || data?.title || "Academics",
       description:
         data?.seoDescription ||
-        "Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at Podar Education Network.",
+        "Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at MBM Inter College.",
       openGraph: {
         title:
           data?.seoTitle ||
           data?.title ||
-          "Academics - Podar Education Network",
+          "Academics | MBM Inter College",
         description:
           data?.seoDescription ||
-          "Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at Podar Education Network.",
+          "Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at MBM Inter College.",
         type: "website",
       },
     };
   } catch (error) {
     console.error("Error generating metadata:", error);
     return {
-      title: "Academics - Podar Education Network",
+      title: "Academics",
       description:
-        "Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at Podar Education Network.",
+        "Explore our comprehensive academic programs, world-class facilities, extracurricular activities, and campus life at MBM Inter College.",
     };
   }
 }

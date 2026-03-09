@@ -8,18 +8,18 @@ export async function generateMetadata(): Promise<Metadata> {
   try {
     const data = await getPageBySlug('methodology')
     return {
-      title: data?.seoTitle || data?.title || 'Methodology - Podar Education Network',
-      description: data?.seoDescription || 'Discover our proven educational methodology that combines innovative teaching approaches, holistic learning philosophy, fair assessment practices, and deep-rooted Indian values.',
+      title: data?.seoTitle || data?.title || 'Methodology',
+      description: data?.seoDescription || 'Discover our proven educational methodology that combines innovative teaching approaches, holistic learning philosophy, fair assessment practices, and deep-rooted Indian values at MBM Inter College.',
       openGraph: {
-        title: data?.seoTitle || data?.title || 'Methodology - Podar Education Network',
-        description: data?.seoDescription || 'Discover our proven educational methodology that combines innovative teaching approaches, holistic learning philosophy, fair assessment practices, and deep-rooted Indian values.',
+        title: data?.seoTitle || data?.title || 'Methodology | MBM Inter College',
+        description: data?.seoDescription || 'Discover our proven educational methodology that combines innovative teaching approaches, holistic learning philosophy, fair assessment practices, and deep-rooted Indian values at MBM Inter College.',
         type: 'website',
       },
     }
   } catch {
     return {
-      title: 'Methodology - Podar Education Network',
-      description: 'Discover our proven educational methodology that combines innovative teaching approaches, holistic learning philosophy, fair assessment practices, and deep-rooted Indian values.',
+      title: 'Methodology',
+      description: 'Discover our proven educational methodology that combines innovative teaching approaches, holistic learning philosophy, fair assessment practices, and deep-rooted Indian values at MBM Inter College.',
     }
   }
 }
