@@ -1,4 +1,4 @@
-import {getPageBySlug} from "@/lib/pages/page-query";
+import { getPageBySlug } from "@/lib/pages/page-query";
 import DownloadsSection from "@/components/sections/DownloadsSection";
 import { groq } from 'next-sanity';
 import { client } from '@/lib/sanity.client';
@@ -26,7 +26,7 @@ export default async function Page() {
     try {
         const [data, allDocuments] = await Promise.all([
             getPageBySlug('download'),
-            client.fetch(allAdmissionDocumentsQuery)
+            client.fetch(allAdmissionDocumentsQuery, {}, { next: { revalidate: 60 } })
         ]);
 
         if (!data) {

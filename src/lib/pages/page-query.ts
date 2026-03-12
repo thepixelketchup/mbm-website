@@ -612,7 +612,7 @@ _type == "methodologyDetailSection" => {
   }
 `;
 export async function getPageBySlug(slug: string) {
-  return client.fetch(pageBySlugQuery, { slug });
+  return client.fetch(pageBySlugQuery, { slug }, { next: { revalidate: 60 } });
 }
 export const allAdmissionDocumentsQuery = groq`
   *[_type == "admissionDocument" && isActive == true] | order(displayOrder asc, category asc) {
@@ -633,7 +633,7 @@ export const allAdmissionDocumentsQuery = groq`
   }
 `;
 export async function getAllAdmissionDocuments() {
-  return client.fetch(allAdmissionDocumentsQuery);
+  return client.fetch(allAdmissionDocumentsQuery, {}, { next: { revalidate: 60 } });
 }
 export const homePageQuery = groq`
   *[_type == "page" && slug.current == "home"][0]{
